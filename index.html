@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#0d0f14">
     <meta name="color-scheme" content="dark">
-    <title>EX FOUNDRY — つくるを、もっと軽やかに。</title>
+    <title>ex-foundry.com</title>
     <meta
       name="description"
-      content="日々の小さな摩擦をなくすWebアプリケーションを設計・開発する、EX FOUNDRYのプロダクトポータル。"
+      content="ex-foundry.com で公開しているWebアプリケーションの一覧です。"
     >
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://ex-foundry.com/">
@@ -18,161 +18,56 @@
     <meta property="og:locale" content="ja_JP">
     <meta property="og:url" content="https://ex-foundry.com/">
     <meta property="og:site_name" content="EX FOUNDRY">
-    <meta
-      property="og:title"
-      content="EX FOUNDRY — つくるを、もっと軽やかに。"
-    >
+    <meta property="og:title" content="EX FOUNDRY">
     <meta
       property="og:description"
-      content="すぐに使えて、きちんと役に立つWebアプリケーションを。"
+      content="ex-foundry.com で公開しているWebアプリケーションの一覧です。"
     >
     <meta property="og:image" content="https://ex-foundry.com/og.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
 
     <meta name="twitter:card" content="summary_large_image">
-    <meta
-      name="twitter:title"
-      content="EX FOUNDRY — つくるを、もっと軽やかに。"
-    >
+    <meta name="twitter:title" content="EX FOUNDRY">
     <meta
       name="twitter:description"
-      content="すぐに使えて、きちんと役に立つWebアプリケーションを。"
+      content="ex-foundry.com で公開しているWebアプリケーションの一覧です。"
     >
     <meta name="twitter:image" content="https://ex-foundry.com/og.png">
   </head>
   <body>
-    <main>
-      <header class="site-header">
-        <a class="brand" href="#top" aria-label="EX FOUNDRY ホーム">
-          <span class="brand-mark" aria-hidden="true">EX</span>
-          <span>EX FOUNDRY</span>
-        </a>
-
-        <nav aria-label="メインナビゲーション">
-          <a href="#apps">Apps</a>
-          <a href="#principles">Principles</a>
-          <a
-            href="https://github.com/s-yoshiki"
-            target="_blank"
-            rel="noreferrer"
-          >GitHub <span class="arrow-icon" aria-hidden="true">↗</span></a>
-        </nav>
+    <main class="page">
+      <header class="intro">
+        <span class="brand-mark" aria-hidden="true">EX</span>
+        <h1>EX FOUNDRY</h1>
+        <p>ex-foundry.com で公開しているWebアプリケーションの一覧です。</p>
       </header>
 
-      <section class="hero" id="top">
-        <div class="eyebrow">
-          <span class="status-dot" aria-hidden="true"></span>
-          Independent software foundry
-        </div>
-        <h1>
-          つくるを、<br>
-          もっと<span>軽やかに。</span>
-        </h1>
-        <p class="hero-copy">
-          EX FOUNDRY は、日々の小さな摩擦をなくすためのWebアプリケーションを設計・開発しています。
-          すぐに使えて、きちんと役に立つ道具を。
-        </p>
-        <div class="hero-actions">
-          <a class="button button-primary" href="#apps">
-            アプリを見る <span aria-hidden="true">↓</span>
+      <!-- サイトを追加するときは、この li を複製して書き換えます。 -->
+      <ul class="app-list">
+        <li>
+          <a href="https://devtoys.ex-foundry.com/" class="app">
+            <span class="app-name">DevToys for web</span>
+            <span class="app-host">devtoys.ex-foundry.com</span>
+            <span class="app-desc">開発でよく使う変換・生成ツールをブラウザだけで。</span>
+            <span class="app-arrow" aria-hidden="true">↗</span>
           </a>
-          <a
-            class="button button-secondary"
-            href="https://github.com/s-yoshiki"
-            target="_blank"
-            rel="noreferrer"
-          >GitHub <span class="arrow-icon" aria-hidden="true">↗</span></a>
-        </div>
-        <div class="hero-ascii" aria-hidden="true">
-          <span>const</span> idea = problem<br>
-          &nbsp;&nbsp;.map(build)<br>
-          &nbsp;&nbsp;.filter(useful);<i></i>
-        </div>
-      </section>
-
-      <section class="apps-section" id="apps">
-        <div class="section-heading">
-          <div>
-            <p class="section-label">// Applications</p>
-            <h2>道具箱をひらく。</h2>
+        </li>
+        <li>
+          <div class="app app-soon" aria-disabled="true">
+            <span class="app-name">Maker</span>
+            <span class="app-host">maker.ex-foundry.com</span>
+            <span class="app-desc">準備中。</span>
+            <span class="app-badge">Coming soon</span>
           </div>
-          <p>01 public application</p>
-        </div>
+        </li>
+      </ul>
 
-        <!-- アプリを追加するときは、この article を複製して内容を書き換えます。 -->
-        <div class="app-grid">
-          <article class="app-card">
-            <div class="app-card-top">
-              <div class="app-mark">TS</div>
-              <span class="app-status">
-                <span aria-hidden="true"></span>
-                Public
-              </span>
-            </div>
-            <p class="app-label">Developer Tool</p>
-            <h3>AtCoder JS Debugger</h3>
-            <p class="app-description">
-              ブラウザだけで TypeScript / JavaScript を実行。競技プログラミングの試行錯誤を、軽く、速く。
-            </p>
-            <div class="app-links">
-              <a
-                href="https://s-yoshiki.github.io/AtCoder-JsDebugger/"
-                target="_blank"
-                rel="noreferrer"
-              >Launch app <span class="arrow-icon" aria-hidden="true">↗</span></a>
-              <a
-                href="https://github.com/s-yoshiki/AtCoder-JsDebugger"
-                target="_blank"
-                rel="noreferrer"
-              >Source</a>
-            </div>
-          </article>
-
-          <div class="app-card app-card-next">
-            <span class="plus" aria-hidden="true">+</span>
-            <p>Next experiment</p>
-            <h3>新しい道具を準備中。</h3>
-            <p class="app-description">
-              小さな不便を見つけたら、次のアプリとしてここに追加していきます。
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <section class="principles" id="principles">
-        <div class="section-heading">
-          <div>
-            <p class="section-label">// Principles</p>
-            <h2>つくるときの、3つの基準。</h2>
-          </div>
-        </div>
-        <div class="value-grid">
-          <article>
-            <span>01</span>
-            <h3>Small by design</h3>
-            <p>ひとつの課題に、ひとつの明快な答え。迷わず使い始められる小さな道具をつくります。</p>
-          </article>
-          <article>
-            <span>02</span>
-            <h3>Open by default</h3>
-            <p>仕組みを見られて、手元でも動かせること。オープンな開発をプロダクトの一部にします。</p>
-          </article>
-          <article>
-            <span>03</span>
-            <h3>Built to last</h3>
-            <p>派手さより、長く使えること。依存を抑え、Webの標準に沿った実装を大切にします。</p>
-          </article>
-        </div>
-      </section>
-
-      <footer>
-        <a class="brand footer-brand" href="#top">
-          <span class="brand-mark" aria-hidden="true">EX</span>
-          <span>EX FOUNDRY</span>
+      <footer class="site-footer">
+        <a href="https://github.com/s-yoshiki" target="_blank" rel="noreferrer">
+          GitHub <span aria-hidden="true">↗</span>
         </a>
-        <p>Useful software, forged carefully.</p>
-        <p>© EX FOUNDRY</p>
+        <span>© EX FOUNDRY</span>
       </footer>
     </main>
   </body>
