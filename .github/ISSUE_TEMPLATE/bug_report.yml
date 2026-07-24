@@ -1,0 +1,28 @@
+name: Bug report
+description: サイトの不具合を報告する
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: 発生したこと
+      description: 期待した結果と実際の結果を記載してください。
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: 再現手順
+      placeholder: |
+        1. ...
+        2. ...
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: 環境
+      placeholder: macOS / Chrome など
+    validations:
+      required: true
