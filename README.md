@@ -26,11 +26,11 @@ python3 -m http.server 8000
 
 ## アプリを追加する
 
-`index.html` の `app-grid` 内にある `article.app-card` を複製し、名称、説明、公開URL、ソースURLを書き換えます。一覧上部のアプリ件数も更新してください。
+`index.html` の `app-list` 内にある `li` を複製し、サイト名、ホスト名（`*.ex-foundry.com`）、説明、公開URLを書き換えます。
 
 ## デプロイ
 
-`master` ブランチへのpushでGitHub Actionsがリポジトリの内容をそのままGitHub Pagesへ公開します。ビルド処理はありません。
+`main` ブランチへのpushでGitHub Actionsがリポジトリの内容をそのままGitHub Pagesへ公開します。ビルド処理はありません。
 
 初回のみ、GitHubリポジトリの **Settings → Pages → Build and deployment** でSourceを **GitHub Actions** に設定してください。
 
