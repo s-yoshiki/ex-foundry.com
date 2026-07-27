@@ -2,6 +2,7 @@ import { PageShell } from "@ex-foundry/ui";
 import type { ReactNode } from "react";
 import { SiteFooter } from "./components/site-footer";
 import { SiteHeader } from "./components/site-header";
+import { usePageViewTracking } from "./hooks/use-page-view-tracking";
 
 /**
  * Application shell shared by every route.
@@ -10,6 +11,8 @@ import { SiteHeader } from "./components/site-header";
  * decides how it is resolved (React Router renders it through an `Outlet`).
  */
 export function App({ children }: { children: ReactNode }) {
+  usePageViewTracking();
+
   return (
     <>
       <a

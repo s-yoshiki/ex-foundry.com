@@ -36,6 +36,19 @@ export type ApiResult<TData> =
 - feature間の直接importが増えた場合は、共通packageまたはapp-level moduleを検討します。
 - `src/features/<feature>`内の非公開実装をbarrel exportで広く公開しません。
 
+## app-level module
+
+特定のfeatureに属さない横断的な実装は、`apps/*/src`直下に置きます。
+
+- `src/hooks/`: 特定のdomainに紐付かない、app全体で使うhook
+  （例: `usePageViewTracking`のようなapp shell向けの計測フック）。
+- `src/libs/`: domainに依存しないユーティリティ関数・型。
+  featureや外部SDKに依存しない、純粋な処理を置きます。
+
+featureに固有のhook・utilityは、これまで通り`src/features/<feature>/{hooks,functions}`
+に置きます。判断に迷ったら「特定のfeatureが無くなったらこの実装も不要になるか」で
+決めます。不要にならない（例: analytics計測、日付フォーマット）なら`hooks`/`libs`側です。
+
 ## React
 
 - componentは可能な限り宣言的に保ちます。

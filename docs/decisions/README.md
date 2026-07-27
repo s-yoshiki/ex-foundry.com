@@ -18,6 +18,7 @@
 | [0008](0008-github-pages-for-hosting.md) | GitHub Pagesでホスティングする | Accepted |
 | [0009](0009-router-agnostic-routing-layer.md) | ルーターを差し替え可能な層に閉じ込める | Accepted |
 | [0010](0010-single-account-multi-environment-cdk.md) | 1つのAWSアカウントに命名で複数環境を共存させる | Accepted |
+| [0011](0011-ga4-spa-page-view-tracking.md) | GA4のpage_viewをSPA側で手動送信する | Accepted |
 
 ## 書き方
 
