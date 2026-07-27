@@ -22,11 +22,11 @@ importers:
   apps/api:
     dependencies:
       '@hono/node-server':
-        specifier: 1.19.9
-        version: 1.19.9(hono@4.12.30)
+        specifier: 2.0.12
+        version: 2.0.12(hono@4.12.32)
       hono:
-        specifier: 4.12.30
-        version: 4.12.30
+        specifier: 4.12.32
+        version: 4.12.32
     devDependencies:
       '@ex-foundry/typescript-config':
         specifier: workspace:*
@@ -56,11 +56,11 @@ importers:
         specifier: workspace:*
         version: link:../../packages/ui
       react:
-        specifier: 19.2.0
-        version: 19.2.0
+        specifier: 19.2.8
+        version: 19.2.8
       react-dom:
-        specifier: 19.2.0
-        version: 19.2.0(react@19.2.0)
+        specifier: 19.2.8
+        version: 19.2.8(react@19.2.8)
     devDependencies:
       '@ex-foundry/typescript-config':
         specifier: workspace:*
@@ -106,11 +106,11 @@ importers:
         specifier: 19.2.3
         version: 19.2.3(@types/react@19.2.17)
       react:
-        specifier: 19.2.0
-        version: 19.2.0
+        specifier: 19.2.8
+        version: 19.2.8
       react-dom:
-        specifier: 19.2.0
-        version: 19.2.0(react@19.2.0)
+        specifier: 19.2.8
+        version: 19.2.8(react@19.2.8)
       typescript:
         specifier: 6.0.3
         version: 6.0.3
@@ -339,9 +339,9 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@hono/node-server@1.19.9':
-    resolution: {integrity: sha512-vHL6w3ecZsky+8P5MD+eFfaGTyCeOHUIFYMGpQGbrBTSmNNoxv0if69rEZ5giu36weC5saFuznL411gRX7bJDw==}
-    engines: {node: '>=18.14.1'}
+  '@hono/node-server@2.0.12':
+    resolution: {integrity: sha512-eWpQYr67tqJLeaSUl0Q+TquuYfUdTibpOJlUMV2FfUP7+KqCC5TufnwnlXL6mobZBJbGAYRd7ZvEBDCbLInjhg==}
+    engines: {node: '>=20'}
     peerDependencies:
       hono: ^4
 
@@ -655,8 +655,8 @@ packages:
   graceful-fs@4.2.11:
     resolution: {integrity: sha512-RbJ5/jmFcNNCcDV5o9eTnBLJ/HszWV0P73bc+Ff4nS/rJj+YaS6IGyiOL0VoBYX+l1Wrl3k63h/KrH+nhJ0XvQ==}
 
-  hono@4.12.30:
-    resolution: {integrity: sha512-emn+JoJjrN9YTpRDS5it/UI2SO9BAE37T6I3d963RxcZ81G9A4pr2SZTEiiaiKbzx+NKRg5BZ89fCL7gCJCUog==}
+  hono@4.12.32:
+    resolution: {integrity: sha512-XcuyW9qE2kJn07PkecMOBd5Vq/hMy7mmGw+idz1yblbg9N17ijJODrvPkn7/dwL3Kulj8LcRJ69DLOWf91dRUg==}
     engines: {node: '>=16.9.0'}
 
   jiti@2.7.0:
@@ -830,13 +830,13 @@ packages:
     resolution: {integrity: sha512-g50586zr4bZmwFiTlflMu8E0bDTb5I5gertgwAKmsdUlTQIhZtunzUlD1WSzwcVWPoAVpsrA6vlfCD7oXvRwgg==}
     engines: {node: ^10 || ^12 || >=14}
 
-  react-dom@19.2.0:
-    resolution: {integrity: sha512-UlbRu4cAiGaIewkPyiRGJk0imDN2T3JjieT6spoL2UeSf5od4n5LB/mQ4ejmxhCFT1tYe8IvaFulzynWovsEFQ==}
+  react-dom@19.2.8:
+    resolution: {integrity: sha512-rVprimfGBG3DR+Tq0IQG2DT5PxKth1WIGDmj5yPmlzr4YBe7uyE+Du4oVqTDXZSHGGGXRtTJEGSSePyQCMBglQ==}
     peerDependencies:
-      react: ^19.2.0
+      react: ^19.2.8
 
-  react@19.2.0:
-    resolution: {integrity: sha512-tmbWg6W31tQLeB5cdIBOicJDJRR2KzXsV7uSK9iNfLWQ5bIZfxuPEHp7M8wiHyHnn0DD1i7w3Zmin0FtkrwoCQ==}
+  react@19.2.8:
+    resolution: {integrity: sha512-PWaYA1L/q9u2u7xYQi+Y3L3Yfnie7XyLeaJICV1MGD6LprsBxcAqGjYyr0eY3p+QdsA+x/Irkt4Qif8D63+Sbw==}
     engines: {node: '>=0.10.0'}
 
   rolldown@1.1.5:
@@ -1056,9 +1056,9 @@ snapshots:
   '@esbuild/win32-x64@0.28.1':
     optional: true
 
-  '@hono/node-server@1.19.9(hono@4.12.30)':
+  '@hono/node-server@2.0.12(hono@4.12.32)':
     dependencies:
-      hono: 4.12.30
+      hono: 4.12.32
 
   '@jridgewell/gen-mapping@0.3.13':
     dependencies:
@@ -1296,7 +1296,7 @@ snapshots:
 
   graceful-fs@4.2.11: {}
 
-  hono@4.12.30: {}
+  hono@4.12.32: {}
 
   jiti@2.7.0: {}
 
@@ -1414,12 +1414,12 @@ snapshots:
       picocolors: 1.1.1
       source-map-js: 1.2.1
 
-  react-dom@19.2.0(react@19.2.0):
+  react-dom@19.2.8(react@19.2.8):
     dependencies:
-      react: 19.2.0
+      react: 19.2.8
       scheduler: 0.27.0
 
-  react@19.2.0: {}
+  react@19.2.8: {}
 
   rolldown@1.1.5:
     dependencies:
