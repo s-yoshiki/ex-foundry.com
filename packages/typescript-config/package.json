@@ -1,0 +1,11 @@
+{
+  "name": "@ex-foundry/typescript-config",
+  "version": "0.0.0",
+  "private": true,
+  "files": [
+    "base.json",
+    "node.json",
+    "react-library.json",
+    "vite-react.json"
+  ]
+}

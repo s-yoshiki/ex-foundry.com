@@ -1,0 +1,25 @@
+{
+  "name": "@ex-foundry/api",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "esbuild src/lambda.ts --bundle --format=esm --platform=node --target=node24 --outfile=dist/index.mjs",
+    "dev": "tsx watch src/local.ts",
+    "start": "tsx src/local.ts",
+    "test": "node --import tsx --test \"src/**/*.test.ts\"",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@hono/node-server": "1.19.9",
+    "hono": "4.12.30"
+  },
+  "devDependencies": {
+    "@ex-foundry/typescript-config": "workspace:*",
+    "@types/aws-lambda": "8.10.152",
+    "@types/node": "26.1.1",
+    "esbuild": "0.28.1",
+    "tsx": "4.23.1",
+    "typescript": "6.0.3"
+  }
+}

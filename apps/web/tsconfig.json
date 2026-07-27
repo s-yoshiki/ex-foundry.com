@@ -1,0 +1,8 @@
+{
+  "extends": "@ex-foundry/typescript-config/vite-react.json",
+  "compilerOptions": {
+    "composite": true,
+    "tsBuildInfoFile": "node_modules/.cache/web.tsbuildinfo"
+  },
+  "include": ["src", "vite.config.ts"]
+}

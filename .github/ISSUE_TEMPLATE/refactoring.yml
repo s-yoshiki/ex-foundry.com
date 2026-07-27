@@ -1,0 +1,39 @@
+name: Refactoring
+description: 挙動を維持したコード・構成改善を提案する
+title: "[Refactor]: "
+body:
+  - type: textarea
+    id: context
+    attributes:
+      label: 背景
+      description: 現在の問題と、変更が必要な理由を記載してください。
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: 対象範囲
+      description: 変更するapp、package、workflowなどを記載してください。
+    validations:
+      required: true
+  - type: textarea
+    id: plan
+    attributes:
+      label: 実施項目
+      placeholder: |
+        - [ ] ...
+        - [ ] ...
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: 完了条件
+      description: 必要な検証コマンドと維持すべき挙動を記載してください。
+    validations:
+      required: true
+  - type: textarea
+    id: out_of_scope
+    attributes:
+      label: 対象外
+      description: このIssueでは扱わない事項を記載してください。

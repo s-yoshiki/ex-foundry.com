@@ -1,0 +1,10 @@
+@theme {
+  --color-foundry-background: #0d0f14;
+  --color-foundry-surface: #13161d;
+  --color-foundry-border: #272b36;
+  --color-foundry-text: #f4f4f5;
+  --color-foundry-muted: #a1a1aa;
+  --color-foundry-accent: #8b5cf6;
+  --color-foundry-accent-soft: #a78bfa;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
