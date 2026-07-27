@@ -16,10 +16,10 @@
   },
   "devDependencies": {
     "@ex-foundry/typescript-config": "workspace:*",
-    "@types/aws-lambda": "8.10.152",
+    "@types/aws-lambda": "8.10.162",
     "@types/node": "26.1.1",
     "esbuild": "0.28.1",
     "tsx": "4.23.1",
-    "typescript": "6.0.3"
+    "typescript": "7.0.2"
   }
 }
