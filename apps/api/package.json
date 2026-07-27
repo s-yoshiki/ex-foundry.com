@@ -7,19 +7,25 @@
     "build": "esbuild src/lambda.ts --bundle --format=esm --platform=node --target=node24 --outfile=dist/index.mjs",
     "dev": "tsx watch src/local.ts",
     "start": "tsx src/local.ts",
-    "test": "node --import tsx --test \"src/**/*.test.ts\"",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "test:watch": "vitest",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@ex-foundry/api-contract": "workspace:*",
     "@hono/node-server": "1.19.9",
+    "@hono/zod-validator": "0.9.0",
     "hono": "4.12.30"
   },
   "devDependencies": {
     "@ex-foundry/typescript-config": "workspace:*",
     "@types/aws-lambda": "8.10.152",
     "@types/node": "26.1.1",
+    "@vitest/coverage-v8": "4.1.10",
     "esbuild": "0.28.1",
     "tsx": "4.23.1",
-    "typescript": "6.0.3"
+    "typescript": "7.0.2",
+    "vitest": "4.1.10"
   }
 }

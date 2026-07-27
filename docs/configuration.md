@@ -13,16 +13,24 @@
 `pnpm-workspace.yaml`で`apps/*`、`packages/*`、`scripts/*`を管理します。
 install scriptを必要とする依存関係は`allowBuilds`へ明示し、追加理由をレビューします。
 
+依存はexact versionで固定します（`.npmrc`の`save-exact`）。
+`pnpm add`が範囲指定で書き込んだ場合は、固定値へ直します。
+
 ## Turborepo
 
 `turbo.json`は次の共通taskを定義します。
 
-- `dev`: cacheなし、常駐
-- `typecheck`: 依存packageから順に実行
-- `test`: 依存packageのbuild後に実行
-- `build`: typecheck後に成果物を生成
+| task | 内容 |
+| --- | --- |
+| `dev` | cacheなし、常駐 |
+| `typecheck` | 依存packageから順に実行 |
+| `test` | 依存packageのbuild後に実行 |
+| `test:coverage` | `coverage/`を成果物として扱う |
+| `test:watch` | cacheなし、常駐 |
+| `build` | typecheck後に成果物を生成 |
 
 新しいapp/packageは、必要な同名scriptを自身の`package.json`へ追加します。
+scriptが無いworkspaceはそのtaskの実行対象から自動的に外れます。
 
 ## TypeScript
 
@@ -34,6 +42,21 @@ install scriptを必要とする依存関係は`allowBuilds`へ明示し、追�
 - `vite-react.json`: Vite + React app
 
 各workspaceは`node_modules/.cache`へ`.tsbuildinfo`を生成し、Git管理しません。
+
+TypeScript 7を使用しています。`baseUrl`のような非推奨オプションは使いません。
+workspace間の参照はpnpmのworkspace依存で解決し、
+project references（`references`）は使いません。
+`noEmit`のworkspaceを参照できないためです。
+
+## Vitest
+
+各workspaceに`vitest.config.ts`を置きます。`apps/web`のみ`vite.config.ts`に統合しています。
+
+- Node環境: `apps/api`、`packages/api-contract`、`scripts/*`
+- DOM環境（happy-dom）: `apps/web`、`packages/ui`
+
+`globals: false`のため、`describe` / `it` / `expect`は明示的にimportします。
+setupファイルの役割は[テスト方針](testing.md)を参照してください。
 
 ## Biome
 
@@ -50,7 +73,7 @@ pnpm check:fix
 - `lint`: lintのみ
 - `format:check`: format差分のみ
 - `check`: lintとformatをまとめて確認
-- `check:fix`:安全に修正できる項目を反映
+- `check:fix`: 安全に修正できる項目を反映
 
 generated directoryは`biome.json`で除外します。例外ルールは全体で無効にせず、
 必要なpathへoverrideを設定します。
@@ -66,7 +89,13 @@ Tailwind CSS 4はJavaScript configではなくCSS-first configurationを使い�
 ```
 
 Vite appでは`@tailwindcss/vite`をpluginとして登録します。共有UIのsourceを
-明示し、package側で使われたutility classも生成対象にします。
+`@source`で明示し、package側で使われたutility classも生成対象にします。
+
+## shadcn/ui
+
+`packages/ui/components.json`がCLIの設定です。
+aliasはpath aliasではなくパッケージ名を指しており、
+利用側にbundlerのalias設定を要求しません。詳細は[UIパッケージ](ui.md)を参照してください。
 
 ## EditorとGit
 
@@ -81,6 +110,7 @@ Editor固有設定を必須にせず、CLIとCIの結果を正とします。
 - `.github/workflows/ci.yml`: Pull Requestの品質検証
 - `.github/workflows/deploy.yml`: mainからGitHub Pagesへデプロイ
 - `.github/dependabot.yml`: npmとGitHub Actionsの更新
+- `.github/CODEOWNERS`: レビュー担当
 - `.github/ISSUE_TEMPLATE`: bug、feature、refactor
 - `.github/pull_request_template.md`: PRの説明と検証項目
 

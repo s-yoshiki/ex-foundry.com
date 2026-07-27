@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
+    <meta name="color-scheme" content="dark light" />
+    <meta name="theme-color" content="#0d0f14" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f6f6f8" media="(prefers-color-scheme: light)" />
+    <title>ページが見つかりません - EX FOUNDRY</title>
+    <style>
+      :root {
+        --background: #0d0f14;
+        --surface: #13161d;
+        --border: #272b36;
+        --text: #f4f4f5;
+        --muted: #a1a1aa;
+        --accent: #8b5cf6;
+        --on-accent: #0d0f14;
+
+        color-scheme: dark;
+      }
+
+      @media (prefers-color-scheme: light) {
+        :root {
+          --background: #f6f6f8;
+          --surface: #ffffff;
+          --border: #d9d9e2;
+          --text: #15171d;
+          --muted: #4f5058;
+          --accent: #6d28d9;
+          --on-accent: #ffffff;
+
+          color-scheme: light;
+        }
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        display: grid;
+        min-height: 100vh;
+        margin: 0;
+        place-items: center;
+        padding: 24px;
+        color: var(--text);
+        background: var(--background);
+        font-family:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          sans-serif;
+      }
+
+      main {
+        width: min(520px, 100%);
+        padding: 40px 32px;
+        text-align: center;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+      }
+
+      .code {
+        margin: 0;
+        color: var(--accent);
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 0.85rem;
+        letter-spacing: 0.14em;
+      }
+
+      h1 {
+        margin: 12px 0 16px;
+        font-size: 1.6rem;
+        letter-spacing: -0.03em;
+      }
+
+      p {
+        margin: 0 0 28px;
+        color: var(--muted);
+        line-height: 1.75;
+      }
+
+      a {
+        display: inline-block;
+        padding: 11px 22px;
+        color: var(--on-accent);
+        background: var(--accent);
+        border-radius: 999px;
+        font-size: 0.9rem;
+        text-decoration: none;
+      }
+
+      a:focus-visible {
+        outline: 3px solid var(--accent);
+        outline-offset: 3px;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <p class="code">404 NOT FOUND</p>
+      <h1>ページが見つかりません</h1>
+      <p>
+        お探しのページは移動または削除された可能性があります。<br />
+        公開中のアプリケーションはトップページから確認できます。
+      </p>
+      <a href="/">トップページへ戻る</a>
+    </main>
+  </body>
+</html>
