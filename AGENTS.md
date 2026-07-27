@@ -17,6 +17,10 @@ This repository is the reference pnpm/Turborepo layout for ex-foundry projects.
 
 - Split `apps/*/src/features/<feature>/` by user-facing capability, not by
   technical layer. Scaffold one with `pnpm create:feature <name>`.
+- Global hooks that are not tied to a single feature belong in
+  `apps/*/src/hooks/`. Domain-independent utility functions and types belong
+  in `apps/*/src/libs/`. Keep feature-specific hooks and functions inside
+  their feature's own `hooks` / `functions` directory.
 - Check `@ex-foundry/ui` before writing a new component. Add shadcn primitives
   with `pnpm --filter @ex-foundry/ui ui:add <name>`.
 - Style with Tailwind utility classes; do not introduce bespoke CSS classes.

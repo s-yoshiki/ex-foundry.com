@@ -13,6 +13,7 @@
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://ex-foundry.com/" />
     <link rel="preconnect" href="https://pagead2.googlesyndication.com" />
+    <link rel="preconnect" href="https://www.googletagmanager.com" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="ja_JP" />
     <meta property="og:url" content="https://ex-foundry.com/" />
@@ -38,6 +39,17 @@
       src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5931776908676811"
       crossorigin="anonymous"
     ></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ECD2N4RTYS"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(...args) {
+        dataLayer.push(args);
+      }
+      gtag("js", new Date());
+      // Page views are sent manually after client-side navigation instead,
+      // see src/features/analytics/hooks/use-page-view-tracking.ts.
+      gtag("config", "G-ECD2N4RTYS", { send_page_view: false });
+    </script>
     <title>EX FOUNDRY - 公開中のWebアプリケーション一覧</title>
     <!--
       Resolves the theme before the first paint so the page never flashes the
