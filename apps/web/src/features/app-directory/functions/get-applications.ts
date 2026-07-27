@@ -2,19 +2,31 @@ import type { Application } from "../types/application";
 
 const applications = [
   {
-    description: "開発でよく使う変換・生成ツールをブラウザだけで。",
+    category: "tool",
+    description:
+      "エンコード・整形・ハッシュ・変換など、開発でよく使うツールをブラウザだけで完結させます。入力したデータはサーバーへ送信しません。",
     host: "devtoys.ex-foundry.com",
     name: "DevToys for web",
+    stack: ["React", "TypeScript", "Vite"],
+    status: "active",
   },
   {
-    description: "診断メーカー・画像加工・ネタ系ジェネレーターを手軽に。",
+    category: "entertainment",
+    description:
+      "診断メーカー・画像加工・ネタ系ジェネレーターを手軽に。生成した結果はそのまま画像として共有できます。",
     host: "maker.ex-foundry.com",
     name: "Maker",
+    stack: ["React", "Canvas", "TypeScript"],
+    status: "active",
   },
   {
-    description: "日本プロ野球の選手成績を検索・比較・可視化。",
+    category: "data",
+    description:
+      "日本プロ野球の選手成績を検索・比較・可視化します。年度やチームを横断した集計に対応しています。",
     host: "npb-analysis.ex-foundry.com",
     name: "NPB Analysis",
+    stack: ["React", "TypeScript", "D3"],
+    status: "beta",
   },
 ] as const satisfies readonly Application[];
 

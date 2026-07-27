@@ -6,18 +6,23 @@
 参照実装です。すべてのプロジェクトを同じフレームワークに固定するのではなく、
 リポジトリ構成、コマンド、品質基準、CI/CDの操作を揃えます。
 
+判断の背景は[設計判断記録](decisions/README.md)にあります。
+
 ## Workspace構成
 
 ```text
 .
 ├── apps/
-│   ├── api/                    # Hono APIサンプル
-│   └── web/                    # Vite + Reactサンプル
+│   ├── api/                    # Hono API
+│   └── web/                    # Vite + Reactの公開サイト
 ├── packages/
+│   ├── api-contract/           # APIスキーマとroute定義
 │   ├── tailwind-config/        # Tailwind CSS 4テーマ
 │   ├── typescript-config/      # TypeScript共通設定
-│   └── ui/                     # React共通UI
-├── scripts/                    # IaC、parser、リポジトリ固有CLI
+│   └── ui/                     # shadcn/uiベースの共有UI
+├── scripts/
+│   ├── create-feature/         # featureの雛形生成CLI
+│   └── infra/                  # AWS CDK（dev/prd）
 └── docs/
 ```
 
@@ -26,20 +31,37 @@
 ```text
 apps/web ──▶ packages/ui ──▶ packages/tailwind-config
     │
-    └──────▶ packages/typescript-config
-
-apps/api ──▶ packages/typescript-config
+    ├──────▶ packages/api-contract ◀────── apps/api
+    │
+    └──────▶ packages/typescript-config ◀── apps/api
 ```
 
 - `apps/*`はプロダクトを実行・デプロイする単位です。
 - `packages/*`は単独ではデプロイしません。
 - packageからappをimportしてはいけません。
+- appからappをimportしてはいけません。共有したいものはpackageへ出します。
 - UI packageへ業務ロジックやAPI通信を置いてはいけません。
 - framework固有コードは対象appに閉じ込めます。
 
-## Web feature
+## Web app
 
-Webアプリは技術種別ではなく、ユーザーに提供する機能単位で分割します。
+### featureとapp-level
+
+ユーザーに提供する機能は`src/features/`へ、アプリ全体の骨組みは`src/components/`へ置きます。
+
+```text
+apps/web/src/
+├── components/        # skip link、header、footer、ErrorBoundaryなどの骨組み
+├── features/          # ユーザーに提供する機能
+├── app.tsx            # 画面の合成
+└── main.tsx           # entrypoint
+```
+
+`src/components/`に置くのは、特定のfeatureに属さず、
+かつ他のappで再利用する予定がないものだけです。
+再利用するものは`packages/ui`へ、機能に属するものはfeature内へ置きます。
+
+### feature内部
 
 ```text
 src/features/<feature>/
@@ -50,7 +72,7 @@ src/features/<feature>/
 ```
 
 すべてのディレクトリを先に作る必要はありません。ファイルが存在する責務だけを
-作成します。小さいfeatureはフラットに開始し、責務が分かれた時点で移動できます。
+作成します。`pnpm create:feature <name>`が最小構成の雛形を生成します。
 
 依存は原則として次の向きにします。
 
@@ -61,30 +83,56 @@ components ───────────────────────
 
 `functions`は可能な限りReactに依存させず、単独でテストできる形にします。
 API clientやstorage accessも、feature内で完結するものは`functions`へ配置します。
-規模が大きくなった場合のみ、用途が明確なサブディレクトリへ分割します。
 
-実装例は
-`apps/web/src/features/app-directory`を参照してください。
+実装例：
+
+| feature | 例示している内容 |
+| --- | --- |
+| `app-directory` | 一覧表示、絞り込み、純粋関数の分離 |
+| `theme` | storage境界の検証、副作用のhookへの隔離 |
+| `api-health` | 共有コントラクトを使った外部通信 |
+| `site-about` | 表示のみのfeature |
+
+### ビルド時の生成
+
+`apps/web/plugins/`にVite pluginを置きます。
+`structured-data.ts`はアプリケーション一覧からschema.orgのJSON-LDを生成し、
+ビルド時に`index.html`へ埋め込みます。クライアントで描画しないため、
+JavaScriptを実行しないクローラからも参照できます。
+
+## Web routing
+
+ルーターは`src/routing/adapters/`に閉じ込め、その外側は自前の
+navigation portだけに依存します。詳細は[ルーティング](routing.md)を参照してください。
 
 ## API
 
-サンプルAPIはHonoを使用します。
+APIはHonoを使用します。
 
-- `app.ts`: route定義とHono app
+- `app.ts`: route定義、共通のnotFound / errorハンドラ
 - `local.ts`: Node.jsローカルサーバー
 - `lambda.ts`: AWS Lambda entrypoint
 - `*.test.ts`: routeとsecurity boundaryのテスト
 
-規模が大きくなった場合は、Webと同じくfeature単位へ分割し、route handlerから
-domain logicを分離します。外部入力はroute境界で検証します。
+外部入力はroute境界で検証します。検証には`packages/api-contract`のスキーマを使い、
+サーバーとクライアントで同じ定義を共有します。
+
+規模が大きくなった場合は、Webと同じくfeature単位へ分割し、
+route handlerからdomain logicを分離します。
+
+## Infrastructure
+
+`scripts/infra`がAWS CDKでインフラを定義します。1つのAWSアカウントに
+`dev`と`prd`を共存させ、分離はリソース命名で行います。
+詳細は[インフラ](infrastructure.md)を参照してください。
 
 ## 共有するもの・しないもの
 
 共有するもの：
 
 - TypeScriptのstrict設定
-- Tailwind tokenの名前
-- 汎用UI primitive
+- デザイントークンとUI primitive
+- APIのリクエスト・レスポンス定義
 - root command
 - CIの検証順序
 

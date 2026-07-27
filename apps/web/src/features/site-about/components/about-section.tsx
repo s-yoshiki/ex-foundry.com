@@ -1,0 +1,54 @@
+import { Card, CardContent, CardHeader, CardTitle, TagList } from "@ex-foundry/ui";
+import { getHighlights } from "../functions/get-highlights";
+
+const STACK = [
+  "TypeScript",
+  "React 19",
+  "Vite",
+  "Hono",
+  "Tailwind CSS 4",
+  "shadcn/ui",
+  "Turborepo",
+  "pnpm",
+  "Biome",
+  "GitHub Actions",
+] as const;
+
+export function AboutSection() {
+  const highlights = getHighlights();
+
+  return (
+    <section aria-labelledby="about-heading">
+      <h2
+        className="mb-5 font-mono text-xs font-semibold tracking-[0.12em] text-muted-foreground uppercase"
+        id="about-heading"
+      >
+        EX FOUNDRYについて
+      </h2>
+
+      <p className="mb-7 max-w-[680px] leading-loose text-muted-foreground">
+        EX
+        FOUNDRYは、日々の作業で欲しくなった小さなWebアプリケーションを作って公開している個人プロジェクトです。
+        すべてブラウザだけで動作し、ログインなしで利用できます。
+      </p>
+
+      <ul className="mb-8 grid list-none grid-cols-[repeat(auto-fit,minmax(220px,1fr))] gap-3.5 p-0">
+        {highlights.map((highlight) => (
+          <li key={highlight.title}>
+            <Card className="h-full gap-3 py-5">
+              <CardHeader className="px-5">
+                <CardTitle className="text-base">{highlight.title}</CardTitle>
+              </CardHeader>
+              <CardContent className="px-5 text-sm leading-relaxed text-muted-foreground">
+                {highlight.body}
+              </CardContent>
+            </Card>
+          </li>
+        ))}
+      </ul>
+
+      <h3 className="mb-3 text-sm font-semibold text-muted-foreground">このサイトの技術スタック</h3>
+      <TagList items={STACK} label="このサイトの技術スタック" />
+    </section>
+  );
+}

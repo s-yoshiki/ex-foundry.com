@@ -1,0 +1,7 @@
+# Default owner for everything in this repository.
+*                       @s-yoshiki
+
+# Structural decisions and shared foundations.
+/docs/decisions/        @s-yoshiki
+/packages/              @s-yoshiki
+/.github/workflows/     @s-yoshiki

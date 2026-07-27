@@ -1,26 +1,33 @@
 import { PageShell } from "@ex-foundry/ui";
-import { ApplicationList } from "./features/app-directory/components/application-list";
+import type { ReactNode } from "react";
+import { SiteFooter } from "./components/site-footer";
+import { SiteHeader } from "./components/site-header";
 
-export function App() {
+/**
+ * Application shell shared by every route.
+ *
+ * Router-agnostic: the active page arrives as `children`, so the adapter
+ * decides how it is resolved (React Router renders it through an `Outlet`).
+ */
+export function App({ children }: { children: ReactNode }) {
   return (
-    <PageShell>
-      <header className="intro">
-        <span className="brand-mark" aria-hidden="true">
-          EX
-        </span>
-        <p className="eyebrow">Turborepo sample application</p>
-        <h1>EX FOUNDRY</h1>
-        <p>ex-foundry.comで公開しているWebアプリケーションの一覧です。</p>
-      </header>
+    <>
+      <a
+        className="sr-only focus:not-sr-only focus:absolute focus:top-3 focus:left-3 focus:z-10 focus:rounded-md focus:bg-primary focus:px-4 focus:py-2 focus:text-primary-foreground"
+        href="#main"
+      >
+        本文へスキップ
+      </a>
 
-      <ApplicationList />
+      <PageShell>
+        <SiteHeader />
 
-      <footer className="site-footer">
-        <a href="https://github.com/s-yoshiki" target="_blank" rel="noreferrer">
-          GitHub ↗
-        </a>
-        <span>© EX FOUNDRY</span>
-      </footer>
-    </PageShell>
+        <main className="grid gap-16" id="main">
+          {children}
+        </main>
+
+        <SiteFooter />
+      </PageShell>
+    </>
   );
 }

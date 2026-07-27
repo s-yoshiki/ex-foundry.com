@@ -1,0 +1,9 @@
+{
+  "extends": "@ex-foundry/typescript-config/base.json",
+  "compilerOptions": {
+    "composite": true,
+    "lib": ["ES2023"],
+    "tsBuildInfoFile": "node_modules/.cache/api-contract.tsbuildinfo"
+  },
+  "include": ["src", "vitest.config.ts"]
+}

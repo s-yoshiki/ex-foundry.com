@@ -3,11 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#0d0f14" />
-    <meta name="color-scheme" content="dark" />
-    <meta name="description" content="ex-foundry.comで公開しているWebアプリケーションの一覧です。" />
+    <meta name="theme-color" content="#0d0f14" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f6f6f8" media="(prefers-color-scheme: light)" />
+    <meta name="color-scheme" content="dark light" />
+    <meta
+      name="description"
+      content="ex-foundry.comで公開しているWebアプリケーションの一覧です。開発ツール、ジェネレーター、データ可視化をブラウザだけで利用できます。"
+    />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://ex-foundry.com/" />
+    <link rel="preconnect" href="https://pagead2.googlesyndication.com" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="ja_JP" />
     <meta property="og:url" content="https://ex-foundry.com/" />
@@ -15,7 +20,7 @@
     <meta property="og:title" content="EX FOUNDRY" />
     <meta
       property="og:description"
-      content="ex-foundry.comで公開しているWebアプリケーションの一覧です。"
+      content="ex-foundry.comで公開しているWebアプリケーションの一覧です。開発ツール、ジェネレーター、データ可視化をブラウザだけで利用できます。"
     />
     <meta property="og:image" content="https://ex-foundry.com/og.png" />
     <meta property="og:image:width" content="1200" />
@@ -24,7 +29,7 @@
     <meta name="twitter:title" content="EX FOUNDRY" />
     <meta
       name="twitter:description"
-      content="ex-foundry.comで公開しているWebアプリケーションの一覧です。"
+      content="ex-foundry.comで公開しているWebアプリケーションの一覧です。開発ツール、ジェネレーター、データ可視化をブラウザだけで利用できます。"
     />
     <meta name="twitter:image" content="https://ex-foundry.com/og.png" />
     <meta name="google-adsense-account" content="ca-pub-5931776908676811" />
@@ -33,7 +38,24 @@
       src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5931776908676811"
       crossorigin="anonymous"
     ></script>
-    <title>EX FOUNDRY</title>
+    <title>EX FOUNDRY - 公開中のWebアプリケーション一覧</title>
+    <!--
+      Resolves the theme before the first paint so the page never flashes the
+      wrong palette. The storage key mirrors THEME_STORAGE_KEY in
+      src/features/theme/functions/theme-preference.ts.
+    -->
+    <script>
+      (() => {
+        try {
+          const stored = localStorage.getItem("ex-foundry:theme");
+          const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+          document.documentElement.dataset.theme =
+            stored === "light" || stored === "dark" ? stored : prefersDark ? "dark" : "light";
+        } catch {
+          document.documentElement.dataset.theme = "dark";
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>
