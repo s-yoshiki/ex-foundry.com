@@ -10,7 +10,7 @@
 
 ## pnpm workspace
 
-`pnpm-workspace.yaml`で`apps/*`、`packages/*`、`scripts/*`を管理します。
+`pnpm-workspace.yaml`で`apps/*`、`configs/*`、`packages/*`、`scripts/*`を管理します。
 install scriptを必要とする依存関係は`allowBuilds`へ明示し、追加理由をレビューします。
 
 依存はexact versionで固定します（`.npmrc`の`save-exact`）。
@@ -34,7 +34,8 @@ scriptが無いworkspaceはそのtaskの実行対象から自動的に外れま�
 
 ## TypeScript
 
-`packages/typescript-config`の設定をextendsします。
+`configs/tsconfig`を`@repo/typescript-config`というworkspace packageとして管理し、
+各workspaceから設定をextendsします。
 
 - `base.json`: framework非依存のstrict設定
 - `node.json`: Node.js、API、CLI
@@ -75,16 +76,23 @@ pnpm check:fix
 - `check`: lintとformatをまとめて確認
 - `check:fix`: 安全に修正できる項目を反映
 
-generated directoryは`biome.json`で除外します。例外ルールは全体で無効にせず、
-必要なpathへoverrideを設定します。
+実設定は`configs/biome/biome.json`に置き、ルート`biome.json`からextendsします。
+ルートの薄い設定は、CLIとエディタがリポジトリルートから設定を探索するための
+入口です。実設定は`root: false`として、ネストしたBiome projectとして扱われるのを
+防ぎます。
+
+generated directoryは実設定の`files.includes`で除外します。例外ルールは
+全体で無効にせず、必要なpathへoverrideを設定します。
 
 ## Tailwind CSS
 
 Tailwind CSS 4はJavaScript configではなくCSS-first configurationを使います。
+共有テーマは`configs/tailwind-config`を`@repo/tailwind-config`というworkspace
+packageとして管理します。
 
 ```css
 @import "tailwindcss";
-@import "@ex-foundry/tailwind-config/theme.css";
+@import "@repo/tailwind-config/theme.css";
 @source "../../../packages/ui/src";
 ```
 

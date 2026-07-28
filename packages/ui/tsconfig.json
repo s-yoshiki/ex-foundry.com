@@ -1,5 +1,5 @@
 {
-  "extends": "@ex-foundry/typescript-config/react-library.json",
+  "extends": "@repo/typescript-config/react-library.json",
   "compilerOptions": {
     "composite": true,
     "tsBuildInfoFile": "node_modules/.cache/ui.tsbuildinfo"

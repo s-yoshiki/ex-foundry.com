@@ -1,4 +1,4 @@
-import { Badge } from "@ex-foundry/ui/components/ui/badge";
+import { Badge } from "@repo/ui/components/ui/badge";
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { AppCard } from "./app-card";

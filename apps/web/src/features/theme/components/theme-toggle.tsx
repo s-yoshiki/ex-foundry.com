@@ -1,4 +1,4 @@
-import { ChoiceGroup, type ChoiceOption } from "@ex-foundry/ui";
+import { ChoiceGroup, type ChoiceOption } from "@repo/ui";
 import { Monitor, Moon, Sun } from "lucide-react";
 import { useTheme } from "../hooks/use-theme";
 import type { ThemePreference } from "../types/theme";

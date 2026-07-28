@@ -56,13 +56,13 @@ featureに固有のhook・utilityは、これまで通り`src/features/<feature>
 - 表示のためのラベルや文言は、共有UIではなく利用側のfeatureが持ちます。
 - アクセシブルなHTMLとキーボード操作を維持します。
   landmark（`header` / `main` / `footer`）、見出し階層、ラベルの関連付けを確認します。
-- UI primitiveは`@ex-foundry/ui`を先に確認します。
+- UI primitiveは`@repo/ui`を先に確認します。
 
 ## CSS
 
 - Tailwind CSS 4のCSS-first configurationを使用します。
 - スタイルはutility classで書き、独自のCSSクラスを増やしません。
-- 共有tokenは`packages/tailwind-config/theme.css`へ追加します。
+- 共有tokenは`configs/tailwind-config/theme.css`へ追加します。
 - app固有のtokenを共有テーマへ追加しません。
 - 任意値（`text-[0.7rem]`）を増やす前に既存のスケールを再利用します。
 - focus、contrast、responsive stateをライト・ダークの両方で確認します。

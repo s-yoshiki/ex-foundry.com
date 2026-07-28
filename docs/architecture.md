@@ -15,10 +15,12 @@
 ├── apps/
 │   ├── api/                    # Hono API
 │   └── web/                    # Vite + Reactの公開サイト
+├── configs/
+│   ├── biome/                  # Biome共有設定
+│   ├── tailwind-config/        # Tailwind CSS 4テーマ
+│   └── tsconfig/               # TypeScript共有設定
 ├── packages/
 │   ├── api-contract/           # APIスキーマとroute定義
-│   ├── tailwind-config/        # Tailwind CSS 4テーマ
-│   ├── typescript-config/      # TypeScript共通設定
 │   └── ui/                     # shadcn/uiベースの共有UI
 ├── scripts/
 │   ├── create-feature/         # featureの雛形生成CLI
@@ -29,14 +31,15 @@
 ## 依存方向
 
 ```text
-apps/web ──▶ packages/ui ──▶ packages/tailwind-config
+apps/web ──▶ packages/ui ──▶ configs/tailwind-config
     │
     ├──────▶ packages/api-contract ◀────── apps/api
     │
-    └──────▶ packages/typescript-config ◀── apps/api
+    └──────▶ configs/tsconfig ◀───────────── apps/api
 ```
 
 - `apps/*`はプロダクトを実行・デプロイする単位です。
+- `configs/*`は共有ツール設定です。
 - `packages/*`は単独ではデプロイしません。
 - packageからappをimportしてはいけません。
 - appからappをimportしてはいけません。共有したいものはpackageへ出します。

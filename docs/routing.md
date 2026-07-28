@@ -115,7 +115,7 @@ dist/robots.txt
 1. `routing/routes.ts`にエントリを追加する（型が`RouteId`を要求します）
 2. `pages/<name>-page.tsx`を作り、`useDocumentMeta(findRoute("<id>"))`を呼ぶ
 3. `routing/route-components.tsx`にマップを追加する（漏れると型エラー）
-4. `pnpm --filter @ex-foundry/web build`でHTMLとsitemapを確認する
+4. `pnpm --filter @repo/web build`でHTMLとsitemapを確認する
 
 アダプタもナビゲーションも触る必要はありません。
 
@@ -126,7 +126,7 @@ dist/robots.txt
    - `navigation-provider.tsx`: `useRouter()`と`useRouterState()`で`NavigationPort`を満たす
    - `create-app-router.ts`: `ROUTES`と`ROUTE_COMPONENTS`から`createRouter`のtreeを組む
 3. `main.tsx`のimportを差し替える
-4. `pnpm --filter @ex-foundry/web test`を実行する
+4. `pnpm --filter @repo/web test`を実行する
 
 `pages/`、`features/`、`components/`、`app.tsx`は変更されません。
 境界テストが、移行後もルーターのimportが漏れていないことを保証します。

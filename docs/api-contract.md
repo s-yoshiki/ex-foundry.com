@@ -81,7 +81,7 @@ cp apps/web/.env.example apps/web/.env
 ## 変更の進め方
 
 1. `packages/api-contract`のスキーマとテストを更新する
-2. `pnpm --filter @ex-foundry/api-contract test`で受理・拒否条件を確認する
+2. `pnpm --filter @repo/api-contract test`で受理・拒否条件を確認する
 3. `apps/api`のhandlerを更新する
 4. `apps/web`のクライアントを更新する
 5. `pnpm typecheck`と`pnpm test`で両側の整合を確認する

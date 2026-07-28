@@ -1,5 +1,5 @@
 @import "tailwindcss";
-@import "@ex-foundry/tailwind-config/theme.css";
+@import "@repo/tailwind-config/theme.css";
 
 /* Shared UI lives outside this app's root, so Tailwind is told where to find
    the utility classes it uses. */

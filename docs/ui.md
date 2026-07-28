@@ -23,16 +23,16 @@ packages/ui/
 ## コンポーネントを追加する
 
 ```sh
-pnpm --filter @ex-foundry/ui ui:add dialog
+pnpm --filter @repo/ui ui:add dialog
 ```
 
 `components.json`のaliasはパッケージ名を指しています。
 
 ```json
-{ "utils": "@ex-foundry/ui/lib/utils", "ui": "@ex-foundry/ui/components/ui" }
+{ "utils": "@repo/ui/lib/utils", "ui": "@repo/ui/components/ui" }
 ```
 
-生成されたコードは`@ex-foundry/ui/lib/utils`のようにimportします。これはpackage.jsonの
+生成されたコードは`@repo/ui/lib/utils`のようにimportします。これはpackage.jsonの
 `exports`によるself-referenceで解決されるため、利用側のappにbundlerのalias設定は不要です。
 `@/`のようなpath aliasを使うと、利用側ごとに解決設定が必要になるため採用していません。
 
@@ -40,12 +40,12 @@ pnpm --filter @ex-foundry/ui ui:add dialog
 
 ```ts
 // packages/ui/src/index.ts
-export { Dialog, DialogContent } from "@ex-foundry/ui/components/ui/dialog";
+export { Dialog, DialogContent } from "@repo/ui/components/ui/dialog";
 ```
 
 ## デザイントークン
 
-トークンは`packages/tailwind-config/theme.css`に集約しています。
+トークンは`configs/tailwind-config/theme.css`に集約しています。
 shadcn/uiの語彙（`--background`、`--primary`、`--muted-foreground`など）をそのまま使うため、
 生成されたコンポーネントを無修正で利用できます。
 

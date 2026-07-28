@@ -1,5 +1,5 @@
 {
-  "name": "@ex-foundry/api-contract",
+  "name": "@repo/api-contract",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -16,7 +16,7 @@
     "zod": "4.4.3"
   },
   "devDependencies": {
-    "@ex-foundry/typescript-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
     "@vitest/coverage-v8": "4.1.10",
     "typescript": "7.0.2",
     "vitest": "4.1.10"

@@ -21,16 +21,18 @@ EX FOUNDRYのポータルサイトであり、pnpm workspaces + Turborepo + Type
 ├── apps/
 │   ├── api/                    # Hono API（ローカルサーバー / Lambda）
 │   └── web/                    # Vite + Reactの公開サイト
+├── configs/
+│   ├── biome/                  # Biome共有設定
+│   ├── tailwind-config/        # Tailwind CSS 4共有テーマ
+│   └── tsconfig/               # TypeScript共有設定
 ├── packages/
 │   ├── api-contract/           # apps間で共有するAPIスキーマとroute定義
-│   ├── tailwind-config/        # Tailwind CSS 4共有テーマ
-│   ├── typescript-config/      # 共有TypeScript設定
 │   └── ui/                     # shadcn/uiベースの共有React UI
 ├── scripts/
 │   ├── create-feature/         # featureの雛形生成CLI
 │   └── infra/                  # AWS CDK（dev/prd）
 ├── docs/                       # 設計・運用ドキュメントとADR
-├── biome.json
+├── biome.json                  # Biome設定のルート入口
 ├── pnpm-workspace.yaml
 └── turbo.json
 ```
@@ -46,8 +48,8 @@ pnpm dev
 WebとAPIを個別に起動する場合：
 
 ```sh
-pnpm --filter @ex-foundry/web dev
-pnpm --filter @ex-foundry/api dev
+pnpm --filter @repo/web dev
+pnpm --filter @repo/api dev
 ```
 
 APIは`http://localhost:3001`で起動し、`GET /health`と
@@ -78,7 +80,7 @@ pnpm create:feature <feature-name> [--app <app>]
 UIコンポーネントを追加する場合：
 
 ```sh
-pnpm --filter @ex-foundry/ui ui:add dialog
+pnpm --filter @repo/ui ui:add dialog
 ```
 
 ## ドキュメント

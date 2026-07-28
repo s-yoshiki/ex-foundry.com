@@ -5,7 +5,7 @@ import {
   greetingResponseSchema,
   healthPath,
   healthResponseSchema,
-} from "@ex-foundry/api-contract";
+} from "@repo/api-contract";
 import { Hono } from "hono";
 import { describe, expect, it, vi } from "vitest";
 import { app, handleError } from "./app";

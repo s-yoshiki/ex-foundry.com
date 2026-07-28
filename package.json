@@ -9,7 +9,7 @@
     "build": "turbo run build",
     "check": "biome check .",
     "check:fix": "biome check --write .",
-    "create:feature": "pnpm --filter @ex-foundry/create-feature start",
+    "create:feature": "pnpm --filter @repo/create-feature start",
     "dev": "turbo run dev",
     "format": "biome format --write .",
     "format:check": "biome format .",

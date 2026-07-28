@@ -1,3 +1,4 @@
+import { zValidator } from "@hono/zod-validator";
 import {
   API_ROUTES,
   type ErrorCode,
@@ -6,8 +7,7 @@ import {
   type GreetingResponse,
   greetingParamsSchema,
   type HealthResponse,
-} from "@ex-foundry/api-contract";
-import { zValidator } from "@hono/zod-validator";
+} from "@repo/api-contract";
 import { type ErrorHandler, Hono, type NotFoundHandler } from "hono";
 
 export function errorBody(code: ErrorCode, message: string): ErrorResponse {

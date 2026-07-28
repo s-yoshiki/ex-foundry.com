@@ -53,11 +53,11 @@ featureに属さないアプリ全体の骨組み（header、footer、ErrorBound
 4. `components`で表示を組み立てる
 5. appのrouteまたはrootからfeature componentを利用する
 
-componentを書く前に`@ex-foundry/ui`を確認します。
+componentを書く前に`@repo/ui`を確認します。
 必要なプリミティブが無ければ、shadcn/uiから追加できます。
 
 ```sh
-pnpm --filter @ex-foundry/ui ui:add dialog
+pnpm --filter @repo/ui ui:add dialog
 ```
 
 外部と接する処理は、境界で検証します。
@@ -87,8 +87,8 @@ pnpm build
 対象を絞る場合：
 
 ```sh
-pnpm --filter @ex-foundry/web typecheck
-pnpm --filter @ex-foundry/web test:watch
+pnpm --filter @repo/web typecheck
+pnpm --filter @repo/web test:watch
 ```
 
 ## Shared packageへ移す基準
@@ -107,6 +107,6 @@ pnpm --filter @ex-foundry/web test:watch
 | 内容 | 移動先 |
 | --- | --- |
 | 汎用のUI primitive | `packages/ui` |
-| デザイントークン | `packages/tailwind-config/theme.css` |
+| デザイントークン | `configs/tailwind-config/theme.css` |
 | APIのリクエスト・レスポンス定義 | `packages/api-contract` |
 | リポジトリ運用のためのCLI | `scripts/<name>` |

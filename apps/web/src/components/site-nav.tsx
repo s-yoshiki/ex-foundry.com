@@ -1,4 +1,4 @@
-import { cn } from "@ex-foundry/ui";
+import { cn } from "@repo/ui";
 import { Link } from "../routing/link";
 import { useNavigation } from "../routing/navigation-context";
 import { matchRoute, ROUTES } from "../routing/routes";

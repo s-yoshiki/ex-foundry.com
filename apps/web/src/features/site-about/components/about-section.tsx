@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader, CardTitle, TagList } from "@ex-foundry/ui";
+import { Card, CardContent, CardHeader, CardTitle, TagList } from "@repo/ui";
 import { getHighlights } from "../functions/get-highlights";
 
 const STACK = [
