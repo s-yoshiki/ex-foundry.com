@@ -1,6 +1,7 @@
 name: Refactoring
 description: 挙動を維持したコード・構成改善を提案する
-title: "[Refactor]: "
+title: "Refactor: "
+projects: ["s-yoshiki/1"]
 body:
   - type: textarea
     id: context
