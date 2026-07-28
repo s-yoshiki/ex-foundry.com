@@ -1,4 +1,4 @@
-import { ChoiceGroup, type ChoiceOption, SearchField } from "@ex-foundry/ui";
+import { ChoiceGroup, type ChoiceOption, SearchField } from "@repo/ui";
 import { useMemo } from "react";
 import type { CategoryOption } from "../functions/application-labels";
 import type { CategoryFilterValue } from "../types/application";

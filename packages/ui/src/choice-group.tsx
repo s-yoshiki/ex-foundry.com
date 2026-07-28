@@ -1,5 +1,5 @@
-import { ToggleGroup, ToggleGroupItem } from "@ex-foundry/ui/components/ui/toggle-group";
-import { cn } from "@ex-foundry/ui/lib/utils";
+import { ToggleGroup, ToggleGroupItem } from "@repo/ui/components/ui/toggle-group";
+import { cn } from "@repo/ui/lib/utils";
 import type { ReactNode } from "react";
 
 export type ChoiceOption<TValue extends string> = {

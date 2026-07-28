@@ -1,4 +1,4 @@
-import { AppCard, Badge } from "@ex-foundry/ui";
+import { AppCard, Badge } from "@repo/ui";
 import { STATUS_LABELS } from "../functions/application-labels";
 import type { Application } from "../types/application";
 

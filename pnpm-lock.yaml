@@ -21,22 +21,22 @@ importers:
 
   apps/api:
     dependencies:
-      '@ex-foundry/api-contract':
-        specifier: workspace:*
-        version: link:../../packages/api-contract
       '@hono/node-server':
         specifier: 2.0.12
         version: 2.0.12(hono@4.12.32)
       '@hono/zod-validator':
         specifier: 0.9.0
         version: 0.9.0(hono@4.12.32)(zod@4.4.3)
+      '@repo/api-contract':
+        specifier: workspace:*
+        version: link:../../packages/api-contract
       hono:
         specifier: 4.12.32
         version: 4.12.32
     devDependencies:
-      '@ex-foundry/typescript-config':
+      '@repo/typescript-config':
         specifier: workspace:*
-        version: link:../../packages/typescript-config
+        version: link:../../configs/tsconfig
       '@types/aws-lambda':
         specifier: 8.10.162
         version: 8.10.162
@@ -61,13 +61,13 @@ importers:
 
   apps/web:
     dependencies:
-      '@ex-foundry/api-contract':
+      '@repo/api-contract':
         specifier: workspace:*
         version: link:../../packages/api-contract
-      '@ex-foundry/tailwind-config':
+      '@repo/tailwind-config':
         specifier: workspace:*
-        version: link:../../packages/tailwind-config
-      '@ex-foundry/ui':
+        version: link:../../configs/tailwind-config
+      '@repo/ui':
         specifier: workspace:*
         version: link:../../packages/ui
       lucide-react:
@@ -86,9 +86,9 @@ importers:
         specifier: 4.4.3
         version: 4.4.3
     devDependencies:
-      '@ex-foundry/typescript-config':
+      '@repo/typescript-config':
         specifier: workspace:*
-        version: link:../../packages/typescript-config
+        version: link:../../configs/tsconfig
       '@tailwindcss/vite':
         specifier: 4.3.3
         version: 4.3.3(vite@8.1.5(@types/node@26.1.1)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.23.1))
@@ -129,15 +129,19 @@ importers:
         specifier: 4.1.10
         version: 4.1.10(@types/node@26.1.1)(@vitest/coverage-v8@4.1.10)(happy-dom@20.11.1)(jsdom@29.1.1)(vite@8.1.5(@types/node@26.1.1)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.23.1))
 
+  configs/tailwind-config: {}
+
+  configs/tsconfig: {}
+
   packages/api-contract:
     dependencies:
       zod:
         specifier: 4.4.3
         version: 4.4.3
     devDependencies:
-      '@ex-foundry/typescript-config':
+      '@repo/typescript-config':
         specifier: workspace:*
-        version: link:../typescript-config
+        version: link:../../configs/tsconfig
       '@vitest/coverage-v8':
         specifier: 4.1.10
         version: 4.1.10(vitest@4.1.10)
@@ -147,10 +151,6 @@ importers:
       vitest:
         specifier: 4.1.10
         version: 4.1.10(@types/node@26.1.1)(@vitest/coverage-v8@4.1.10)(happy-dom@20.11.1)(jsdom@29.1.1)(vite@8.1.5(@types/node@26.1.1)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.23.1))
-
-  packages/tailwind-config: {}
-
-  packages/typescript-config: {}
 
   packages/ui:
     dependencies:
@@ -170,12 +170,12 @@ importers:
         specifier: 3.6.0
         version: 3.6.0
     devDependencies:
-      '@ex-foundry/tailwind-config':
+      '@repo/tailwind-config':
         specifier: workspace:*
-        version: link:../tailwind-config
-      '@ex-foundry/typescript-config':
+        version: link:../../configs/tailwind-config
+      '@repo/typescript-config':
         specifier: workspace:*
-        version: link:../typescript-config
+        version: link:../../configs/tsconfig
       '@testing-library/jest-dom':
         specifier: 7.0.0
         version: 7.0.0(@testing-library/dom@10.4.1)
@@ -215,9 +215,9 @@ importers:
 
   scripts/create-feature:
     devDependencies:
-      '@ex-foundry/typescript-config':
+      '@repo/typescript-config':
         specifier: workspace:*
-        version: link:../../packages/typescript-config
+        version: link:../../configs/tsconfig
       '@types/node':
         specifier: 26.1.1
         version: 26.1.1
@@ -243,9 +243,9 @@ importers:
         specifier: 10.7.1
         version: 10.7.1
     devDependencies:
-      '@ex-foundry/typescript-config':
+      '@repo/typescript-config':
         specifier: workspace:*
-        version: link:../../packages/typescript-config
+        version: link:../../configs/tsconfig
       '@types/node':
         specifier: 26.1.1
         version: 26.1.1

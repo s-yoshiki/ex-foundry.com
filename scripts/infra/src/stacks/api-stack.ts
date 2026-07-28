@@ -39,7 +39,7 @@ export class ApiStack extends Stack {
     if (!existsSync(bundleDirectory)) {
       throw new Error(
         `API bundle not found at ${bundleDirectory}. ` +
-          "Run `pnpm --filter @ex-foundry/api build` before synthesising.",
+          "Run `pnpm --filter @repo/api build` before synthesising.",
       );
     }
 

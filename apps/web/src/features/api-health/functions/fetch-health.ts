@@ -1,4 +1,4 @@
-import { type HealthResponse, healthPath, healthResponseSchema } from "@ex-foundry/api-contract";
+import { type HealthResponse, healthPath, healthResponseSchema } from "@repo/api-contract";
 import type { ApiResult } from "../types/api-result";
 
 /**

@@ -8,7 +8,7 @@
 ```sh
 pnpm test              # 全workspace
 pnpm test:coverage     # カバレッジ付き
-pnpm --filter @ex-foundry/web test:watch
+pnpm --filter @repo/web test:watch
 ```
 
 各workspaceは自身の`vitest.config.ts`を持ちます（`apps/web`のみ`vite.config.ts`に統合）。

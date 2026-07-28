@@ -1,5 +1,5 @@
 {
-  "name": "@ex-foundry/create-feature",
+  "name": "@repo/create-feature",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -14,7 +14,7 @@
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
-    "@ex-foundry/typescript-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
     "@types/node": "26.1.1",
     "@vitest/coverage-v8": "4.1.10",
     "tsx": "4.23.1",

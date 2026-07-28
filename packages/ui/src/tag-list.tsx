@@ -1,4 +1,4 @@
-import { Badge } from "@ex-foundry/ui/components/ui/badge";
+import { Badge } from "@repo/ui/components/ui/badge";
 
 type TagListProps = {
   items: readonly string[];

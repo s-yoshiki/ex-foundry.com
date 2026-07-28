@@ -58,7 +58,7 @@ describe("ApiStack", () => {
           bundleDirectory: join(repositoryRoot, "does-not-exist"),
           environment,
         }),
-    ).toThrow(/pnpm --filter @ex-foundry\/api build/);
+    ).toThrow(/pnpm --filter @repo\/api build/);
   });
 
   it("exposes the handler behind a function URL", () => {

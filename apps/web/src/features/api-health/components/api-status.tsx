@@ -1,4 +1,4 @@
-import { cn } from "@ex-foundry/ui";
+import { cn } from "@repo/ui";
 import { useApiHealth } from "../hooks/use-api-health";
 
 const DOT_CLASS = {

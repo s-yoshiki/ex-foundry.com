@@ -1,5 +1,5 @@
-import { Badge } from "@ex-foundry/ui/components/ui/badge";
-import { cn } from "@ex-foundry/ui/lib/utils";
+import { Badge } from "@repo/ui/components/ui/badge";
+import { cn } from "@repo/ui/lib/utils";
 import { ArrowUpRight } from "lucide-react";
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
 

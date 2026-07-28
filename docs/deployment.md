@@ -41,7 +41,7 @@ schema.orgのJSON-LDは`apps/web/plugins/structured-data.ts`が
 `apps/api`はesbuildで`dist/index.mjs`へバンドルします。
 
 ```sh
-pnpm --filter @ex-foundry/api build
+pnpm --filter @repo/api build
 ```
 
 - `src/lambda.ts`がLambdaのentrypoint（`handler`）です。

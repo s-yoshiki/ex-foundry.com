@@ -1,5 +1,5 @@
-import { Input } from "@ex-foundry/ui/components/ui/input";
-import { Label } from "@ex-foundry/ui/components/ui/label";
+import { Input } from "@repo/ui/components/ui/input";
+import { Label } from "@repo/ui/components/ui/label";
 
 type SearchFieldProps = {
   id: string;

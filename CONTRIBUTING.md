@@ -14,10 +14,11 @@
 
 - `apps/web`: Vite + Reactの静的Webアプリ
 - `apps/api`: Honoのローカルサーバー・Lambdaサンプル
+- `configs/biome`: Biomeの共有設定
+- `configs/tailwind-config`: Tailwind CSS 4の共有テーマ
+- `configs/tsconfig`: TypeScriptの共有設定
 - `packages/ui`: shadcn/uiベースの共有React UI
 - `packages/api-contract`: apps間で共有するAPIスキーマとroute定義
-- `packages/tailwind-config`: Tailwind CSS 4の共有テーマ
-- `packages/typescript-config`: 共有TypeScript設定
 - `scripts/create-feature`: featureの雛形生成CLI
 - `scripts/infra`: AWS CDK（dev/prd）
 
@@ -28,7 +29,7 @@
 
 ```sh
 pnpm create:feature <feature-name>          # featureの雛形を生成
-pnpm --filter @ex-foundry/ui ui:add <name>  # shadcn/uiのコンポーネントを追加
+pnpm --filter @repo/ui ui:add <name>  # shadcn/uiのコンポーネントを追加
 ```
 
 ## 検証
@@ -43,9 +44,9 @@ pnpm build
 開発中は対象を絞れます。
 
 ```sh
-pnpm --filter @ex-foundry/web dev
-pnpm --filter @ex-foundry/api dev
-pnpm --filter @ex-foundry/api test:watch
+pnpm --filter @repo/web dev
+pnpm --filter @repo/api dev
+pnpm --filter @repo/api test:watch
 ```
 
 ## Pull Request

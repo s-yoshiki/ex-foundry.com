@@ -7,7 +7,7 @@
 
 | 領域 | 内容 |
 | --- | --- |
-| workspace | pnpm workspaces + Turborepo（`apps` / `packages` / `scripts`） |
+| workspace | pnpm workspaces + Turborepo（`apps` / `configs` / `packages` / `scripts`） |
 | 言語 | TypeScript 7（strict、共有tsconfig） |
 | Web | React 19 + Vite + Tailwind CSS 4 + shadcn/ui |
 | API | Hono（ローカルサーバーとLambda entrypoint） |
@@ -25,23 +25,19 @@ pnpm install
 pnpm dev
 ```
 
-### 2. scopeを変更する
+### 2. package名を確認する
 
-`@ex-foundry/*`を対象プロジェクトのscopeへ置き換えます。
+privateなworkspace packageは`@repo/*`に統一しているため、
+複製後にscopeを置き換える必要はありません。
 
-```sh
-grep -rl "@ex-foundry/" --include="*.json" --include="*.ts" --include="*.tsx" --include="*.css" --include="*.md" . \
-  | grep -v node_modules \
-  | xargs sed -i '' 's|@ex-foundry/|@your-scope/|g'
-```
-
-置換後に`pnpm install`と`pnpm typecheck`を実行し、参照が壊れていないか確認します。
+npmへ公開するpackageがある場合だけ、対象packageを所有組織のscopeへ変更します。
+その場合はpackage定義、利用側の依存、importを合わせて更新してください。
 
 ### 3. 不要なものを外す
 
 - APIを使わない場合は`apps/api`と`packages/api-contract`を削除し、
-  `apps/web`から`@ex-foundry/api-contract`依存と`features/api-health`を外します。
-- Webを使わない場合は`apps/web`と`packages/ui`、`packages/tailwind-config`を削除します。
+  `apps/web`から`@repo/api-contract`依存と`features/api-health`を外します。
+- Webを使わない場合は`apps/web`と`packages/ui`、`configs/tailwind-config`を削除します。
 - 削除したworkspaceは、ルート`tsconfig.json`の`references`からも外します。
 
 ### 4. サイト固有の内容を差し替える
@@ -49,7 +45,7 @@ grep -rl "@ex-foundry/" --include="*.json" --include="*.ts" --include="*.tsx" --
 | 対象 | ファイル |
 | --- | --- |
 | メタデータ、OGP、テーマbootstrap | `apps/web/index.html` |
-| ブランド色 | `packages/tailwind-config/theme.css` |
+| ブランド色 | `configs/tailwind-config/theme.css` |
 | 画面の構成 | `apps/web/src/app.tsx`、`apps/web/src/components/` |
 | 公開ファイル | `apps/web/public/`（`CNAME`、`robots.txt`、`sitemap.xml`、`og.png`、`404.html`） |
 | 構造化データ | `apps/web/plugins/structured-data.ts` |

@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "@ex-foundry/ui/lib/utils";
+import { cn } from "@repo/ui/lib/utils";
 import { Separator as SeparatorPrimitive } from "radix-ui";
 import type * as React from "react";
 

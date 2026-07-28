@@ -55,9 +55,9 @@ accountは認証情報から解決します。
 環境はCDK contextで渡します。**デフォルトはありません。**
 
 ```sh
-pnpm --filter @ex-foundry/infra synth -c env=dev
-pnpm --filter @ex-foundry/infra diff -c env=prd
-pnpm --filter @ex-foundry/infra deploy -c env=dev
+pnpm --filter @repo/infra synth -c env=dev
+pnpm --filter @repo/infra diff -c env=prd
+pnpm --filter @repo/infra deploy -c env=dev
 ```
 
 指定を忘れた場合は、推測せずに失敗します。
@@ -72,8 +72,8 @@ Lambdaは`apps/api`のビルド成果物（`apps/api/dist`）をそのまま使�
 synthの前にビルドが必要です。
 
 ```sh
-pnpm --filter @ex-foundry/api build
-pnpm --filter @ex-foundry/infra deploy -c env=dev
+pnpm --filter @repo/api build
+pnpm --filter @repo/infra deploy -c env=dev
 ```
 
 成果物が無い場合、stackは対処方法を含めて失敗します。
@@ -81,7 +81,7 @@ pnpm --filter @ex-foundry/infra deploy -c env=dev
 初回のみ、アカウント・regionごとにbootstrapが必要です。
 
 ```sh
-pnpm --filter @ex-foundry/infra cdk bootstrap aws://<account-id>/ap-northeast-1
+pnpm --filter @repo/infra cdk bootstrap aws://<account-id>/ap-northeast-1
 ```
 
 デプロイ後、出力された関数URLをWebの環境変数へ設定します。
@@ -97,7 +97,7 @@ CDKのテストは合成されたCloudFormationテンプレートに対して行
 AWSへの接続は不要で、CIでそのまま実行できます。
 
 ```sh
-pnpm --filter @ex-foundry/infra test
+pnpm --filter @repo/infra test
 ```
 
 検証している内容です。

@@ -1,4 +1,4 @@
-import { cn } from "@ex-foundry/ui/lib/utils";
+import { cn } from "@repo/ui/lib/utils";
 import { Label as LabelPrimitive } from "radix-ui";
 import type * as React from "react";
 
