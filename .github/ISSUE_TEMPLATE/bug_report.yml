@@ -1,7 +1,8 @@
 name: Bug report
 description: サイトの不具合を報告する
-title: "[Bug]: "
+title: "Bug: "
 labels: ["bug"]
+projects: ["s-yoshiki/1"]
 body:
   - type: textarea
     id: description
