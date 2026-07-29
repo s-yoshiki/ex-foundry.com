@@ -42,8 +42,9 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-ECD2N4RTYS"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
-      function gtag(...args) {
-        dataLayer.push(args);
+      function gtag() {
+        // biome-ignore lint/complexity/noArguments: The Google tag queue requires an Arguments object.
+        dataLayer.push(arguments);
       }
       gtag("js", new Date());
       // Page views are sent manually after client-side navigation instead,
