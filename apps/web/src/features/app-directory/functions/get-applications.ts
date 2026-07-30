@@ -13,6 +13,15 @@ const applications = [
   {
     category: "entertainment",
     description:
+      "もぐら叩き・テトリス・オセロなど、しょうもない2Dミニゲームを登録不要ですぐに遊べます。暇つぶし用に思いついた分だけ増えていきます。",
+    host: "kusoge.ex-foundry.com",
+    name: "クソゲーの森",
+    stack: ["React", "TypeScript", "Canvas"],
+    status: "active",
+  },
+  {
+    category: "entertainment",
+    description:
       "診断メーカー・画像加工・ネタ系ジェネレーターを手軽に。生成した結果はそのまま画像として共有できます。",
     host: "maker.ex-foundry.com",
     name: "Maker",

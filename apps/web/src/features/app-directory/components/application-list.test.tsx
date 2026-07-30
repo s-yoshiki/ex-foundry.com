@@ -91,8 +91,10 @@ describe("ApplicationList", () => {
     renderList();
     await user.type(screen.getByLabelText("アプリケーションを検索"), "存在しないアプリ");
 
+    const total = getApplications().length;
+
     expect(screen.getByText(/条件に一致するアプリケーションはありません/)).toBeInTheDocument();
     expect(screen.queryAllByRole("link")).toHaveLength(0);
-    expect(screen.getByText("0件を表示中（全3件）")).toBeInTheDocument();
+    expect(screen.getByText(`0件を表示中（全${total}件）`)).toBeInTheDocument();
   });
 });
