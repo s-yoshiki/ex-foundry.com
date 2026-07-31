@@ -19,10 +19,11 @@ deployはCIと同じ検証を再実行します。mainへ直接pushされた場�
 | --- | --- |
 | `CNAME` | 独自ドメイン（ex-foundry.com） |
 | `.nojekyll` | GitHub PagesのJekyll処理を無効化 |
-| `robots.txt` | クローラ向け設定とsitemapの場所 |
-| `sitemap.xml` | サイトマップ |
 | `404.html` | 存在しないパスへのアクセス時に返すページ |
 | `og.png` | OGP画像 |
+
+`robots.txt`と`sitemap.xml`は`apps/web/public`には置かず、
+`plugins/static-routes.ts`が`ROUTES`から`dist`へ生成します。
 
 `404.html`はビルド成果物に依存しない自己完結したHTMLです。
 アプリのCSSやJSが読み込めない状況でも表示できるよう、スタイルを内包しています。
@@ -35,6 +36,9 @@ schema.orgのJSON-LDは`apps/web/plugins/structured-data.ts`が
 
 アプリを追加・変更したときは`get-applications.ts`だけを更新すれば、
 カード表示と構造化データの両方に反映されます。
+
+route別のtitle、description、canonical、OGP、sitemapと、SPA遷移時のGA4計測は
+[SEO・OGP・Analytics](seo-ogp-analytics.md)を参照してください。
 
 ## apps/api（AWS Lambda）
 
@@ -58,6 +62,12 @@ pnpm --filter @repo/api build
 - 存在しないパス（例: `/no-such-page`）で404ページが返る
 - `view-source:`でJSON-LDが埋め込まれている
 - `robots.txt`と`sitemap.xml`が200で返る
+- `/`と`/about`のtitle、description、canonical、`og:url`がそれぞれ異なる
+- `og.png`が200かつ画像の`Content-Type`で返る
+- 初回表示とSPA遷移でGA4 `page_view`が1件ずつ送信される
+
+ビルド成果物の確認コマンドと、二重計測・SNS cacheを含む切り分け方法は
+[SEO・OGP・Analytics](seo-ogp-analytics.md)にまとめています。
 
 ## ロールバック
 

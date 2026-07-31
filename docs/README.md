@@ -7,12 +7,13 @@
 3. [featureの追加方法](adding-a-feature.md) — 実装の進め方
 4. [テスト方針](testing.md) — 何を、どの層でテストするか
 5. [ルーティング](routing.md) — ルーター非依存の構成と移行手順
-6. [UIパッケージ](ui.md) — shadcn/uiの使い方と拡張手順
-7. [APIコントラクト](api-contract.md) — apps/apiとapps/webのインタフェース共有
-8. [設定ファイル](configuration.md) — ツールチェーンの設定
-9. [デプロイと運用](deployment.md) — CI/CD、公開、ロールバック
-10. [インフラ](infrastructure.md) — CDKによるdev/prd構成
-11. [テンプレートとして使う](template-usage.md) — 新規プロジェクトの立ち上げ
+6. [SEO・OGP・Analytics](seo-ogp-analytics.md) — メタデータ、SNS共有、GA4の運用
+7. [UIパッケージ](ui.md) — shadcn/uiの使い方と拡張手順
+8. [APIコントラクト](api-contract.md) — apps/apiとapps/webのインタフェース共有
+9. [設定ファイル](configuration.md) — ツールチェーンの設定
+10. [デプロイと運用](deployment.md) — CI/CD、公開、ロールバック
+11. [インフラ](infrastructure.md) — CDKによるdev/prd構成
+12. [テンプレートとして使う](template-usage.md) — 新規プロジェクトの立ち上げ
 
 ## 設計判断
 

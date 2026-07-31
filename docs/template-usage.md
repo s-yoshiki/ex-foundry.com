@@ -44,14 +44,20 @@ npmへ公開するpackageがある場合だけ、対象packageを所有組織の
 
 | 対象 | ファイル |
 | --- | --- |
-| メタデータ、OGP、テーマbootstrap | `apps/web/index.html` |
+| 共通メタデータ、OGP、GA4、テーマbootstrap | `apps/web/index.html` |
+| サイトURL、サイト名、route別title・description | `apps/web/src/routing/routes.ts` |
 | ブランド色 | `configs/tailwind-config/theme.css` |
 | 画面の構成 | `apps/web/src/app.tsx`、`apps/web/src/components/` |
-| 公開ファイル | `apps/web/public/`（`CNAME`、`robots.txt`、`sitemap.xml`、`og.png`、`404.html`） |
+| 公開ファイル | `apps/web/public/`（`CNAME`、`og.png`、`404.html`） |
+| 静的HTML、robots、sitemap生成 | `apps/web/plugins/static-routes.ts` |
 | 構造化データ | `apps/web/plugins/structured-data.ts` |
 
 `apps/web/src/features/app-directory`と`features/site-about`は、
 このサイト固有のfeatureです。参考実装として読んだあとは置き換えます。
+
+複製後は、元サイトのdomain、ブランド名、OGP画像、GA4測定IDを残さないよう
+[SEO・OGP・Analytics](seo-ogp-analytics.md)の「情報の正」と検証手順に従って
+差し替えてください。
 
 ### 5. デプロイ先を合わせる
 

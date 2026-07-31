@@ -102,6 +102,8 @@ dist/robots.txt
 各HTMLはそのルートのtitle・description・canonicalを持つため、
 クローラはJavaScriptを実行せずに正しいメタ情報を取得できます。
 `useDocumentMeta`はクライアント遷移時の同期だけを担当します。
+OGP、構造化データ、sitemap、GA4との関係は
+[SEO・OGP・Analytics](seo-ogp-analytics.md)を参照してください。
 
 404には2種類あります。
 
@@ -116,6 +118,10 @@ dist/robots.txt
 2. `pages/<name>-page.tsx`を作り、`useDocumentMeta(findRoute("<id>"))`を呼ぶ
 3. `routing/route-components.tsx`にマップを追加する（漏れると型エラー）
 4. `pnpm --filter @repo/web build`でHTMLとsitemapを確認する
+
+title、description、canonical、OGP、sitemap、Analyticsまで含めた確認項目は
+[route追加時のチェックリスト](seo-ogp-analytics.md#route追加時のチェックリスト)を
+使用してください。
 
 アダプタもナビゲーションも触る必要はありません。
 
