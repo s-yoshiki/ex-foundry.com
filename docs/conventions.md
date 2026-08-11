@@ -90,5 +90,5 @@ featureに固有のhook・utilityは、これまで通り`src/features/<feature>
 - 1つのPRへ無関係な変更を混ぜません。
 - 大規模なformat変更は機能変更と分離します。
 - generated file、secret、`.env`をコミットしません。
-- commit前に関連するcheck、typecheck、test、buildを実行します。
+- commit前に `pnpm verify` を実行します。
 - 構成レベルの判断を変える場合は、ADRを同じPRに含めます。

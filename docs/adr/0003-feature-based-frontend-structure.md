@@ -1,7 +1,7 @@
-# 0003. フロントエンドをfeature単位で分割する
+# ADR 0003: フロントエンドをfeature単位で分割する
 
-- 状態: Accepted
-- 日付: 2026-07-27
+- Status: Accepted
+- Date: 2026-07-27
 
 ## 背景
 

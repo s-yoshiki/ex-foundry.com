@@ -1,12 +1,14 @@
-# 設計判断記録（ADR）
+# Architecture Decision Records
 
-構成やツールチェーンの選択と、その理由を残す場所です。
-「なぜこうなっているのか」が失われると、同じ議論を繰り返すか、
-理由のわからないまま構成が壊れていきます。
+このディレクトリに、リポジトリの技術的な判断と決定事項を集約します。過去の判断も同じ形式で保持し、現在の状態を一覧から確認できるようにします。
 
-## 一覧
+- ファイル名は NNNN-kebab-case.md とし、番号は連番にする。
+- 各ADRは Status と Date を持ち、状態は Proposed、Accepted、Superseded、Deprecated のいずれかにする。
+- 既存の判断を変更するときは元のADRを書き換えず、新しいADRを追加して Supersedes を記録する。
+- 新しい判断は実装と同じPRで追加し、コード・workflow・ドキュメントの変更理由を残す。
+- PRとActionsの検証入口はルートの pnpm verify とする。
 
-| # | タイトル | 状態 |
+| ID | Decision | Status |
 | --- | --- | --- |
 | [0001](0001-monorepo-with-pnpm-and-turborepo.md) | pnpm workspacesとTurborepoでmonorepoを構成する | Accepted |
 | [0002](0002-biome-as-single-toolchain.md) | FormatterとLinterをBiomeに一本化する | Accepted |
@@ -21,20 +23,6 @@
 | [0011](0011-ga4-spa-page-view-tracking.md) | GA4のpage_viewをSPA側で手動送信する | Accepted |
 | [0012](0012-repository-local-package-scope.md) | リポジトリ内部packageのscopeを`@repo`に統一する | Accepted |
 | [0013](0013-shared-tool-configuration-directory.md) | 共有ツール設定を`configs/*`に配置する | Accepted |
+| [0014](0014-repository-conventions.md) | ex-foundry リポジトリ規約 | Accepted |
 
-## 書き方
-
-1. `template.md`をコピーし、連番でファイルを作ります。
-2. 決定を1つだけ書きます。複数の決定は別のADRに分けます。
-3. 実装より先にADRを書き、レビューで合意してから実装します。
-
-## 状態
-
-- **Proposed**: 提案中。まだ実装していない。
-- **Accepted**: 採用済み。現在の構成の根拠。
-- **Superseded**: 後続のADRで置き換えられた。ファイルは削除せず、
-  置き換え先へのリンクを追記する。
-
-過去のADRは書き換えません。判断が変わったときは、新しいADRを追加して
-古いものをSupersededにします。記録の目的は「今の正しさ」ではなく
-「当時なぜそう判断したか」を残すことです。
+テンプレート: [template.md](template.md)

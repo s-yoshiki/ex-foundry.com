@@ -1,7 +1,7 @@
-# 0001. pnpm workspacesとTurborepoでmonorepoを構成する
+# ADR 0001: pnpm workspacesとTurborepoでmonorepoを構成する
 
-- 状態: Accepted
-- 日付: 2026-07-27
+- Status: Accepted
+- Date: 2026-07-27
 
 ## 背景
 

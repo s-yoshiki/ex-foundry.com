@@ -94,8 +94,5 @@ Testing Libraryの自動cleanupはVitestのglobalsが有効なときだけ登録
 ## 検証コマンド
 
 ```sh
-pnpm check
-pnpm typecheck
-pnpm test
-pnpm build
+pnpm verify
 ```

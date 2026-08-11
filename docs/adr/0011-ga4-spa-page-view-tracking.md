@@ -1,7 +1,7 @@
-# 0011. GA4のpage_viewをSPA側で手動送信する
+# ADR 0011: GA4のpage_viewをSPA側で手動送信する
 
-- 状態: Accepted
-- 日付: 2026-07-28
+- Status: Accepted
+- Date: 2026-07-28
 
 ## 背景
 

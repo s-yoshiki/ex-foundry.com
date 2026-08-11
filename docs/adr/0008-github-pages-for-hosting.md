@@ -1,7 +1,7 @@
-# 0008. GitHub Pagesでホスティングする
+# ADR 0008: GitHub Pagesでホスティングする
 
-- 状態: Accepted
-- 日付: 2026-07-27
+- Status: Accepted
+- Date: 2026-07-27
 
 ## 背景
 

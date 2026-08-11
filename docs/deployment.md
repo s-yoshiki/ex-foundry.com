@@ -4,8 +4,8 @@
 
 | workflow | 契機 | 内容 |
 | --- | --- | --- |
-| `.github/workflows/ci.yml` | Pull Request、手動 | check → typecheck → test → build |
-| `.github/workflows/deploy.yml` | `main`へのpush、手動 | 同じ検証の後、`apps/web/dist`をGitHub Pagesへ公開 |
+| `.github/workflows/ci.yml` | Pull Request、手動 | `pnpm verify` |
+| `.github/workflows/deploy.yml` | `main`へのpush、手動 | `pnpm verify` の後、`apps/web/dist`をGitHub Pagesへ公開 |
 
 deployはCIと同じ検証を再実行します。mainへ直接pushされた場合でも、
 検証を通らない成果物が公開されないようにするためです。

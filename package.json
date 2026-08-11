@@ -7,8 +7,10 @@
   },
   "scripts": {
     "build": "turbo run build",
+    "deploy": "pnpm --filter @repo/infra deploy",
     "check": "biome check .",
     "check:fix": "biome check --write .",
+    "check-types": "pnpm typecheck",
     "create:feature": "pnpm --filter @repo/create-feature start",
     "dev": "turbo run dev",
     "format": "biome format --write .",
@@ -16,7 +18,8 @@
     "lint": "biome lint .",
     "test": "turbo run test",
     "test:coverage": "turbo run test:coverage",
-    "typecheck": "turbo run typecheck"
+    "typecheck": "turbo run typecheck",
+    "verify": "pnpm check && pnpm typecheck && pnpm test && pnpm build"
   },
   "devDependencies": {
     "@biomejs/biome": "2.5.5",

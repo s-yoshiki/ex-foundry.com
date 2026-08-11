@@ -6,9 +6,9 @@ JavaScriptを実行しない場合があります。そのため、ルートご�
 
 このドキュメントは、SEO、OGP、GA4の実装場所、変更手順、検証方法をまとめた
 運用ガイドです。設計判断の背景は
-[ADR 0008](decisions/0008-github-pages-for-hosting.md)、
-[ADR 0009](decisions/0009-router-agnostic-routing-layer.md)、
-[ADR 0011](decisions/0011-ga4-spa-page-view-tracking.md)を参照してください。
+[ADR 0008](adr/0008-github-pages-for-hosting.md)、
+[ADR 0009](adr/0009-router-agnostic-routing-layer.md)、
+[ADR 0011](adr/0011-ga4-spa-page-view-tracking.md)を参照してください。
 
 ## 全体像
 
@@ -199,7 +199,7 @@ query stringは含め、fragmentは含めません。広告ブロッカーなど
 
 自動履歴計測と`usePageViewTracking`を併用すると、SPA遷移時に`page_view`が
 二重送信される可能性があります。方式を変更する場合は
-[ADR 0011](decisions/0011-ga4-spa-page-view-tracking.md)を置き換える新しいADRを作成します。
+[ADR 0011](adr/0011-ga4-spa-page-view-tracking.md)を置き換える新しいADRを作成します。
 
 ### 測定IDを変更する
 

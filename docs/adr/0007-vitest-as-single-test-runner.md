@@ -1,7 +1,7 @@
-# 0007. テストランナーをVitestに統一する
+# ADR 0007: テストランナーをVitestに統一する
 
-- 状態: Accepted
-- 日付: 2026-07-27
+- Status: Accepted
+- Date: 2026-07-27
 
 ## 背景
 

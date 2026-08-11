@@ -78,10 +78,7 @@ pnpm --filter @repo/ui ui:add dialog
 ## 5. 検証する
 
 ```sh
-pnpm check
-pnpm typecheck
-pnpm test
-pnpm build
+pnpm verify
 ```
 
 対象を絞る場合：

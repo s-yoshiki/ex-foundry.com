@@ -97,7 +97,7 @@ pnpm --filter @repo/ui ui:add dialog
 - [デプロイと運用](docs/deployment.md)
 - [インフラ](docs/infrastructure.md)
 - [テンプレートとして使う](docs/template-usage.md)
-- [設計判断記録（ADR）](docs/decisions/README.md)
+- [設計判断記録（ADR）](docs/adr/README.md)
 - [コントリビューション](CONTRIBUTING.md)
 
 ## デプロイ
