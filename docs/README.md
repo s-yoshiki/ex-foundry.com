@@ -1,27 +1,40 @@
 # Documentation
 
-## 読む順序
+このディレクトリは、実装・運用・技術判断に関するドキュメントの入口です。
 
-1. [アーキテクチャ](architecture.md) — workspace構成と依存方向
-2. [実装規約](conventions.md) — 命名、TypeScript、React、API、CSS
-3. [featureの追加方法](adding-a-feature.md) — 実装の進め方
-4. [テスト方針](testing.md) — 何を、どの層でテストするか
-5. [ルーティング](routing.md) — ルーター非依存の構成と移行手順
-6. [SEO・OGP・Analytics](seo-ogp-analytics.md) — メタデータ、SNS共有、GA4の運用
-7. [UIパッケージ](ui.md) — shadcn/uiの使い方と拡張手順
-8. [APIコントラクト](api-contract.md) — apps/apiとapps/webのインタフェース共有
-9. [設定ファイル](configuration.md) — ツールチェーンの設定
-10. [デプロイと運用](deployment.md) — CI/CD、公開、ロールバック
-11. [インフラ](infrastructure.md) — CDKによるdev/prd構成
-12. [テンプレートとして使う](template-usage.md) — 新規プロジェクトの立ち上げ
+## Entry points
 
-## 設計判断
+- [Architecture Decision Records](adr/README.md)
+- [Repository instructions](../AGENTS.md)
+- [Coding-agent skill](../.agents/skills/ex-foundry-maintainer/SKILL.md)
 
-過去の技術選定とその理由は [設計判断記録（ADR）](decisions/README.md) にあります。
-「なぜこの構成なのか」を変更する提案は、ADRを追加してから実装します。
+## Verification
 
-## 書き方
+PRとGitHub Actionsでは、ルートの次のコマンドを検証入口として使用します。
 
-- ドキュメントは日本語、コードとコード内コメントは英語で書きます。
-- 実装と乖離したドキュメントは削除するか、同じPRで更新します。
-- 手順を書く場合は、コピー&ペーストで実行できるコマンドを添えます。
+pnpm verify
+
+このコマンドは check、typecheck、test、build を順に実行します。デプロイは pnpm deploy またはworkflow固有の手順で実行し、明示的な依頼なしに実行しません。
+
+## Guides
+
+| Document |
+| --- |
+| [adding-a-feature](adding-a-feature.md) |
+| [api-contract](api-contract.md) |
+| [architecture](architecture.md) |
+| [configuration](configuration.md) |
+| [conventions](conventions.md) |
+| [deployment](deployment.md) |
+| [infrastructure](infrastructure.md) |
+| [routing](routing.md) |
+| [seo-ogp-analytics](seo-ogp-analytics.md) |
+| [template-usage](template-usage.md) |
+| [testing](testing.md) |
+| [ui](ui.md) |
+
+## Writing rules
+
+- 実装と乖離した手順は同じ変更で更新する。
+- 技術的な判断は docs/adr/ に追加し、既存ADRを上書きしない。
+- コマンド例はリポジトリのルートからそのまま実行できる形で記載する。

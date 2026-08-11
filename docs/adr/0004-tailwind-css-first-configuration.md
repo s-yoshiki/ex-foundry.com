@@ -1,7 +1,7 @@
-# 0004. Tailwind CSS 4のCSS-first configurationを使う
+# ADR 0004: Tailwind CSS 4のCSS-first configurationを使う
 
-- 状態: Accepted
-- 日付: 2026-07-27
+- Status: Accepted
+- Date: 2026-07-27
 
 ## 背景
 

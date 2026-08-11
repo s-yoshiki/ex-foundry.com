@@ -147,4 +147,4 @@ title、description、canonical、OGP、sitemap、Analyticsまで含めた確認
 - **プリフェッチ**: 各ルーターの`Link`が持つ機能です。必要になったら、
   共通`Link`をアダプタ提供の実装へ切り替える判断をします。
 
-判断の背景は[ADR 0009](decisions/0009-router-agnostic-routing-layer.md)にあります。
+判断の背景は[ADR 0009](adr/0009-router-agnostic-routing-layer.md)にあります。

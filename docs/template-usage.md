@@ -77,7 +77,7 @@ pnpm create:feature <feature-name>
 
 ## 設計方針を引き継ぐ
 
-このテンプレートの前提は[設計判断記録](decisions/README.md)に残しています。
+このテンプレートの前提は[設計判断記録](adr/README.md)に残しています。
 構成を変える提案をするときは、該当ADRを読んでから、新しいADRを追加します。
 
 引き継ぐと運用が楽になる方針です。
@@ -86,4 +86,4 @@ pnpm create:feature <feature-name>
 - 共有packageは利用側が2つ以上になってから作る
 - 外部入力（API、storage、環境変数）は境界で検証する
 - FormatterとLinterを二重に持たない
-- ルートのコマンド（`check` / `typecheck` / `test` / `build`）を変えない
+- ルートの検証入口（`verify`）と、その内部の順序（`check` / `typecheck` / `test` / `build`）を変えない

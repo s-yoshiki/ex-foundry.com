@@ -1,7 +1,7 @@
-# 0012. リポジトリ内部packageのscopeを`@repo`に統一する
+# ADR 0012: リポジトリ内部packageのscopeを`@repo`に統一する
 
-- 状態: Accepted
-- 日付: 2026-07-28
+- Status: Accepted
+- Date: 2026-07-28
 
 ## 背景
 

@@ -1,7 +1,7 @@
-# 0002. FormatterとLinterをBiomeに一本化する
+# ADR 0002: FormatterとLinterをBiomeに一本化する
 
-- 状態: Accepted
-- 日付: 2026-07-27
+- Status: Accepted
+- Date: 2026-07-27
 
 ## 背景
 

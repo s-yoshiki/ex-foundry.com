@@ -1,7 +1,7 @@
-# 0005. 共有UIをshadcn/uiベースで構築する
+# ADR 0005: 共有UIをshadcn/uiベースで構築する
 
-- 状態: Accepted
-- 日付: 2026-07-27
+- Status: Accepted
+- Date: 2026-07-27
 
 ## 背景
 

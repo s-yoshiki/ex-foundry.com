@@ -18,7 +18,8 @@
     "lint": "biome lint .",
     "test": "turbo run test",
     "test:coverage": "turbo run test:coverage",
-    "typecheck": "turbo run typecheck"
+    "typecheck": "turbo run typecheck",
+    "verify": "pnpm check && pnpm typecheck && pnpm test && pnpm build"
   },
   "devDependencies": {
     "@biomejs/biome": "2.5.5",

@@ -47,13 +47,10 @@ This repository is the reference pnpm/Turborepo layout for ex-foundry projects.
 ## Documentation
 
 - Docs are written in Japanese; code and code comments in English.
-- Record new structural decisions in `docs/adr/` before implementing them. Keep the historical `docs/decisions/` records intact.
+- Record new and historical structural decisions in `docs/adr/` before implementing them. Keep ADR metadata and index entries consistent.
 
 Before hand-off, run:
 
 ```sh
-pnpm check
-pnpm typecheck
-pnpm test
-pnpm build
+pnpm verify
 ```

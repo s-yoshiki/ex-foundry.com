@@ -1,7 +1,7 @@
-# 0006. APIインタフェースを専用packageで共有する
+# ADR 0006: APIインタフェースを専用packageで共有する
 
-- 状態: Accepted
-- 日付: 2026-07-27
+- Status: Accepted
+- Date: 2026-07-27
 
 ## 背景
 
