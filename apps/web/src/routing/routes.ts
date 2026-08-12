@@ -26,6 +26,22 @@ export const ROUTES = [
     path: "/about",
     title: "EX FOUNDRYについて - EX FOUNDRY",
   },
+  {
+    description:
+      "EX FOUNDRYのアプリケーション開発、設計、運用で得た知見を再現できる形で記録した技術記事の一覧です。",
+    id: "articles",
+    navLabel: "技術記事",
+    path: "/articles",
+    title: "技術記事 - EX FOUNDRY",
+  },
+  {
+    description:
+      "EX FOUNDRYのプライバシーポリシー。Google AnalyticsとGoogle AdSenseによる情報の取り扱いを説明します。",
+    id: "privacy",
+    navLabel: "プライバシー",
+    path: "/privacy",
+    title: "プライバシーポリシー - EX FOUNDRY",
+  },
 ] as const satisfies readonly RouteMeta[];
 
 export function findRoute(id: RouteId): RouteMeta {

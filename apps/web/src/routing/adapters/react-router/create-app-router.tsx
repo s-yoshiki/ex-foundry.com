@@ -1,5 +1,6 @@
 import { createBrowserRouter, Outlet, type RouteObject } from "react-router";
 import { App } from "../../../app";
+import { ArticlePage } from "../../../features/blog/components/article-page";
 import { NotFoundPage } from "../../../pages/not-found-page";
 import { ROUTE_COMPONENTS } from "../../route-components";
 import { ROUTES } from "../../routes";
@@ -26,7 +27,11 @@ export function createAppRouter() {
   return createBrowserRouter([
     {
       Component: Layout,
-      children: [...children, { Component: NotFoundPage, path: "*" }],
+      children: [
+        ...children,
+        { Component: ArticlePage, path: "entry/:id" },
+        { Component: NotFoundPage, path: "*" },
+      ],
       path: "/",
     },
   ]);

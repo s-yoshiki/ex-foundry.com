@@ -25,12 +25,12 @@ export function SiteHeader() {
         Web applications by ex-foundry
       </p>
 
-      <h1 className="text-[clamp(2.4rem,8vw,4.8rem)] leading-none font-bold tracking-[-0.06em]">
+      <p className="text-[clamp(2.4rem,8vw,4.8rem)] leading-none font-bold tracking-[-0.06em]">
         EX FOUNDRY
-      </h1>
+      </p>
 
       <p className="mt-5 max-w-[620px] leading-relaxed text-muted-foreground">
-        ex-foundry.comで公開しているWebアプリケーションの一覧です。すべて無料で、登録なしに利用できます。
+        個人開発したWebアプリケーションと、設計・実装・運用で得た知見を公開しています。アプリはすべて無料で、登録なしに利用できます。
       </p>
     </header>
   );
