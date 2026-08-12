@@ -1,4 +1,4 @@
-export type RouteId = "home" | "about";
+export type RouteId = "home" | "about" | "articles" | "privacy";
 
 /**
  * Everything about a route that is not a React component.

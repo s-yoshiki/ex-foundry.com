@@ -19,12 +19,12 @@ export function AboutSection() {
 
   return (
     <section aria-labelledby="about-heading">
-      <h2
+      <h1
         className="mb-5 font-mono text-xs font-semibold tracking-[0.12em] text-muted-foreground uppercase"
         id="about-heading"
       >
         EX FOUNDRYについて
-      </h2>
+      </h1>
 
       <p className="mb-7 max-w-[680px] leading-loose text-muted-foreground">
         EX

@@ -1,8 +1,19 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import type { Plugin } from "vite";
+import { getApplications } from "../src/features/app-directory/functions/get-applications";
 import { canonicalUrl, ROUTES, SITE_URL } from "../src/routing/routes";
 import type { RouteMeta } from "../src/routing/types";
+import {
+  type BlogPostSummary,
+  type BuiltBlogPost,
+  loadBlogContent,
+  renderArticleContent,
+  renderArticleIndex,
+  renderStaticAbout,
+  renderStaticHome,
+  renderStaticPrivacy,
+} from "./blog-content";
 import { replaceHeadTag, replaceTitle } from "./replace-head-tags";
 
 /** `/about` -> `about/index.html`, so a static host can serve it directly. */
@@ -10,7 +21,10 @@ export function outputFileName(path: string): string {
   return path === "/" ? "index.html" : `${path.replace(/^\//, "")}/index.html`;
 }
 
-export function renderRouteHtml(indexHtml: string, route: RouteMeta): string {
+export function renderRouteHtml(
+  indexHtml: string,
+  route: Pick<RouteMeta, "description" | "path" | "title">,
+): string {
   const url = canonicalUrl(route.path);
   let html = replaceTitle(indexHtml, route.title);
 
@@ -29,13 +43,45 @@ export function renderRouteHtml(indexHtml: string, route: RouteMeta): string {
   return html;
 }
 
-export function renderSitemap(routes: readonly RouteMeta[]): string {
-  const entries = routes
+function replaceRootContent(indexHtml: string, content: string): string {
+  return indexHtml.replace('<div id="root"></div>', `<div id="root">${content}</div>`);
+}
+
+function summariesFrom(posts: readonly BuiltBlogPost[]): readonly BlogPostSummary[] {
+  return posts.map(({ html: _html, toc: _toc, ...summary }) => summary);
+}
+
+function renderStaticRouteContent(route: RouteMeta, posts: readonly BuiltBlogPost[]): string {
+  const summaries = summariesFrom(posts);
+
+  switch (route.id) {
+    case "home":
+      return renderStaticHome(summaries, getApplications());
+    case "about":
+      return renderStaticAbout();
+    case "articles":
+      return renderArticleIndex(summaries);
+    case "privacy":
+      return renderStaticPrivacy();
+  }
+}
+
+export function renderSitemap(
+  routes: readonly RouteMeta[],
+  posts: readonly BlogPostSummary[] = [],
+): string {
+  const entries = [
+    ...routes.map((route) => ({
+      path: route.path,
+      priority: route.path === "/" ? "1.0" : "0.7",
+    })),
+    ...posts.map((post) => ({ path: `${post.path}/`, priority: "0.6" })),
+  ]
     .map(
-      (route) =>
-        `  <url>\n    <loc>${canonicalUrl(route.path)}</loc>\n` +
+      (entry) =>
+        `  <url>\n    <loc>${canonicalUrl(entry.path)}</loc>\n` +
         "    <changefreq>weekly</changefreq>\n" +
-        `    <priority>${route.path === "/" ? "1.0" : "0.7"}</priority>\n  </url>`,
+        `    <priority>${entry.priority}</priority>\n  </url>`,
     )
     .join("\n");
 
@@ -47,23 +93,19 @@ export function renderRobots(): string {
 }
 
 /**
- * Emits one static HTML file per route, plus sitemap.xml and robots.txt.
- *
- * GitHub Pages has no SPA fallback, so `/about` must exist as a real file for a
- * direct visit or a crawler to reach it. Generating from the route manifest also
- * gives every route its own title, description, and canonical URL in the served
- * HTML — the client router only has to keep them in sync after that.
- *
- * Vite adds `index.html` to the bundle after `generateBundle`, so the work
- * happens in `writeBundle` and writes to disk directly.
+ * Emits static HTML for the manifest routes and every imported article. The
+ * article body is also written to a small per-article file so client-side
+ * navigation does not put all migrated content into the initial JS bundle.
  */
 export function staticRoutes(): Plugin {
   let outDir = "dist";
+  let root = process.cwd();
 
   return {
     name: "ex-foundry:static-routes",
     apply: "build",
     configResolved(config) {
+      root = config.root;
       outDir = join(config.root, config.build.outDir);
     },
     async writeBundle(_options, bundle) {
@@ -71,22 +113,52 @@ export function staticRoutes(): Plugin {
 
       if (index === undefined || index.type !== "asset") {
         this.error("index.html was not produced by the build.");
-
         return;
       }
 
       const indexHtml = String(index.source);
+      const posts = await loadBlogContent(root);
 
       await Promise.all(
         ROUTES.map(async (route) => {
           const target = join(outDir, outputFileName(route.path));
+          const routeHtml = renderRouteHtml(indexHtml, route);
 
           await mkdir(dirname(target), { recursive: true });
-          await writeFile(target, renderRouteHtml(indexHtml, route), "utf8");
+          await writeFile(
+            target,
+            replaceRootContent(routeHtml, renderStaticRouteContent(route, posts)),
+            "utf8",
+          );
         }),
       );
 
-      await writeFile(join(outDir, "sitemap.xml"), renderSitemap(ROUTES), "utf8");
+      await Promise.all(
+        posts.map(async (post) => {
+          const articleIndex = join(outDir, outputFileName(post.path));
+          const contentFile = join(outDir, post.contentPath.replace(/^\//, ""));
+          const articleHtml = renderRouteHtml(indexHtml, {
+            description: post.description,
+            path: `${post.path}/`,
+            title: `${post.title} - EX FOUNDRY`,
+          });
+
+          await mkdir(dirname(articleIndex), { recursive: true });
+          await writeFile(
+            articleIndex,
+            replaceRootContent(articleHtml, renderArticleContent(post)),
+            "utf8",
+          );
+          await mkdir(dirname(contentFile), { recursive: true });
+          await writeFile(contentFile, post.html, "utf8");
+        }),
+      );
+
+      await writeFile(
+        join(outDir, "sitemap.xml"),
+        renderSitemap(ROUTES, summariesFrom(posts)),
+        "utf8",
+      );
       await writeFile(join(outDir, "robots.txt"), renderRobots(), "utf8");
     },
   };

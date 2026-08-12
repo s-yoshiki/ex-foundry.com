@@ -24,5 +24,6 @@
 | [0012](0012-repository-local-package-scope.md) | リポジトリ内部packageのscopeを`@repo`に統一する | Accepted |
 | [0013](0013-shared-tool-configuration-directory.md) | 共有ツール設定を`configs/*`に配置する | Accepted |
 | [0014](0014-repository-conventions.md) | ex-foundry リポジトリ規約 | Accepted |
+| [0015](0015-static-blog-content.md) | ブログ記事をビルド時に静的HTMLとして公開する | Accepted |
 
 テンプレート: [template.md](template.md)

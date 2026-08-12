@@ -2,11 +2,12 @@
 import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
+import { blogContent } from "./plugins/blog-content";
 import { staticRoutes } from "./plugins/static-routes";
 import { structuredData } from "./plugins/structured-data";
 
 export default defineConfig({
-  plugins: [tailwindcss(), react(), structuredData(), staticRoutes()],
+  plugins: [tailwindcss(), react(), blogContent(), structuredData(), staticRoutes()],
   test: {
     css: false,
     environment: "happy-dom",
