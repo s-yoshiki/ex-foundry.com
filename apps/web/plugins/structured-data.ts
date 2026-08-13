@@ -5,7 +5,7 @@ import { type BuiltBlogPost, loadBlogContent } from "./blog-content";
 
 function buildStructuredData(posts: readonly BuiltBlogPost[]): string {
   const applications = getApplications();
-  const summaries = posts.map(({ html: _html, toc: _toc, ...summary }) => summary);
+  const summaries = posts.map(({ html: _html, ...summary }) => summary);
 
   return JSON.stringify({
     "@context": "https://schema.org",

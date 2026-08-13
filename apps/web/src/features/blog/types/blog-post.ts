@@ -10,4 +10,6 @@ export type BlogPost = {
   tags: readonly string[];
   aiGenerated: boolean;
   contentPath: string;
+  readingMinutes: number;
+  toc: readonly { id: string; label: string }[];
 };
