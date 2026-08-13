@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 import { describe, expect, it } from "vitest";
 import { App } from "./app";
 import { AboutPage } from "./pages/about-page";
+import { AppsPage } from "./pages/apps-page";
 import { HomePage } from "./pages/home-page";
 import { NotFoundPage } from "./pages/not-found-page";
 import { MemoryNavigationProvider } from "./routing/adapters/memory/memory-navigation";
@@ -74,8 +75,8 @@ describe("pages", () => {
     expect(document.title).toBe("EX FOUNDRYについて - EX FOUNDRY");
   });
 
-  it("renders the application directory on the home page", () => {
-    renderApp(<HomePage />);
+  it("renders the application directory on the apps page", () => {
+    renderApp(<AppsPage />, "/apps");
 
     expect(screen.getByRole("region", { name: "アプリケーション" })).toBeInTheDocument();
   });

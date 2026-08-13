@@ -11,6 +11,7 @@ import {
   renderArticleContent,
   renderArticleIndex,
   renderStaticAbout,
+  renderStaticApps,
   renderStaticHome,
   renderStaticPrivacy,
 } from "./blog-content";
@@ -56,7 +57,9 @@ function renderStaticRouteContent(route: RouteMeta, posts: readonly BuiltBlogPos
 
   switch (route.id) {
     case "home":
-      return renderStaticHome(summaries, getApplications());
+      return renderStaticHome(summaries);
+    case "apps":
+      return renderStaticApps(getApplications());
     case "about":
       return renderStaticAbout();
     case "articles":

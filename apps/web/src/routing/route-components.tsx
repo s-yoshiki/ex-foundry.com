@@ -1,5 +1,6 @@
 import type { ComponentType } from "react";
 import { AboutPage } from "../pages/about-page";
+import { AppsPage } from "../pages/apps-page";
 import { ArticlesPage } from "../pages/articles-page";
 import { HomePage } from "../pages/home-page";
 import { PrivacyPage } from "../pages/privacy-page";
@@ -14,6 +15,7 @@ import type { RouteId } from "./types";
 export const ROUTE_COMPONENTS: Record<RouteId, ComponentType> = {
   articles: ArticlesPage,
   about: AboutPage,
+  apps: AppsPage,
   home: HomePage,
   privacy: PrivacyPage,
 };

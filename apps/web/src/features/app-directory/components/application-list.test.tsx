@@ -19,7 +19,7 @@ function renderList(initialUrl = "/") {
 
 describe("ApplicationList", () => {
   it("renders every application as an external link", () => {
-    renderList();
+    renderList("/apps");
 
     for (const application of getApplications()) {
       expect(screen.getByRole("link", { name: new RegExp(application.name) })).toHaveAttribute(
@@ -30,7 +30,7 @@ describe("ApplicationList", () => {
   });
 
   it("reports how many applications are visible", () => {
-    renderList();
+    renderList("/apps");
 
     const total = getApplications().length;
 
@@ -74,11 +74,11 @@ describe("ApplicationList", () => {
     const categories = screen.getByRole("radiogroup", { name: "カテゴリ" });
     await user.click(within(categories).getByRole("radio", { name: /ツール/ }));
 
-    expect(navigations.at(-1)).toBe("/?category=tool");
+    expect(navigations.at(-1)).toBe("/apps?category=tool");
   });
 
   it("ignores an unusable category in the URL", () => {
-    renderList("/?category=nonsense");
+    renderList("/apps?category=nonsense");
 
     const total = getApplications().length;
 
