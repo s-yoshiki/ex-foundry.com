@@ -35,6 +35,20 @@ export const ROUTES = [
     title: "EX FOUNDRYについて - EX FOUNDRY",
   },
   {
+    description: "EX FOUNDRYの記事の作成、検証、更新、生成AIの利用に関する編集方針を説明します。",
+    id: "editorialPolicy",
+    navLabel: "編集方針",
+    path: "/editorial-policy",
+    title: "編集方針 - EX FOUNDRY",
+  },
+  {
+    description: "EX FOUNDRYの記事や公開中のWebアプリケーションに関するお問い合わせ窓口です。",
+    id: "contact",
+    navLabel: "お問い合わせ",
+    path: "/contact",
+    title: "お問い合わせ - EX FOUNDRY",
+  },
+  {
     description:
       "EX FOUNDRYのアプリケーション開発、設計、運用で得た知見を再現できる形で記録した技術記事の一覧です。",
     id: "articles",

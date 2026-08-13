@@ -5,6 +5,8 @@ import { describe, expect, it } from "vitest";
 import { App } from "./app";
 import { AboutPage } from "./pages/about-page";
 import { AppsPage } from "./pages/apps-page";
+import { ContactPage } from "./pages/contact-page";
+import { EditorialPolicyPage } from "./pages/editorial-policy-page";
 import { HomePage } from "./pages/home-page";
 import { NotFoundPage } from "./pages/not-found-page";
 import { MemoryNavigationProvider } from "./routing/adapters/memory/memory-navigation";
@@ -85,6 +87,19 @@ describe("pages", () => {
     renderApp(<AboutPage />, "/about");
 
     expect(screen.getByRole("region", { name: "EX FOUNDRYについて" })).toBeInTheDocument();
+  });
+
+  it("renders the editorial policy and contact pages", () => {
+    renderApp(<EditorialPolicyPage />, "/editorial-policy");
+    expect(screen.getByRole("heading", { name: "編集方針" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "記事を公開するまで" })).toBeInTheDocument();
+
+    renderApp(<ContactPage />, "/contact");
+    expect(screen.getByRole("heading", { name: "お問い合わせ" })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /GitHub Issuesで記事を知らせる/ })).toHaveAttribute(
+      "href",
+      "https://github.com/s-yoshiki/ex-foundry.com/issues/new",
+    );
   });
 
   it("offers a way back from the not found page", () => {

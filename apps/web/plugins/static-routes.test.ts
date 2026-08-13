@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import type { RouteMeta } from "../src/routing/types";
+import { renderStaticContact, renderStaticEditorialPolicy } from "./blog-content";
 import { escapeHtmlAttribute, replaceHeadTag, replaceTitle } from "./replace-head-tags";
 import { outputFileName, renderRobots, renderRouteHtml, renderSitemap } from "./static-routes";
 
@@ -94,5 +95,22 @@ describe("renderSitemap", () => {
 describe("renderRobots", () => {
   it("points crawlers at the sitemap", () => {
     expect(renderRobots()).toContain("Sitemap: https://ex-foundry.com/sitemap.xml");
+  });
+});
+
+describe("editorial guidance pages", () => {
+  it("renders the contact page as static HTML", () => {
+    const html = renderStaticContact();
+
+    expect(html).toContain("お問い合わせ");
+    expect(html).toContain("GitHub Issuesで記事を知らせる");
+  });
+
+  it("renders the editorial policy as static HTML", () => {
+    const html = renderStaticEditorialPolicy();
+
+    expect(html).toContain("編集方針");
+    expect(html).toContain("記事を公開するまで");
+    expect(html).toContain("生成AIの利用");
   });
 });
