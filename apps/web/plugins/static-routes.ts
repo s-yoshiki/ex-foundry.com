@@ -49,7 +49,7 @@ function replaceRootContent(indexHtml: string, content: string): string {
 }
 
 function summariesFrom(posts: readonly BuiltBlogPost[]): readonly BlogPostSummary[] {
-  return posts.map(({ html: _html, toc: _toc, ...summary }) => summary);
+  return posts.map(({ html: _html, ...summary }) => summary);
 }
 
 function renderStaticRouteContent(route: RouteMeta, posts: readonly BuiltBlogPost[]): string {

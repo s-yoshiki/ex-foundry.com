@@ -28,6 +28,8 @@ export type BlogPostSummary = {
   tags: readonly string[];
   aiGenerated: boolean;
   contentPath: string;
+  readingMinutes: number;
+  toc: readonly { id: string; label: string }[];
 };
 
 export type BuiltBlogPost = BlogPostSummary & {
@@ -87,6 +89,12 @@ function extractDescription(html: string, title: string): string {
   return value.length > 155 ? `${value.slice(0, 152).trimEnd()}…` : value;
 }
 
+function estimateReadingMinutes(html: string): number {
+  const document = cheerio.load(html, null, false);
+  const text = document.root().text().replace(/\s+/g, "");
+  return Math.max(1, Math.ceil(text.length / 500));
+}
+
 function toSummary(post: Posts, html: string): BlogPostSummary {
   const id = post.path.split("/").pop() ?? "";
   const publishedOn = post.date.split(" ")[0] ?? post.date;
@@ -101,8 +109,10 @@ function toSummary(post: Posts, html: string): BlogPostSummary {
     id,
     path: post.path,
     publishedOn,
+    readingMinutes: estimateReadingMinutes(html),
     tags: post.tags,
     title: post.title,
+    toc: [],
   };
 }
 
@@ -140,9 +150,7 @@ export function loadBlogContent(root: string): Promise<readonly BuiltBlogPost[]>
 }
 
 export function loadBlogSummaries(root: string): Promise<readonly BlogPostSummary[]> {
-  return loadBlogContent(root).then((posts) =>
-    posts.map(({ html: _html, toc: _toc, ...summary }) => summary),
-  );
+  return loadBlogContent(root).then((posts) => posts.map(({ html: _html, ...summary }) => summary));
 }
 
 export function renderArticleContent(post: BuiltBlogPost): string {
@@ -155,17 +163,42 @@ export function renderArticleContent(post: BuiltBlogPost): string {
   const aiBadge = post.aiGenerated
     ? `<span class="inline-flex items-center gap-1 rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-medium text-primary">AI補助</span>`
     : "";
+  const toc = post.toc.length
+    ? `<nav aria-label="記事内目次" class="mb-10 rounded-xl border border-border bg-card p-5 shadow-sm sm:p-6"><h2 class="mb-4 text-lg font-bold tracking-tight">目次</h2><ol class="grid gap-1 sm:grid-cols-2 sm:gap-x-8">${post.toc
+        .map(
+          (item) =>
+            `<li><a class="block rounded-md px-3 py-2 text-sm text-muted-foreground no-underline hover:bg-muted hover:text-foreground" href="#${escapeHtml(item.id)}">${escapeHtml(item.label)}</a></li>`,
+        )
+        .join("")}</ol></nav>`
+    : "";
+  const isOlderArticle =
+    new Date(`${post.publishedOn}T00:00:00Z`).getTime() <
+    Date.now() - 2 * 365.25 * 24 * 60 * 60 * 1000;
+  const aiNotice = post.aiGenerated
+    ? `<aside aria-label="AI生成記事についての説明" class="mb-8 flex items-start gap-3 rounded-xl border border-primary/30 bg-primary/5 p-4 text-sm text-primary"><span aria-hidden="true" class="mt-0.5 size-5 shrink-0">✦</span><p>この記事は生成AIを活用して作成されています。内容は公開時点の情報をもとにしているため、最新の仕様や重要な判断については公式ドキュメントも確認してください。</p></aside>`
+    : "";
+  const olderNotice = isOlderArticle
+    ? `<aside aria-label="古い記事についての注意" class="mb-8 flex items-start gap-3 rounded-xl border border-amber-500/40 bg-amber-500/10 p-4 text-sm text-amber-900 dark:text-amber-200"><span aria-hidden="true" class="mt-0.5 size-5 shrink-0">⚠</span><p>この記事は公開から2年以上経過しています。画面、料金、ライブラリやサービスの仕様が現在と異なる可能性があるため、公式資料も併せて確認してください。</p></aside>`
+    : "";
+  const coverImage = post.coverImage
+    ? `<span class="hidden size-14 shrink-0 place-items-center overflow-hidden rounded-xl border border-border bg-muted p-2 sm:grid"><img alt="" aria-hidden="true" class="size-full object-contain" src="${escapeHtml(post.coverImage)}" /></span>`
+    : "";
+  const sidebarToc = post.toc.length
+    ? `<aside class="hidden lg:block"><nav aria-label="サイドバー目次" class="sticky top-20 max-h-[calc(100vh-6rem)] overflow-y-auto"><h2 class="mb-3 text-xs font-medium tracking-wider text-muted-foreground uppercase">目次</h2><ol class="space-y-px border-l border-border text-sm">${post.toc
+        .map(
+          (item) =>
+            `<li><a class="-ml-px block border-l-2 border-transparent py-1.5 pl-3 text-muted-foreground no-underline hover:border-border hover:text-foreground" href="#${escapeHtml(item.id)}">${escapeHtml(item.label)}</a></li>`,
+        )
+        .join("")}</ol></nav></aside>`
+    : "";
 
-  return `<article class="mx-auto max-w-4xl px-4 py-10 sm:px-6 sm:py-14">
-  <nav aria-label="パンくずリスト" class="mb-8 text-sm text-muted-foreground"><a href="/">EX FOUNDRY</a> / <a href="/articles/">記事</a> / <span>${escapeHtml(post.title)}</span></nav>
-  <header class="mb-10 border-b pb-8">
-    <p class="mb-3 font-mono text-xs tracking-[0.12em] text-primary uppercase">TECHNICAL NOTE</p>
-    <h1 class="text-3xl font-bold leading-tight tracking-tight sm:text-5xl">${escapeHtml(post.title)}</h1>
-    <p class="mt-4 flex items-center gap-2 text-sm text-muted-foreground"><time datetime="${escapeHtml(post.publishedOn)}">${escapeHtml(post.publishedOn)}</time> · ${escapeHtml(post.author)}${aiBadge}</p>
-    <ul class="mt-5 flex flex-wrap gap-2" aria-label="タグ">${tags}</ul>
-  </header>
-  <div class="${BLOG_CONTENT_CLASS} max-w-none">${post.html}</div>
-  <footer class="mt-12 border-t pt-6 text-sm text-muted-foreground"><a href="/articles/">記事一覧へ戻る</a></footer>
+  return `<article>
+  <header class="border-b border-border"><div class="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-14">
+    <nav aria-label="パンくずリスト" class="mb-6"><ol class="flex items-center gap-1 text-sm text-muted-foreground"><li><a href="/" class="no-underline hover:text-foreground">記事</a></li><li aria-hidden="true">›</li><li aria-current="page" class="truncate">${escapeHtml(post.title)}</li></ol></nav>
+    <div class="flex items-start gap-4">${coverImage}<div class="min-w-0"><h1 class="max-w-3xl text-2xl font-bold leading-tight tracking-tight sm:text-4xl">${escapeHtml(post.title)}</h1><div class="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-muted-foreground"><span>◷ <time datetime="${escapeHtml(post.publishedOn)}">${escapeHtml(post.publishedOn)}</time></span><span>◷ 約${post.readingMinutes}分</span></div>${aiBadge ? `<div class="mt-4">${aiBadge}</div>` : ""}</div></div>
+    <ul class="mt-6 flex flex-wrap gap-2" aria-label="タグ">${tags}</ul>
+  </div></header>
+  <div class="mx-auto max-w-7xl px-4 py-10 sm:px-6"><div class="grid items-start gap-10 lg:grid-cols-[minmax(0,1fr)_240px]"><div class="min-w-0">${aiNotice}${olderNotice}${toc}<div id="article-content" class="${BLOG_CONTENT_CLASS} max-w-none">${post.html}</div><footer class="mt-12 border-t pt-6 text-sm text-muted-foreground"><a href="/articles/">記事一覧へ戻る</a></footer></div>${sidebarToc}</div></div>
 </article>`;
 }
 

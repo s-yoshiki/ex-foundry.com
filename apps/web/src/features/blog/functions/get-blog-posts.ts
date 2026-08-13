@@ -30,6 +30,22 @@ export function getPopularBlogPosts(): readonly BlogPost[] {
   });
 }
 
+export function getRecommendedBlogPosts(current: BlogPost, limit = 6): readonly BlogPost[] {
+  const currentTags = new Set(current.tags);
+
+  return BLOG_POSTS.filter((post) => post.path !== current.path)
+    .map((post) => ({
+      post,
+      score: post.tags.reduce(
+        (total: number, tag: string) => total + (currentTags.has(tag) ? 1 : 0),
+        0,
+      ),
+    }))
+    .sort((left, right) => right.score - left.score)
+    .slice(0, limit)
+    .map(({ post }) => post);
+}
+
 export function getBlogTagCounts(): readonly BlogTagCount[] {
   const counts = new Map<string, number>();
 
