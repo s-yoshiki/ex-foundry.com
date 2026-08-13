@@ -12,6 +12,8 @@ import {
   renderArticleIndex,
   renderStaticAbout,
   renderStaticApps,
+  renderStaticContact,
+  renderStaticEditorialPolicy,
   renderStaticHome,
   renderStaticPrivacy,
 } from "./blog-content";
@@ -62,6 +64,10 @@ function renderStaticRouteContent(route: RouteMeta, posts: readonly BuiltBlogPos
       return renderStaticApps(getApplications());
     case "about":
       return renderStaticAbout();
+    case "contact":
+      return renderStaticContact();
+    case "editorialPolicy":
+      return renderStaticEditorialPolicy();
     case "articles":
       return renderArticleIndex(summaries);
     case "privacy":

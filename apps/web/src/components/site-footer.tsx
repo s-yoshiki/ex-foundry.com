@@ -28,6 +28,15 @@ export function SiteFooter() {
           <Link className="text-muted-foreground no-underline hover:text-foreground" to="about">
             このサイトについて
           </Link>
+          <Link
+            className="text-muted-foreground no-underline hover:text-foreground"
+            to="editorialPolicy"
+          >
+            編集方針
+          </Link>
+          <Link className="text-muted-foreground no-underline hover:text-foreground" to="contact">
+            お問い合わせ
+          </Link>
           <a className="text-muted-foreground no-underline hover:text-foreground" href="/privacy/">
             プライバシー
           </a>

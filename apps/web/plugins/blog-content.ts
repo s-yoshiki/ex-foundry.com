@@ -12,6 +12,11 @@ import {
 import { POPULAR_POST_PATHS } from "../../../packages/blog-content/src/posts/popular-post-paths";
 import type { Application } from "../src/features/app-directory/types/application";
 import { BLOG_CONTENT_CLASS } from "../src/features/blog/functions/blog-content-style";
+import {
+  CONTACT_CHANNELS,
+  EDITORIAL_POLICY_SECTIONS,
+  EDITORIAL_POLICY_STEPS,
+} from "../src/features/site-guidance/content";
 
 export const BLOG_CONTENT_MODULE = "virtual:ex-foundry-blog-content";
 const RESOLVED_BLOG_CONTENT_MODULE = `\0${BLOG_CONTENT_MODULE}`;
@@ -195,10 +200,10 @@ export function renderArticleContent(post: BuiltBlogPost): string {
   return `<article>
   <header class="border-b border-border"><div class="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-14">
     <nav aria-label="パンくずリスト" class="mb-6"><ol class="flex items-center gap-1 text-sm text-muted-foreground"><li><a href="/" class="no-underline hover:text-foreground">記事</a></li><li aria-hidden="true">›</li><li aria-current="page" class="truncate">${escapeHtml(post.title)}</li></ol></nav>
-    <div class="flex items-start gap-4">${coverImage}<div class="min-w-0"><h1 class="max-w-3xl text-2xl font-bold leading-tight tracking-tight sm:text-4xl">${escapeHtml(post.title)}</h1><div class="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-muted-foreground"><span>◷ <time datetime="${escapeHtml(post.publishedOn)}">${escapeHtml(post.publishedOn)}</time></span><span>◷ 約${post.readingMinutes}分</span></div>${aiBadge ? `<div class="mt-4">${aiBadge}</div>` : ""}</div></div>
+    <div class="flex items-start gap-4">${coverImage}<div class="min-w-0"><h1 class="max-w-3xl text-2xl font-bold leading-tight tracking-tight sm:text-4xl">${escapeHtml(post.title)}</h1><div class="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-muted-foreground"><span>◷ <time datetime="${escapeHtml(post.publishedOn)}">${escapeHtml(post.publishedOn)}</time></span><span>著者 ${escapeHtml(post.author)}</span><span>◷ 約${post.readingMinutes}分</span></div>${aiBadge ? `<div class="mt-4">${aiBadge}</div>` : ""}</div></div>
     <ul class="mt-6 flex flex-wrap gap-2" aria-label="タグ">${tags}</ul>
   </div></header>
-  <div class="mx-auto max-w-7xl px-4 py-10 sm:px-6"><div class="grid items-start gap-10 lg:grid-cols-[minmax(0,1fr)_240px]"><div class="min-w-0">${aiNotice}${olderNotice}${toc}<div id="article-content" class="${BLOG_CONTENT_CLASS} max-w-none">${post.html}</div><footer class="mt-12 border-t pt-6 text-sm text-muted-foreground"><a href="/articles/">記事一覧へ戻る</a></footer></div>${sidebarToc}</div></div>
+  <div class="mx-auto max-w-7xl px-4 py-10 sm:px-6"><div class="grid items-start gap-10 lg:grid-cols-[minmax(0,1fr)_240px]"><div class="min-w-0">${aiNotice}${olderNotice}${toc}<div id="article-content" class="${BLOG_CONTENT_CLASS} max-w-none">${post.html}</div><section aria-labelledby="article-feedback-heading" class="mt-10 rounded-xl border border-border bg-card p-5"><h2 id="article-feedback-heading" class="text-lg font-semibold tracking-tight">記事の更新・修正</h2><p class="mt-2 text-sm leading-relaxed text-muted-foreground">内容の誤り、リンク切れ、現在の仕様との不一致を見つけた場合は、お問い合わせページから知らせてください。</p><a class="mt-4 inline-flex text-sm font-medium text-primary underline-offset-4 hover:underline" href="/contact/">修正・更新を知らせる</a></section><footer class="mt-12 border-t pt-6 text-sm text-muted-foreground"><a href="/articles/">記事一覧へ戻る</a></footer></div>${sidebarToc}</div></div>
 </article>`;
 }
 
@@ -331,11 +336,34 @@ export function renderStaticAbout(): string {
   return `<section aria-labelledby="about-heading" class="mx-auto max-w-4xl px-4 py-10 sm:px-6 sm:py-14">
   <h1 id="about-heading" class="text-3xl font-bold tracking-tight sm:text-5xl">EX FOUNDRYについて</h1>
   <div class="blog-content mt-8 max-w-2xl">
-    <p>EX FOUNDRYは、日々の作業で欲しくなった小さなWebアプリケーションを作って公開している個人プロジェクトです。</p>
-    <p>アプリケーション本体だけでなく、設計上の判断、実装の過程、運用で得た知見も技術記事として記録しています。</p>
-    <p>ソースコードはGitHubで公開し、GitHub ActionsとGitHub Pagesを使って静的サイトとして配信しています。</p>
+    <p>EX FOUNDRYは、日々の作業で欲しくなった小さなWebアプリケーションを作って公開している個人プロジェクトです。すべてブラウザだけで利用でき、ログインを必須にしないことを基本にしています。</p>
+    <p>アプリケーション本体だけでなく、設計上の判断、実装の過程、テストや運用で得た知見も技術記事として記録しています。記事は課題、前提となる環境、実装、確認結果、制約をできるだけ分けて説明します。</p>
+    <p>運営者はs-yoshikiです。ソースコードは<a href="https://github.com/s-yoshiki/ex-foundry.com">GitHub</a>で公開し、GitHub ActionsとGitHub Pagesを使って静的サイトとして配信しています。</p>
+    <p><a href="/editorial-policy/">編集方針</a>では記事の作成、更新、生成AIの利用について、<a href="/contact/">お問い合わせ</a>では記事やアプリの修正依頼について説明しています。</p>
   </div>
 </section>`;
+}
+
+export function renderStaticContact(): string {
+  const channels = CONTACT_CHANNELS.map(
+    (channel) =>
+      `<article class="rounded-xl border bg-card p-5"><h2 class="text-lg font-semibold tracking-tight">${escapeHtml(channel.title)}</h2><p class="mt-2 text-sm leading-relaxed text-muted-foreground">${escapeHtml(channel.description)}</p><a class="mt-4 inline-flex text-sm font-medium text-primary underline-offset-4 hover:underline" href="${escapeHtml(channel.href)}" rel="noreferrer" target="_blank">${escapeHtml(channel.label)} ↗</a></article>`,
+  ).join("");
+
+  return `<section aria-labelledby="contact-heading" class="mx-auto max-w-4xl px-4 py-10 sm:px-6 sm:py-14"><p class="mb-3 font-mono text-xs tracking-[0.12em] text-primary uppercase">CONTACT</p><h1 id="contact-heading" class="text-3xl font-bold tracking-tight sm:text-5xl">お問い合わせ</h1><p class="mt-5 max-w-2xl leading-relaxed text-muted-foreground">記事や公開中のアプリケーションについて、誤りの報告、更新情報、改善案を受け付けています。静的サイトのため、GitHub Issuesを公開の連絡窓口として利用しています。</p><div class="mt-10 grid gap-4">${channels}</div><p class="mt-8 text-sm leading-relaxed text-muted-foreground">連絡内容に個人情報や秘密情報を含めないでください。すべての問い合わせに返信できるとは限りませんが、確認した内容はサイトやアプリの改善に利用します。</p></section>`;
+}
+
+export function renderStaticEditorialPolicy(): string {
+  const steps = EDITORIAL_POLICY_STEPS.map(
+    (step, index) =>
+      `<li class="flex items-start gap-3"><span class="grid size-7 shrink-0 place-items-center rounded-full bg-primary text-xs font-semibold text-primary-foreground">${index + 1}</span><span class="pt-1 text-sm leading-relaxed">${escapeHtml(step)}</span></li>`,
+  ).join("");
+  const sections = EDITORIAL_POLICY_SECTIONS.map(
+    (section, index) =>
+      `<section aria-labelledby="policy-${index}"><h2 id="policy-${index}">${escapeHtml(section.heading)}</h2>${section.paragraphs.map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join("")}</section>`,
+  ).join("");
+
+  return `<article class="mx-auto max-w-4xl px-4 py-10 sm:px-6 sm:py-14"><p class="mb-3 font-mono text-xs tracking-[0.12em] text-primary uppercase">EDITORIAL POLICY</p><h1 class="text-3xl font-bold tracking-tight sm:text-5xl">編集方針</h1><p class="mt-5 max-w-2xl leading-relaxed text-muted-foreground">EX FOUNDRYの記事をどのような目的で作成し、どのように更新・訂正しているかを説明します。</p><section aria-labelledby="publication-process-heading" class="mt-10 rounded-xl border bg-card p-5 sm:p-6"><h2 id="publication-process-heading" class="text-xl font-semibold tracking-tight">記事を公開するまで</h2><ol class="mt-5 grid gap-4">${steps}</ol></section><div class="${BLOG_CONTENT_CLASS} mt-10">${sections}</div></article>`;
 }
 
 export function renderStaticPrivacy(): string {

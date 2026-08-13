@@ -89,6 +89,7 @@ export function ArticlePage() {
                 <span className="flex items-center gap-1.5">
                   <Clock3 aria-hidden="true" className="size-4" />約 {post.readingMinutes} 分
                 </span>
+                <span>著者 {post.author}</span>
               </div>
               {post.aiGenerated ? (
                 <div className="mt-4">
@@ -142,6 +143,23 @@ export function ArticlePage() {
             <div id="article-content">
               <ArticleContent path={post.contentPath} />
             </div>
+            <section
+              aria-labelledby="article-feedback-heading"
+              className="mt-10 rounded-xl border border-border bg-card p-5"
+            >
+              <h2 className="text-lg font-semibold tracking-tight" id="article-feedback-heading">
+                記事の更新・修正
+              </h2>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                内容の誤り、リンク切れ、現在の仕様との不一致を見つけた場合は、お問い合わせページから知らせてください。
+              </p>
+              <a
+                className="mt-4 inline-flex text-sm font-medium text-primary underline-offset-4 hover:underline"
+                href="/contact/"
+              >
+                修正・更新を知らせる
+              </a>
+            </section>
             <footer className="mt-12 border-t pt-6 text-sm text-muted-foreground">
               <a href="/articles/">記事一覧へ戻る</a>
             </footer>
