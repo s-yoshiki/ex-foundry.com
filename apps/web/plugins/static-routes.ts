@@ -1,26 +1,14 @@
 import { copyFile, mkdir, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
-import type { Plugin } from "vite";
+import { createServer, type Plugin } from "vite";
 import { getAllPostAssets } from "../../../packages/blog-content/src/index";
 import { getApplications } from "../src/features/app-directory/functions/get-applications";
 import { canonicalUrl, ROUTES, SITE_URL } from "../src/routing/routes";
 import type { RouteMeta } from "../src/routing/types";
-import {
-  type BlogPostSummary,
-  type BuiltBlogPost,
-  loadBlogContent,
-  renderArticleContent,
-  renderArticleIndex,
-  renderStaticAbout,
-  renderStaticApps,
-  renderStaticChangelog,
-  renderStaticContact,
-  renderStaticEditorialPolicy,
-  renderStaticHome,
-  renderStaticPrivacy,
-} from "./blog-content";
-import { renderProductDetail } from "./product-content";
+import { type BlogPostSummary, type BuiltBlogPost, loadBlogContent } from "./blog-content";
 import { replaceHeadTag, replaceTitle } from "./replace-head-tags";
+
+type RenderRoute = (path: string, options?: { articleHtml?: string }) => string;
 
 /** `/about` -> `about/index.html`, so a static host can serve it directly. */
 export function outputFileName(path: string): string {
@@ -57,29 +45,6 @@ function summariesFrom(posts: readonly BuiltBlogPost[]): readonly BlogPostSummar
   return posts.map(({ html: _html, ...summary }) => summary);
 }
 
-function renderStaticRouteContent(route: RouteMeta, posts: readonly BuiltBlogPost[]): string {
-  const summaries = summariesFrom(posts);
-
-  switch (route.id) {
-    case "home":
-      return renderStaticHome(summaries, getApplications());
-    case "apps":
-      return renderStaticApps(getApplications());
-    case "about":
-      return renderStaticAbout();
-    case "contact":
-      return renderStaticContact();
-    case "editorialPolicy":
-      return renderStaticEditorialPolicy();
-    case "articles":
-      return renderArticleIndex(summaries);
-    case "changelog":
-      return renderStaticChangelog(summaries);
-    case "privacy":
-      return renderStaticPrivacy();
-  }
-}
-
 export function renderSitemap(
   routes: readonly RouteMeta[],
   posts: readonly BlogPostSummary[] = [],
@@ -109,9 +74,18 @@ export function renderRobots(): string {
 }
 
 /**
- * Emits static HTML for the manifest routes and every imported article. The
- * article body is also written to a small per-article file so client-side
- * navigation does not put all migrated content into the initial JS bundle.
+ * Emits static HTML for the manifest routes, every imported article, and
+ * every product page.
+ *
+ * The page body is produced by rendering the real `<App>` component tree
+ * through `react-dom/server` (see `src/entry-server.tsx`) inside a Vite dev
+ * server running in middleware mode. That server is only used for its module
+ * graph — `ssrLoadModule` — so JSX, the `virtual:ex-foundry-blog-content`
+ * module, and workspace packages like `@repo/ui` all resolve exactly as they
+ * do for the client bundle, and the crawler-facing HTML can never drift from
+ * what the browser renders. The article body is also written to a small
+ * per-article file so client-side navigation does not put all migrated
+ * content into the initial JS bundle.
  */
 export function staticRoutes(): Plugin {
   let outDir = "dist";
@@ -134,41 +108,71 @@ export function staticRoutes(): Plugin {
 
       const indexHtml = String(index.source);
       const posts = await loadBlogContent(root);
+      const applications = getApplications();
+      const summaries = summariesFrom(posts);
 
-      await Promise.all(
-        ROUTES.map(async (route) => {
-          const target = join(outDir, outputFileName(route.path));
-          const routeHtml = renderRouteHtml(indexHtml, route);
+      const ssrServer = await createServer({
+        root,
+        server: { middlewareMode: true },
+        appType: "custom",
+      });
 
-          await mkdir(dirname(target), { recursive: true });
-          await writeFile(
-            target,
-            replaceRootContent(routeHtml, renderStaticRouteContent(route, posts)),
-            "utf8",
-          );
-        }),
-      );
+      try {
+        const entryServerModule = await ssrServer.ssrLoadModule("/src/entry-server.tsx");
+        const renderRoute = entryServerModule.renderRoute as RenderRoute;
 
-      await Promise.all(
-        posts.map(async (post) => {
-          const articleIndex = join(outDir, outputFileName(post.path));
-          const contentFile = join(outDir, post.contentPath.replace(/^\//, ""));
-          const articleHtml = renderRouteHtml(indexHtml, {
-            description: post.description,
-            path: `${post.path}/`,
-            title: `${post.title} - EX FOUNDRY`,
-          });
+        await Promise.all(
+          ROUTES.map(async (route) => {
+            const target = join(outDir, outputFileName(route.path));
+            const routeHtml = renderRouteHtml(indexHtml, route);
 
-          await mkdir(dirname(articleIndex), { recursive: true });
-          await writeFile(
-            articleIndex,
-            replaceRootContent(articleHtml, renderArticleContent(post)),
-            "utf8",
-          );
-          await mkdir(dirname(contentFile), { recursive: true });
-          await writeFile(contentFile, post.html, "utf8");
-        }),
-      );
+            await mkdir(dirname(target), { recursive: true });
+            await writeFile(target, replaceRootContent(routeHtml, renderRoute(route.path)), "utf8");
+          }),
+        );
+
+        await Promise.all(
+          posts.map(async (post) => {
+            const articleIndex = join(outDir, outputFileName(post.path));
+            const contentFile = join(outDir, post.contentPath.replace(/^\//, ""));
+            const articleHtml = renderRouteHtml(indexHtml, {
+              description: post.description,
+              path: `${post.path}/`,
+              title: `${post.title} - EX FOUNDRY`,
+            });
+
+            await mkdir(dirname(articleIndex), { recursive: true });
+            await writeFile(
+              articleIndex,
+              replaceRootContent(articleHtml, renderRoute(post.path, { articleHtml: post.html })),
+              "utf8",
+            );
+            await mkdir(dirname(contentFile), { recursive: true });
+            await writeFile(contentFile, post.html, "utf8");
+          }),
+        );
+
+        await Promise.all(
+          applications.map(async (application) => {
+            const productPath = `/products/${application.slug}`;
+            const productIndex = join(outDir, outputFileName(productPath));
+            const productHtml = renderRouteHtml(indexHtml, {
+              description: application.description,
+              path: `${productPath}/`,
+              title: `${application.name} - EX FOUNDRY`,
+            });
+
+            await mkdir(dirname(productIndex), { recursive: true });
+            await writeFile(
+              productIndex,
+              replaceRootContent(productHtml, renderRoute(productPath)),
+              "utf8",
+            );
+          }),
+        );
+      } finally {
+        await ssrServer.close();
+      }
 
       await Promise.all(
         getAllPostAssets(join(root, "content/posts")).map(async (asset) => {
@@ -176,27 +180,6 @@ export function staticRoutes(): Plugin {
 
           await mkdir(dirname(target), { recursive: true });
           await copyFile(asset.filepath, target);
-        }),
-      );
-
-      const applications = getApplications();
-      const summaries = summariesFrom(posts);
-
-      await Promise.all(
-        applications.map(async (application) => {
-          const productIndex = join(outDir, outputFileName(`/products/${application.slug}`));
-          const productHtml = renderRouteHtml(indexHtml, {
-            description: application.description,
-            path: `/products/${application.slug}/`,
-            title: `${application.name} - EX FOUNDRY`,
-          });
-
-          await mkdir(dirname(productIndex), { recursive: true });
-          await writeFile(
-            productIndex,
-            replaceRootContent(productHtml, renderProductDetail(application, summaries)),
-            "utf8",
-          );
         }),
       );
 

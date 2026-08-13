@@ -1,48 +1,7 @@
 import { describe, expect, it } from "vitest";
-import type { Application } from "../src/features/app-directory/types/application";
 import type { RouteMeta } from "../src/routing/types";
-import {
-  type BlogPostSummary,
-  renderArticleIndex,
-  renderStaticChangelog,
-  renderStaticContact,
-  renderStaticEditorialPolicy,
-  renderStaticHome,
-} from "./blog-content";
-import { renderProductDetail } from "./product-content";
 import { escapeHtmlAttribute, replaceHeadTag, replaceTitle } from "./replace-head-tags";
 import { outputFileName, renderRobots, renderRouteHtml, renderSitemap } from "./static-routes";
-
-const application: Application = {
-  category: "entertainment",
-  description: "しょうもない2Dミニゲーム集",
-  host: "kusoge.ex-foundry.com",
-  name: "クソゲーの森",
-  slug: "kusoge",
-  stack: ["React", "Canvas"],
-  status: "active",
-};
-
-function makePost(overrides: Partial<BlogPostSummary> = {}): BlogPostSummary {
-  return {
-    aiGenerated: true,
-    author: "s-yoshiki",
-    contentPath: "/entry/1101/content.html",
-    contentType: "release",
-    coverImage: "",
-    date: "2026-08-11 10:00",
-    description: "リリースの説明",
-    id: "1101",
-    path: "/entry/1101",
-    product: "kusoge",
-    publishedOn: "2026-08-11",
-    readingMinutes: 2,
-    tags: ["クソゲーの森"],
-    title: "クソゲーの森 リリース",
-    toc: [],
-    ...overrides,
-  };
-}
 
 const INDEX_HTML = `<!doctype html>
 <html lang="ja">
@@ -130,118 +89,39 @@ describe("renderSitemap", () => {
     expect(sitemap).toContain("<loc>https://ex-foundry.com/about</loc>");
     expect(sitemap.startsWith('<?xml version="1.0" encoding="UTF-8"?>')).toBe(true);
   });
+
+  it("lists product pages ahead of articles", () => {
+    const sitemap = renderSitemap(
+      [aboutRoute],
+      [
+        {
+          aiGenerated: false,
+          author: "s-yoshiki",
+          contentPath: "/entry/1101/content.html",
+          contentType: "release",
+          coverImage: "",
+          date: "2026-08-11 10:00",
+          description: "説明",
+          id: "1101",
+          path: "/entry/1101",
+          product: "kusoge",
+          publishedOn: "2026-08-11",
+          readingMinutes: 2,
+          tags: [],
+          title: "タイトル",
+          toc: [],
+        },
+      ],
+      ["kusoge"],
+    );
+
+    expect(sitemap).toContain("<loc>https://ex-foundry.com/products/kusoge/</loc>");
+    expect(sitemap).toContain("<loc>https://ex-foundry.com/entry/1101/</loc>");
+  });
 });
 
 describe("renderRobots", () => {
   it("points crawlers at the sitemap", () => {
     expect(renderRobots()).toContain("Sitemap: https://ex-foundry.com/sitemap.xml");
-  });
-});
-
-describe("editorial guidance pages", () => {
-  it("renders the contact page as static HTML", () => {
-    const html = renderStaticContact();
-
-    expect(html).toContain("お問い合わせ");
-    expect(html).toContain("GitHub Issuesで記事を知らせる");
-  });
-
-  it("renders the editorial policy as static HTML", () => {
-    const html = renderStaticEditorialPolicy();
-
-    expect(html).toContain("編集方針");
-    expect(html).toContain("記事を公開するまで");
-    expect(html).toContain("生成AIの利用");
-  });
-});
-
-describe("product information index", () => {
-  it("renders article type and product filters", () => {
-    const html = renderArticleIndex([
-      {
-        aiGenerated: true,
-        author: "s-yoshiki",
-        contentPath: "/entry/1001/content.html",
-        contentType: "product",
-        coverImage: "",
-        date: "2026-08-13 10:00",
-        description: "プロダクトの説明",
-        id: "1001",
-        path: "/entry/1001",
-        product: "ex-foundry",
-        publishedOn: "2026-08-13",
-        readingMinutes: 2,
-        tags: ["EX FOUNDRY"],
-        title: "プロダクト紹介",
-        toc: [],
-      },
-      {
-        aiGenerated: false,
-        author: "s-yoshiki",
-        contentPath: "/entry/1102/content.html",
-        contentType: "architecture",
-        coverImage: "",
-        date: "2026-08-11 10:00",
-        description: "技術構成の説明",
-        id: "1102",
-        path: "/entry/1102",
-        product: "devtoys",
-        publishedOn: "2026-08-11",
-        readingMinutes: 3,
-        tags: ["DevToys Web"],
-        title: "技術構成",
-        toc: [],
-      },
-    ]);
-
-    expect(html).toContain("プロダクト 1");
-    expect(html).toContain("技術構成 1");
-    expect(html).toContain("EX FOUNDRY");
-    expect(html).toContain("DevToys Web");
-  });
-});
-
-describe("renderStaticHome", () => {
-  it("features every product and the latest posts", () => {
-    const html = renderStaticHome([makePost()], [application]);
-
-    expect(html).toContain("クソゲーの森");
-    expect(html).toContain("/products/kusoge/");
-    expect(html).toContain("クソゲーの森 リリース");
-  });
-});
-
-describe("renderStaticChangelog", () => {
-  it("lists only release posts", () => {
-    const html = renderStaticChangelog([
-      makePost(),
-      makePost({ contentType: "product", id: "1102", path: "/entry/1102", title: "紹介記事" }),
-    ]);
-
-    expect(html).toContain("クソゲーの森 リリース");
-    expect(html).not.toContain("紹介記事");
-  });
-
-  it("explains when there are no releases yet", () => {
-    const html = renderStaticChangelog([]);
-
-    expect(html).toContain("リリース記事はまだありません");
-  });
-});
-
-describe("renderProductDetail", () => {
-  it("renders the application header and its grouped posts", () => {
-    const html = renderProductDetail(application, [makePost()]);
-
-    expect(html).toContain("クソゲーの森");
-    expect(html).toContain("kusoge.ex-foundry.com");
-    expect(html).toContain("https://kusoge.ex-foundry.com/");
-    expect(html).toContain("クソゲーの森 リリース");
-  });
-
-  it("explains when the product has no posts yet", () => {
-    const html = renderProductDetail(application, []);
-
-    expect(html).toContain("まだこのプロダクトに関する記事がありません");
   });
 });
