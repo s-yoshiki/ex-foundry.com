@@ -28,6 +28,29 @@ S3 + CloudFront
 
 同じ入力をもう一度使えば同じ結果になるため、サーバーに結果を保存しなくても共有URLを再現できます。結果をデータベースへ保存しないので、共有ページを開いたときはURLに含まれた入力を読み込み、ブラウザ側で再計算します。この方式は小さな結果カードを共有するには向いていますが、入力値そのものをURLへ含める場合にはプライバシー上の注意が必要です。
 
+次のコードは、入力からシードを作り、そのシードから結果を選ぶ流れだけを示した説明用の簡略例です。実際の各ツールが使う文言や乱数処理をそのまま表したものではありません。
+
+```ts
+type GeneratorInput = {
+  toolId: string;
+  value: string;
+  date?: string;
+};
+
+function createSeed(input: GeneratorInput): number {
+  const source = `${input.toolId}:${input.value}:${input.date ?? ""}`;
+  return [...source].reduce((seed, character) => seed * 31 + character.codePointAt(0)!, 7);
+}
+
+function choose<T>(items: readonly T[], seed: number): T {
+  return items[Math.abs(seed) % items.length]!;
+}
+```
+
+重要なのは乱数の実装方法ではなく、ツールID、入力値、必要なら日付という入力を固定して結果を再計算できることです。生成結果をサーバーのレコードとして持たないため、削除対象の共有データを管理する負担は減りますが、URLに入力値を含める設計ではURLの共有範囲に注意が必要です。
+
+![ひまつぶし研究室の決定論的な結果生成と画像処理](./maker-data-flow.svg)
+
 ただし、結果の再現性はツールの演出上の性質であり、診断内容の科学的な妥当性を意味しません。ネタ系のページではジョークであることを明示します。結果の表示が安定していることと、現実の人物・能力・相性を正確に説明できることは別の問題です。重要な判断に利用できるような表現を避け、遊びとしての範囲を越えないようにします。
 
 ## 画像処理はブラウザで行う

@@ -24,6 +24,31 @@ SQLite（選手プロフィール・成績）
 HTML + API response
 ```
 
+![NPB Analysisのデータ取り込みと検索経路](./npb-data-pipeline.svg)
+
+SSR loaderと外部APIは、同じ検索条件を受け取っても、データベースへの読み取りを共有コアへ寄せます。以下はSQLiteのテーブル名や列を簡略化した説明用のコードで、実際のクエリを転載したものではありません。
+
+```ts
+type Search = { playerName?: string; season?: number };
+
+function findPlayers(database: Database, search: Search) {
+  return database
+    .prepare(
+      `SELECT id, name, season, batting_average
+         FROM player_records
+        WHERE (:playerName IS NULL OR name LIKE :playerName)
+          AND (:season IS NULL OR season = :season)
+        ORDER BY season DESC`,
+    )
+    .all({
+      playerName: search.playerName ? `%${search.playerName}%` : null,
+      season: search.season ?? null,
+    });
+}
+```
+
+実際の境界では、検索条件をスキーマで検証し、取得できない値やデータベースエラーを利用者向けの結果と分けます。SSRではこの検索結果を初期HTMLへ含め、APIでは同じコアロジックの結果を契約に従うJSONへ変換します。画面とAPIが別々のSQLを持たないことが、結果のずれを抑えるポイントです。
+
 ## 取り込みから検索まで
 
 データパイプラインは、公開ページから選手情報と成績を取得し、SQLiteへ直接登録・更新します。取得、パース、保存、検索の責務を分け、HTMLの表記変更があったときにどの段階で失敗したかを確認できるようにします。中間JSONを正とせず、Web、API、デプロイが同じSQLiteファイルを参照することで、読み取り側と更新側の対象を揃えています。
