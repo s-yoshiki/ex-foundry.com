@@ -20,7 +20,7 @@ export function SiteFooter() {
         <nav aria-label="サイト" className="flex flex-col gap-2 text-sm">
           <p className="mb-1 font-semibold">サイト</p>
           <Link className="text-muted-foreground no-underline hover:text-foreground" to="home">
-            技術記事
+            プロダクト情報
           </Link>
           <Link className="text-muted-foreground no-underline hover:text-foreground" to="apps">
             アプリ一覧

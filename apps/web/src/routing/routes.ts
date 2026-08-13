@@ -13,11 +13,11 @@ export const SITE_NAME = "EX FOUNDRY";
 export const ROUTES = [
   {
     description:
-      "EX FOUNDRYの技術記事、個人開発したWebアプリケーション、設計と運用で得た知見を公開しています。",
+      "EX FOUNDRYのプロダクト紹介、技術構成、リリース情報、運用上の判断を公開しています。",
     id: "home",
-    navLabel: "記事",
+    navLabel: "プロダクト情報",
     path: "/",
-    title: "EX FOUNDRY - 技術記事と個人開発",
+    title: "EX FOUNDRY - プロダクト情報と開発記録",
   },
   {
     description:
@@ -50,11 +50,11 @@ export const ROUTES = [
   },
   {
     description:
-      "EX FOUNDRYのアプリケーション開発、設計、運用で得た知見を再現できる形で記録した技術記事の一覧です。",
+      "EX FOUNDRYで提供しているプロダクトの紹介、技術構成、リリース、運用情報をまとめています。",
     id: "articles",
-    navLabel: "技術記事",
+    navLabel: "プロダクト情報",
     path: "/articles",
-    title: "技術記事 - EX FOUNDRY",
+    title: "プロダクト情報 - EX FOUNDRY",
   },
   {
     description:

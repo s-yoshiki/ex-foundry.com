@@ -1,5 +1,9 @@
 import type { Plugin } from "vite";
 import { getApplications } from "../src/features/app-directory/functions/get-applications";
+import {
+  BLOG_CONTENT_TYPE_LABELS,
+  getBlogProductLabel,
+} from "../src/features/blog/types/blog-post";
 import { canonicalUrl, ROUTES, SITE_NAME, SITE_URL } from "../src/routing/routes";
 import { type BuiltBlogPost, loadBlogContent } from "./blog-content";
 
@@ -44,21 +48,27 @@ function buildStructuredData(posts: readonly BuiltBlogPost[]): string {
       },
       {
         "@type": "Blog",
-        description: "EX FOUNDRYのアプリケーション開発、設計、運用に関する技術記事。",
+        description:
+          "EX FOUNDRYで提供しているプロダクトの目的、技術構成、リリース情報、運用上の判断。",
         inLanguage: "ja",
-        name: "EX FOUNDRY 技術記事",
+        name: "EX FOUNDRY プロダクト情報",
         url: `${SITE_URL}/articles/`,
       },
       {
         "@type": "ItemList",
         itemListOrder: "https://schema.org/ItemListUnordered",
-        name: "EX FOUNDRYの技術記事",
+        name: "EX FOUNDRYのプロダクト情報",
         numberOfItems: summaries.length,
         itemListElement: summaries.map((post, index) => ({
           "@type": "ListItem",
           position: index + 1,
           item: {
             "@type": "Article",
+            about: {
+              "@type": "Thing",
+              name: getBlogProductLabel(post.product),
+            },
+            articleSection: BLOG_CONTENT_TYPE_LABELS[post.contentType],
             datePublished: post.publishedOn,
             description: post.description,
             headline: post.title,

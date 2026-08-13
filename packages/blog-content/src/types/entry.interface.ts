@@ -1,9 +1,11 @@
 export interface Posts {
   author?: string;
+  contentType?: string;
   title: string;
   path: string;
   date: string;
   coverImage: string;
+  product?: string;
   tags: string[];
   aiGenerated: boolean;
   filepath: string;
