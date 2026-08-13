@@ -10,7 +10,7 @@ export function AuthorProfile() {
         <div>
           <p className="font-semibold">s-yoshiki</p>
           <p className="mt-1 text-sm text-muted-foreground">
-            個人開発と技術の記録を公開しています。
+            個人開発プロダクトの情報と技術構成を公開しています。
           </p>
         </div>
       </div>

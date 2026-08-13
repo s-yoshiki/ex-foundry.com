@@ -27,5 +27,6 @@
 | [0015](0015-static-blog-content.md) | ブログ記事をビルド時に静的HTMLとして公開する | Accepted |
 | [0016](0016-blog-ui-migration.md) | 技術ブログのUIと情報設計をex-foundryへ統合する | Accepted |
 | [0017](0017-editorial-guidance-pages.md) | 編集方針とお問い合わせを公開ページとして提供する | Accepted |
+| [0018](0018-product-information-site.md) | EX FOUNDRYをプロダクト情報サイトとして再構成する | Accepted |
 
 テンプレート: [template.md](template.md)

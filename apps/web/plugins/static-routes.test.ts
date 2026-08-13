@@ -1,6 +1,10 @@
 import { describe, expect, it } from "vitest";
 import type { RouteMeta } from "../src/routing/types";
-import { renderStaticContact, renderStaticEditorialPolicy } from "./blog-content";
+import {
+  renderArticleIndex,
+  renderStaticContact,
+  renderStaticEditorialPolicy,
+} from "./blog-content";
 import { escapeHtmlAttribute, replaceHeadTag, replaceTitle } from "./replace-head-tags";
 import { outputFileName, renderRobots, renderRouteHtml, renderSitemap } from "./static-routes";
 
@@ -112,5 +116,51 @@ describe("editorial guidance pages", () => {
     expect(html).toContain("編集方針");
     expect(html).toContain("記事を公開するまで");
     expect(html).toContain("生成AIの利用");
+  });
+});
+
+describe("product information index", () => {
+  it("renders article type and product filters", () => {
+    const html = renderArticleIndex([
+      {
+        aiGenerated: true,
+        author: "s-yoshiki",
+        contentPath: "/entry/1001/content.html",
+        contentType: "product",
+        coverImage: "",
+        date: "2026-08-13 10:00",
+        description: "プロダクトの説明",
+        id: "1001",
+        path: "/entry/1001",
+        product: "ex-foundry",
+        publishedOn: "2026-08-13",
+        readingMinutes: 2,
+        tags: ["EX FOUNDRY"],
+        title: "プロダクト紹介",
+        toc: [],
+      },
+      {
+        aiGenerated: false,
+        author: "s-yoshiki",
+        contentPath: "/entry/1102/content.html",
+        contentType: "architecture",
+        coverImage: "",
+        date: "2026-08-11 10:00",
+        description: "技術構成の説明",
+        id: "1102",
+        path: "/entry/1102",
+        product: "devtoys",
+        publishedOn: "2026-08-11",
+        readingMinutes: 3,
+        tags: ["DevToys Web"],
+        title: "技術構成",
+        toc: [],
+      },
+    ]);
+
+    expect(html).toContain("プロダクト 1");
+    expect(html).toContain("技術構成 1");
+    expect(html).toContain("EX FOUNDRY");
+    expect(html).toContain("DevToys Web");
   });
 });

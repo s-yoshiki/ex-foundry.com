@@ -28,13 +28,14 @@ export function BlogHome() {
         <div className="mb-6 flex flex-col gap-4 border-b pb-8 lg:flex-row lg:items-end lg:justify-between">
           <div>
             <p className="mb-2 font-mono text-xs tracking-[0.12em] text-primary uppercase">
-              DEVELOPMENT JOURNAL
+              PRODUCT JOURNAL
             </p>
             <h1 className="text-3xl font-bold tracking-tight sm:text-5xl" id="home-heading">
-              新着記事
+              プロダクト情報
             </h1>
             <p className="mt-4 max-w-2xl leading-relaxed text-muted-foreground">
-              個人開発したWebアプリケーションと、設計・実装・運用で得た知見を再現できる形で記録しています。
+              EX
+              FOUNDRYで提供しているプロダクトの目的、技術構成、リリース内容、運用上の判断を公式情報として公開しています。
             </p>
           </div>
           <BlogSearch />

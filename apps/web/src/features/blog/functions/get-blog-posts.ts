@@ -1,5 +1,5 @@
 import { BLOG_POPULAR_POST_PATHS, BLOG_POSTS } from "virtual:ex-foundry-blog-content";
-import type { BlogPost } from "../types/blog-post";
+import { BLOG_CONTENT_TYPE_LABELS, type BlogContentType, type BlogPost } from "../types/blog-post";
 
 export function getBlogPosts(): readonly BlogPost[] {
   return BLOG_POSTS;
@@ -19,6 +19,12 @@ export type BlogArchiveYear = {
   year: string;
   count: number;
   months: readonly BlogArchiveMonth[];
+};
+
+export type BlogContentTypeCount = {
+  count: number;
+  label: string;
+  type: BlogContentType;
 };
 
 export function getPopularBlogPosts(): readonly BlogPost[] {
@@ -58,6 +64,18 @@ export function getBlogTagCounts(): readonly BlogTagCount[] {
   return [...counts.entries()]
     .map(([name, count]) => ({ count, name }))
     .sort((left, right) => right.count - left.count || left.name.localeCompare(right.name, "ja"));
+}
+
+export function getBlogContentTypeCounts(): readonly BlogContentTypeCount[] {
+  const counts = new Map<BlogContentType, number>();
+
+  for (const post of BLOG_POSTS) {
+    counts.set(post.contentType, (counts.get(post.contentType) ?? 0) + 1);
+  }
+
+  return [...counts.entries()]
+    .map(([type, count]) => ({ count, label: BLOG_CONTENT_TYPE_LABELS[type], type }))
+    .sort((left, right) => right.count - left.count);
 }
 
 export function getBlogArchive(): readonly BlogArchiveYear[] {

@@ -2,6 +2,7 @@ import { Bot, CalendarDays, ChevronRight, Clock3, Sparkles, TriangleAlert } from
 import { useNavigation } from "../../../routing/navigation-context";
 import { useDocumentMeta } from "../../../routing/use-document-meta";
 import { findBlogPost, getBlogPostId, getRecommendedBlogPosts } from "../functions/get-blog-posts";
+import { BLOG_CONTENT_TYPE_LABELS, getBlogProductLabel } from "../types/blog-post";
 import { AiGeneratedBadge } from "./ai-generated-badge";
 import { ArticleContent } from "./article-content";
 import { ArticleTableOfContents } from "./article-table-of-contents";
@@ -15,14 +16,14 @@ export function ArticlePage() {
     ? {
         description: post.description,
         id: "articles" as const,
-        navLabel: "技術記事",
+        navLabel: "プロダクト情報",
         path: `${post.path}/`,
         title: `${post.title} - EX FOUNDRY`,
       }
     : {
         description: "指定された記事は存在しないか、移動しました。",
         id: "articles" as const,
-        navLabel: "技術記事",
+        navLabel: "プロダクト情報",
         path: "/articles/",
         title: "記事が見つかりません - EX FOUNDRY",
       };
@@ -35,7 +36,7 @@ export function ArticlePage() {
         <h1 className="text-3xl font-bold">記事が見つかりません</h1>
         <p className="mt-4 text-muted-foreground">指定された記事は存在しないか、移動しました。</p>
         <a className="mt-8 inline-block font-semibold text-primary" href="/articles/">
-          技術記事一覧へ戻る
+          プロダクト情報一覧へ戻る
         </a>
       </section>
     );
@@ -54,7 +55,7 @@ export function ArticlePage() {
             <ol className="flex items-center gap-1 text-sm text-muted-foreground">
               <li>
                 <a className="no-underline hover:text-foreground" href="/">
-                  記事
+                  プロダクト情報
                 </a>
               </li>
               <li aria-hidden="true">
@@ -90,6 +91,12 @@ export function ArticlePage() {
                   <Clock3 aria-hidden="true" className="size-4" />約 {post.readingMinutes} 分
                 </span>
                 <span>著者 {post.author}</span>
+              </div>
+              <div className="mt-4 flex flex-wrap items-center gap-2 text-xs">
+                <span className="rounded-full bg-primary/10 px-2.5 py-1 font-medium text-primary">
+                  {BLOG_CONTENT_TYPE_LABELS[post.contentType]}
+                </span>
+                <span className="text-muted-foreground">{getBlogProductLabel(post.product)}</span>
               </div>
               {post.aiGenerated ? (
                 <div className="mt-4">
@@ -161,7 +168,7 @@ export function ArticlePage() {
               </a>
             </section>
             <footer className="mt-12 border-t pt-6 text-sm text-muted-foreground">
-              <a href="/articles/">記事一覧へ戻る</a>
+              <a href="/articles/">プロダクト情報一覧へ戻る</a>
             </footer>
           </div>
           <ArticleTableOfContents items={post.toc} variant="sidebar" />

@@ -12,6 +12,11 @@ import {
 import { POPULAR_POST_PATHS } from "../../../packages/blog-content/src/posts/popular-post-paths";
 import type { Application } from "../src/features/app-directory/types/application";
 import { BLOG_CONTENT_CLASS } from "../src/features/blog/functions/blog-content-style";
+import type { BlogContentType } from "../src/features/blog/types/blog-post";
+import {
+  BLOG_CONTENT_TYPE_LABELS,
+  getBlogProductLabel,
+} from "../src/features/blog/types/blog-post";
 import {
   CONTACT_CHANNELS,
   EDITORIAL_POLICY_SECTIONS,
@@ -32,7 +37,9 @@ export type BlogPostSummary = {
   description: string;
   tags: readonly string[];
   aiGenerated: boolean;
+  contentType: BlogContentType;
   contentPath: string;
+  product: string;
   readingMinutes: number;
   toc: readonly { id: string; label: string }[];
 };
@@ -100,6 +107,14 @@ function estimateReadingMinutes(html: string): number {
   return Math.max(1, Math.ceil(text.length / 500));
 }
 
+function normalizeContentType(value: string | undefined): BlogContentType {
+  if (value === "architecture" || value === "release" || value === "operations") {
+    return value;
+  }
+
+  return "product";
+}
+
 function toSummary(post: Posts, html: string): BlogPostSummary {
   const id = post.path.split("/").pop() ?? "";
   const publishedOn = post.date.split(" ")[0] ?? post.date;
@@ -107,6 +122,7 @@ function toSummary(post: Posts, html: string): BlogPostSummary {
   return {
     aiGenerated: post.aiGenerated,
     author: post.author || "s-yoshiki",
+    contentType: normalizeContentType(post.contentType),
     contentPath: `${post.path}/content.html`,
     coverImage: post.coverImage,
     date: post.date,
@@ -114,6 +130,7 @@ function toSummary(post: Posts, html: string): BlogPostSummary {
     id,
     path: post.path,
     publishedOn,
+    product: post.product || "ex-foundry",
     readingMinutes: estimateReadingMinutes(html),
     tags: post.tags,
     title: post.title,
@@ -199,11 +216,11 @@ export function renderArticleContent(post: BuiltBlogPost): string {
 
   return `<article>
   <header class="border-b border-border"><div class="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-14">
-    <nav aria-label="パンくずリスト" class="mb-6"><ol class="flex items-center gap-1 text-sm text-muted-foreground"><li><a href="/" class="no-underline hover:text-foreground">記事</a></li><li aria-hidden="true">›</li><li aria-current="page" class="truncate">${escapeHtml(post.title)}</li></ol></nav>
-    <div class="flex items-start gap-4">${coverImage}<div class="min-w-0"><h1 class="max-w-3xl text-2xl font-bold leading-tight tracking-tight sm:text-4xl">${escapeHtml(post.title)}</h1><div class="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-muted-foreground"><span>◷ <time datetime="${escapeHtml(post.publishedOn)}">${escapeHtml(post.publishedOn)}</time></span><span>著者 ${escapeHtml(post.author)}</span><span>◷ 約${post.readingMinutes}分</span></div>${aiBadge ? `<div class="mt-4">${aiBadge}</div>` : ""}</div></div>
+    <nav aria-label="パンくずリスト" class="mb-6"><ol class="flex items-center gap-1 text-sm text-muted-foreground"><li><a href="/" class="no-underline hover:text-foreground">プロダクト情報</a></li><li aria-hidden="true">›</li><li aria-current="page" class="truncate">${escapeHtml(post.title)}</li></ol></nav>
+    <div class="flex items-start gap-4">${coverImage}<div class="min-w-0"><h1 class="max-w-3xl text-2xl font-bold leading-tight tracking-tight sm:text-4xl">${escapeHtml(post.title)}</h1><div class="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-muted-foreground"><span>◷ <time datetime="${escapeHtml(post.publishedOn)}">${escapeHtml(post.publishedOn)}</time></span><span>著者 ${escapeHtml(post.author)}</span><span>◷ 約${post.readingMinutes}分</span></div><div class="mt-4 flex flex-wrap items-center gap-2 text-xs"><span class="rounded-full bg-primary/10 px-2.5 py-1 font-medium text-primary">${escapeHtml(BLOG_CONTENT_TYPE_LABELS[post.contentType])}</span><span class="text-muted-foreground">${escapeHtml(getBlogProductLabel(post.product))}</span></div>${aiBadge ? `<div class="mt-4">${aiBadge}</div>` : ""}</div></div>
     <ul class="mt-6 flex flex-wrap gap-2" aria-label="タグ">${tags}</ul>
   </div></header>
-  <div class="mx-auto max-w-7xl px-4 py-10 sm:px-6"><div class="grid items-start gap-10 lg:grid-cols-[minmax(0,1fr)_240px]"><div class="min-w-0">${aiNotice}${olderNotice}${toc}<div id="article-content" class="${BLOG_CONTENT_CLASS} max-w-none">${post.html}</div><section aria-labelledby="article-feedback-heading" class="mt-10 rounded-xl border border-border bg-card p-5"><h2 id="article-feedback-heading" class="text-lg font-semibold tracking-tight">記事の更新・修正</h2><p class="mt-2 text-sm leading-relaxed text-muted-foreground">内容の誤り、リンク切れ、現在の仕様との不一致を見つけた場合は、お問い合わせページから知らせてください。</p><a class="mt-4 inline-flex text-sm font-medium text-primary underline-offset-4 hover:underline" href="/contact/">修正・更新を知らせる</a></section><footer class="mt-12 border-t pt-6 text-sm text-muted-foreground"><a href="/articles/">記事一覧へ戻る</a></footer></div>${sidebarToc}</div></div>
+  <div class="mx-auto max-w-7xl px-4 py-10 sm:px-6"><div class="grid items-start gap-10 lg:grid-cols-[minmax(0,1fr)_240px]"><div class="min-w-0">${aiNotice}${olderNotice}${toc}<div id="article-content" class="${BLOG_CONTENT_CLASS} max-w-none">${post.html}</div><section aria-labelledby="article-feedback-heading" class="mt-10 rounded-xl border border-border bg-card p-5"><h2 id="article-feedback-heading" class="text-lg font-semibold tracking-tight">記事の更新・修正</h2><p class="mt-2 text-sm leading-relaxed text-muted-foreground">内容の誤り、リンク切れ、現在の仕様との不一致を見つけた場合は、お問い合わせページから知らせてください。</p><a class="mt-4 inline-flex text-sm font-medium text-primary underline-offset-4 hover:underline" href="/contact/">修正・更新を知らせる</a></section><footer class="mt-12 border-t pt-6 text-sm text-muted-foreground"><a href="/articles/">プロダクト情報一覧へ戻る</a></footer></div>${sidebarToc}</div></div>
 </article>`;
 }
 
@@ -225,7 +242,8 @@ function renderBlogPostCard(post: BlogPostSummary): string {
   return `<article class="group relative flex w-full gap-3.5 rounded-xl border border-border bg-card p-4 transition-colors hover:border-foreground/25 hover:bg-muted/40">
   <div class="grid size-11 shrink-0 place-items-center overflow-hidden rounded-lg bg-muted text-xs font-bold text-muted-foreground">${thumbnail}</div>
   <div class="min-w-0 flex-1">
-    <div class="flex items-center gap-2 text-[11px] text-muted-foreground"><time datetime="${escapeHtml(post.publishedOn)}">${escapeHtml(post.publishedOn)}</time>${aiBadge}<span class="ml-auto" aria-hidden="true">↗</span></div>
+    <div class="flex items-center gap-2 text-[11px] text-muted-foreground"><time datetime="${escapeHtml(post.publishedOn)}">${escapeHtml(post.publishedOn)}</time><span class="rounded-full bg-primary/10 px-2 py-0.5 font-medium text-primary">${escapeHtml(BLOG_CONTENT_TYPE_LABELS[post.contentType])}</span>${aiBadge}<span class="ml-auto" aria-hidden="true">↗</span></div>
+    <p class="mt-1 text-[11px] text-muted-foreground">${escapeHtml(getBlogProductLabel(post.product))}</p>
     <h2 class="mt-1.5 line-clamp-2 text-sm font-semibold leading-snug tracking-tight sm:text-[15px]"><a class="after:absolute after:inset-0" href="${escapeHtml(`${post.path}/`)}">${escapeHtml(post.title)}</a></h2>
     <ul class="mt-2.5 flex flex-wrap gap-1.5" aria-label="タグ">${tags}</ul>
   </div>
@@ -237,19 +255,28 @@ function renderBlogPostBand(posts: readonly BlogPostSummary[]): string {
 }
 
 export function renderArticleIndex(posts: readonly BlogPostSummary[]): string {
+  const contentTypeCounts = [...new Set(posts.map((post) => post.contentType))]
+    .map((type) => ({ count: posts.filter((post) => post.contentType === type).length, type }))
+    .sort((left, right) => right.count - left.count)
+    .map(
+      ({ count, type }) =>
+        `<a class="inline-flex rounded-full border px-3 py-1.5 text-xs no-underline hover:bg-muted" href="/articles/?type=${type}">${escapeHtml(BLOG_CONTENT_TYPE_LABELS[type])} ${count}</a>`,
+    )
+    .join("");
+
   return `<section aria-labelledby="articles-heading" class="mx-auto max-w-7xl px-4 py-12 sm:px-6">
   <div class="mb-8 flex flex-col gap-5 border-b pb-8 lg:flex-row lg:items-end lg:justify-between">
     <div>
   <p class="mb-3 font-mono text-xs tracking-[0.12em] text-primary uppercase">KNOWLEDGE BASE</p>
-  <h1 id="articles-heading" class="text-3xl font-bold tracking-tight sm:text-5xl">技術記事</h1>
-  <p class="mt-4 max-w-2xl leading-relaxed text-muted-foreground">EX FOUNDRYのアプリケーション開発、設計、運用で得た知見を、再現できる形で記録しています。</p>
+  <h1 id="articles-heading" class="text-3xl font-bold tracking-tight sm:text-5xl">プロダクト情報</h1>
+  <p class="mt-4 max-w-2xl leading-relaxed text-muted-foreground">EX FOUNDRYで提供しているプロダクトの目的、技術構成、リリース情報、運用上の判断を公式情報として公開しています。</p>
     </div>
     <form action="/articles/" class="relative w-full max-w-xl" method="get" role="search" aria-label="記事を検索">
       <span aria-hidden="true" class="absolute top-1/2 left-3 -translate-y-1/2 text-muted-foreground">⌕</span>
       <input aria-label="記事を検索" class="h-9 w-full rounded-full border bg-background px-9 text-sm" name="q" placeholder="記事を検索" type="search" />
     </form>
   </div>
-  <p class="mb-5 text-sm text-muted-foreground">${posts.length}件の記事</p>
+  <nav aria-label="記事の分類" class="mb-6 flex flex-wrap gap-2"><a class="inline-flex rounded-full border bg-primary px-3 py-1.5 text-xs text-primary-foreground no-underline" href="/articles/">すべて ${posts.length}</a>${contentTypeCounts}</nav>
   ${renderBlogPostBand(posts)}
 </section>`;
 }
@@ -303,9 +330,9 @@ export function renderStaticHome(posts: readonly BlogPostSummary[]): string {
   <section aria-labelledby="home-heading" class="mx-auto max-w-7xl px-4 py-12 sm:px-6">
     <div class="mb-6 flex flex-col gap-4 border-b pb-8 lg:flex-row lg:items-end lg:justify-between">
       <div>
-        <p class="mb-2 font-mono text-xs tracking-[0.12em] text-primary uppercase">DEVELOPMENT JOURNAL</p>
-        <h1 id="home-heading" class="text-3xl font-bold tracking-tight sm:text-5xl">新着記事</h1>
-        <p class="mt-4 max-w-2xl leading-relaxed text-muted-foreground">個人開発したWebアプリケーションと、設計・実装・運用で得た知見を再現できる形で記録しています。</p>
+        <p class="mb-2 font-mono text-xs tracking-[0.12em] text-primary uppercase">PRODUCT JOURNAL</p>
+        <h1 id="home-heading" class="text-3xl font-bold tracking-tight sm:text-5xl">プロダクト情報</h1>
+        <p class="mt-4 max-w-2xl leading-relaxed text-muted-foreground">EX FOUNDRYで提供しているプロダクトの目的、技術構成、リリース内容、運用上の判断を公式情報として公開しています。</p>
       </div>
       <form action="/articles/" class="relative w-full max-w-xl" method="get" role="search" aria-label="記事を検索"><span aria-hidden="true" class="absolute top-1/2 left-3 -translate-y-1/2 text-muted-foreground">⌕</span><input aria-label="記事を検索" class="h-9 w-full rounded-full border bg-background px-9 text-sm" name="q" placeholder="記事を検索" type="search" /></form>
     </div>
@@ -315,7 +342,7 @@ export function renderStaticHome(posts: readonly BlogPostSummary[]): string {
   </section>
   <section aria-labelledby="popular-heading" class="border-y bg-card"><div class="mx-auto max-w-7xl px-4 py-12 sm:px-6"><div class="mb-5 flex items-center justify-between gap-4"><h2 id="popular-heading" class="text-xl font-semibold tracking-tight">よく読まれている記事</h2><span class="text-xs text-muted-foreground">${popular.length}件</span></div>${renderBlogPostBand(popular)}</div></section>
   <section class="mx-auto max-w-7xl px-4 py-12 sm:px-6"><div class="grid gap-10 lg:grid-cols-[minmax(0,1fr)_320px]"><div><h2 class="mb-5 text-xl font-semibold tracking-tight">タグから探す</h2><div class="flex flex-wrap gap-2">${tags}</div></div><div><h2 class="mb-5 text-xl font-semibold tracking-tight">アーカイブ</h2><div class="rounded-xl border bg-card p-4">${archiveHtml}</div></div></div></section>
-  <section class="border-t bg-card"><div class="mx-auto max-w-7xl px-4 py-12 sm:px-6"><h2 class="mb-5 text-xl font-semibold tracking-tight">運営者</h2><div class="flex flex-col gap-5 rounded-xl border bg-card p-5 sm:flex-row sm:items-center sm:justify-between"><div class="flex items-center gap-4"><div class="grid size-14 shrink-0 place-items-center rounded-xl bg-primary font-mono text-lg font-extrabold text-primary-foreground">EX</div><div><p class="font-semibold">s-yoshiki</p><p class="mt-1 text-sm text-muted-foreground">個人開発と技術の記録を公開しています。</p></div></div><a class="text-sm font-medium no-underline" href="https://github.com/s-yoshiki" rel="noreferrer">GitHub ↗</a></div><p class="mt-4 text-xs text-muted-foreground">公開中のアプリケーションは <a class="underline" href="/apps/">アプリ一覧</a> から確認できます。</p></div></section>
+  <section class="border-t bg-card"><div class="mx-auto max-w-7xl px-4 py-12 sm:px-6"><h2 class="mb-5 text-xl font-semibold tracking-tight">運営者</h2><div class="flex flex-col gap-5 rounded-xl border bg-card p-5 sm:flex-row sm:items-center sm:justify-between"><div class="flex items-center gap-4"><div class="grid size-14 shrink-0 place-items-center rounded-xl bg-primary font-mono text-lg font-extrabold text-primary-foreground">EX</div><div><p class="font-semibold">s-yoshiki</p><p class="mt-1 text-sm text-muted-foreground">個人開発プロダクトの情報と技術構成を公開しています。</p></div></div><a class="text-sm font-medium no-underline" href="https://github.com/s-yoshiki" rel="noreferrer">GitHub ↗</a></div><p class="mt-4 text-xs text-muted-foreground">公開中のアプリケーションは <a class="underline" href="/apps/">アプリ一覧</a> から確認できます。</p></div></section>
 </div>`;
 }
 
@@ -337,7 +364,7 @@ export function renderStaticAbout(): string {
   <h1 id="about-heading" class="text-3xl font-bold tracking-tight sm:text-5xl">EX FOUNDRYについて</h1>
   <div class="blog-content mt-8 max-w-2xl">
     <p>EX FOUNDRYは、日々の作業で欲しくなった小さなWebアプリケーションを作って公開している個人プロジェクトです。すべてブラウザだけで利用でき、ログインを必須にしないことを基本にしています。</p>
-    <p>アプリケーション本体だけでなく、設計上の判断、実装の過程、テストや運用で得た知見も技術記事として記録しています。記事は課題、前提となる環境、実装、確認結果、制約をできるだけ分けて説明します。</p>
+    <p>アプリケーション本体だけでなく、プロダクトの目的、設計上の判断、実装の構成、テストや運用の情報も公式記事として公開しています。記事はプロダクト、技術構成、リリース、運用に分け、利用者が現在の仕様と変更の経緯を確認できるようにします。</p>
     <p>運営者はs-yoshikiです。ソースコードは<a href="https://github.com/s-yoshiki/ex-foundry.com">GitHub</a>で公開し、GitHub ActionsとGitHub Pagesを使って静的サイトとして配信しています。</p>
     <p><a href="/editorial-policy/">編集方針</a>では記事の作成、更新、生成AIの利用について、<a href="/contact/">お問い合わせ</a>では記事やアプリの修正依頼について説明しています。</p>
   </div>
