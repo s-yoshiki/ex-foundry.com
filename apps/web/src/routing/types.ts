@@ -3,6 +3,7 @@ export type RouteId =
   | "apps"
   | "about"
   | "articles"
+  | "changelog"
   | "privacy"
   | "contact"
   | "editorialPolicy";

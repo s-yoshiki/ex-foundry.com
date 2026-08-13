@@ -58,6 +58,14 @@ export const ROUTES = [
   },
   {
     description:
+      "EX FOUNDRYで公開している各プロダクトのリリース履歴を、日付順にまとめて確認できます。",
+    id: "changelog",
+    navLabel: "更新履歴",
+    path: "/changelog",
+    title: "更新履歴 - EX FOUNDRY",
+  },
+  {
+    description:
       "EX FOUNDRYのプライバシーポリシー。Google AnalyticsとGoogle AdSenseによる情報の取り扱いを説明します。",
     id: "privacy",
     navLabel: "プライバシー",

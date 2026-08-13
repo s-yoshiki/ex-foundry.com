@@ -10,6 +10,10 @@ import {
   renderMarkdown,
 } from "../../../packages/blog-content/src/index";
 import { POPULAR_POST_PATHS } from "../../../packages/blog-content/src/posts/popular-post-paths";
+import {
+  CATEGORY_LABELS,
+  STATUS_LABELS,
+} from "../src/features/app-directory/functions/application-labels";
 import type { Application } from "../src/features/app-directory/types/application";
 import { BLOG_CONTENT_CLASS } from "../src/features/blog/functions/blog-content-style";
 import type { BlogContentType } from "../src/features/blog/types/blog-post";
@@ -51,7 +55,7 @@ export type BuiltBlogPost = BlogPostSummary & {
 
 const contentCache = new Map<string, Promise<readonly BuiltBlogPost[]>>();
 
-function escapeHtml(value: string): string {
+export function escapeHtml(value: string): string {
   return value
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
@@ -250,38 +254,19 @@ function renderBlogPostCard(post: BlogPostSummary): string {
 </article>`;
 }
 
-function renderBlogPostBand(posts: readonly BlogPostSummary[]): string {
+export function renderBlogPostBand(posts: readonly BlogPostSummary[]): string {
+  if (posts.length === 0) {
+    return `<p class="rounded-xl border border-dashed p-8 text-center text-muted-foreground">記事がありません。</p>`;
+  }
+
   return `<div class="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3">${posts.map(renderBlogPostCard).join("")}</div>`;
 }
 
-export function renderArticleIndex(posts: readonly BlogPostSummary[]): string {
-  const contentTypeCounts = [...new Set(posts.map((post) => post.contentType))]
-    .map((type) => ({ count: posts.filter((post) => post.contentType === type).length, type }))
-    .sort((left, right) => right.count - left.count)
-    .map(
-      ({ count, type }) =>
-        `<a class="inline-flex rounded-full border px-3 py-1.5 text-xs no-underline hover:bg-muted" href="/articles/?type=${type}">${escapeHtml(BLOG_CONTENT_TYPE_LABELS[type])} ${count}</a>`,
-    )
-    .join("");
-
-  return `<section aria-labelledby="articles-heading" class="mx-auto max-w-7xl px-4 py-12 sm:px-6">
-  <div class="mb-8 flex flex-col gap-5 border-b pb-8 lg:flex-row lg:items-end lg:justify-between">
-    <div>
-  <p class="mb-3 font-mono text-xs tracking-[0.12em] text-primary uppercase">KNOWLEDGE BASE</p>
-  <h1 id="articles-heading" class="text-3xl font-bold tracking-tight sm:text-5xl">プロダクト情報</h1>
-  <p class="mt-4 max-w-2xl leading-relaxed text-muted-foreground">EX FOUNDRYで提供しているプロダクトの目的、技術構成、リリース情報、運用上の判断を公式情報として公開しています。</p>
-    </div>
-    <form action="/articles/" class="relative w-full max-w-xl" method="get" role="search" aria-label="記事を検索">
-      <span aria-hidden="true" class="absolute top-1/2 left-3 -translate-y-1/2 text-muted-foreground">⌕</span>
-      <input aria-label="記事を検索" class="h-9 w-full rounded-full border bg-background px-9 text-sm" name="q" placeholder="記事を検索" type="search" />
-    </form>
-  </div>
-  <nav aria-label="記事の分類" class="mb-6 flex flex-wrap gap-2"><a class="inline-flex rounded-full border bg-primary px-3 py-1.5 text-xs text-primary-foreground no-underline" href="/articles/">すべて ${posts.length}</a>${contentTypeCounts}</nav>
-  ${renderBlogPostBand(posts)}
-</section>`;
+function renderBlogPostList(posts: readonly BlogPostSummary[]): string {
+  return `<ol class="grid list-none gap-3.5 p-0">${posts.map((post) => `<li>${renderBlogPostCard(post)}</li>`).join("")}</ol>`;
 }
 
-export function renderStaticHome(posts: readonly BlogPostSummary[]): string {
+function renderTagsAndArchive(posts: readonly BlogPostSummary[]): string {
   const tagCounts = new Map<string, number>();
   const archive = new Map<string, Map<string, number>>();
 
@@ -323,44 +308,86 @@ export function renderStaticHome(posts: readonly BlogPostSummary[]): string {
     })
     .join("");
 
-  const popularPaths = new Set<string>(POPULAR_POST_PATHS);
-  const popular = posts.filter((post) => popularPaths.has(post.path));
+  return `<div><h2 class="mb-5 flex items-center gap-2 text-xl font-semibold tracking-tight">タグから探す</h2><div class="flex flex-wrap gap-2">${tags}</div></div><div><h2 class="mb-5 flex items-center gap-2 text-xl font-semibold tracking-tight">アーカイブ</h2><div class="rounded-xl border bg-card p-4">${archiveHtml}</div></div>`;
+}
+
+export function renderArticleIndex(posts: readonly BlogPostSummary[]): string {
+  const contentTypeCounts = [...new Set(posts.map((post) => post.contentType))]
+    .map((type) => ({ count: posts.filter((post) => post.contentType === type).length, type }))
+    .sort((left, right) => right.count - left.count)
+    .map(
+      ({ count, type }) =>
+        `<a class="inline-flex rounded-full border px-3 py-1.5 text-xs no-underline hover:bg-muted" href="/articles/?type=${type}">${escapeHtml(BLOG_CONTENT_TYPE_LABELS[type])} ${count}</a>`,
+    )
+    .join("");
+
+  return `<section aria-labelledby="articles-heading" class="mx-auto max-w-7xl px-4 py-12 sm:px-6">
+  <div class="mb-8 flex flex-col gap-5 border-b pb-8 lg:flex-row lg:items-end lg:justify-between">
+    <div>
+  <p class="mb-2 font-mono text-xs tracking-[0.12em] text-primary uppercase">KNOWLEDGE BASE</p>
+  <h1 id="articles-heading" class="text-3xl font-bold tracking-tight sm:text-5xl">プロダクト情報</h1>
+  <p class="mt-4 max-w-2xl leading-relaxed text-muted-foreground">EX FOUNDRYで提供しているプロダクトの目的、技術構成、リリース情報、運用上の判断を公式情報として公開しています。</p>
+    </div>
+    <form action="/articles/" class="relative w-full max-w-xl" method="get" role="search" aria-label="記事を検索">
+      <span aria-hidden="true" class="absolute top-1/2 left-3 -translate-y-1/2 text-muted-foreground">⌕</span>
+      <input aria-label="記事を検索" class="h-9 w-full rounded-full border bg-background px-9 text-sm" name="q" placeholder="記事を検索" type="search" />
+    </form>
+  </div>
+  <div class="grid items-start gap-10 lg:grid-cols-[minmax(0,1fr)_280px]">
+    <div class="min-w-0">
+      <nav aria-label="記事の分類" class="mb-6 flex flex-wrap gap-2"><a class="inline-flex rounded-full border bg-primary px-3 py-1.5 text-xs text-primary-foreground no-underline" href="/articles/">すべて ${posts.length}</a>${contentTypeCounts}</nav>
+      ${renderBlogPostBand(posts)}
+    </div>
+    <div class="grid gap-8">${renderTagsAndArchive(posts)}</div>
+  </div>
+</section>`;
+}
+
+function renderProductCard(application: Application): string {
+  return `<a href="/products/${escapeHtml(application.slug)}/" class="group relative flex flex-col gap-3 rounded-xl border bg-card p-6 pr-14 text-card-foreground no-underline shadow-xs">
+  <span class="flex flex-wrap items-center gap-2.5"><span class="text-lg font-bold tracking-tight">${escapeHtml(application.name)}</span><span class="rounded-full bg-secondary px-2 py-0.5 text-xs text-secondary-foreground">${escapeHtml(STATUS_LABELS[application.status])}</span></span>
+  <span class="font-mono text-xs text-primary">${escapeHtml(application.host)}</span>
+  <span class="leading-relaxed text-muted-foreground">${escapeHtml(application.description)}</span>
+  <span class="text-xs text-muted-foreground">${escapeHtml(CATEGORY_LABELS[application.category])} · ${escapeHtml(application.stack.join(" · "))}</span>
+</a>`;
+}
+
+export function renderStaticHome(
+  posts: readonly BlogPostSummary[],
+  applications: readonly Application[],
+): string {
+  const latest = posts.slice(0, 6);
+  const productsHtml = applications.map((app) => `<li>${renderProductCard(app)}</li>`).join("");
 
   return `<div>
   <section aria-labelledby="home-heading" class="mx-auto max-w-7xl px-4 py-12 sm:px-6">
-    <div class="mb-6 flex flex-col gap-4 border-b pb-8 lg:flex-row lg:items-end lg:justify-between">
+    <div class="flex flex-col gap-4 border-b pb-8 lg:flex-row lg:items-end lg:justify-between">
       <div>
-        <p class="mb-2 font-mono text-xs tracking-[0.12em] text-primary uppercase">PRODUCT JOURNAL</p>
-        <h1 id="home-heading" class="text-3xl font-bold tracking-tight sm:text-5xl">プロダクト情報</h1>
-        <p class="mt-4 max-w-2xl leading-relaxed text-muted-foreground">EX FOUNDRYで提供しているプロダクトの目的、技術構成、リリース内容、運用上の判断を公式情報として公開しています。</p>
+        <p class="mb-2 font-mono text-xs tracking-[0.12em] text-primary uppercase">EX FOUNDRY</p>
+        <h1 id="home-heading" class="text-3xl font-bold tracking-tight sm:text-5xl">個人開発プロダクトを、動くところまで公開する</h1>
+        <p class="mt-4 max-w-2xl leading-relaxed text-muted-foreground">DevToys for web、クソゲーの森、ひまつぶし研究室、NPB Analysisを継続的に開発し、目的・技術構成・リリース内容を記事として公開しています。</p>
       </div>
       <form action="/articles/" class="relative w-full max-w-xl" method="get" role="search" aria-label="記事を検索"><span aria-hidden="true" class="absolute top-1/2 left-3 -translate-y-1/2 text-muted-foreground">⌕</span><input aria-label="記事を検索" class="h-9 w-full rounded-full border bg-background px-9 text-sm" name="q" placeholder="記事を検索" type="search" /></form>
     </div>
-    <div class="mb-5 flex items-center justify-between text-xs text-muted-foreground"><span>${Math.min(posts.length, 15)}件を表示中</span><span>全${posts.length}件</span></div>
-    ${renderBlogPostBand(posts.slice(0, 15))}
-    ${posts.length > 15 ? '<div class="mt-8 text-center"><a class="inline-flex rounded-full border px-4 py-2 text-sm font-medium no-underline" href="/articles/">すべての記事を見る</a></div>' : ""}
   </section>
-  <section aria-labelledby="popular-heading" class="border-y bg-card"><div class="mx-auto max-w-7xl px-4 py-12 sm:px-6"><div class="mb-5 flex items-center justify-between gap-4"><h2 id="popular-heading" class="text-xl font-semibold tracking-tight">よく読まれている記事</h2><span class="text-xs text-muted-foreground">${popular.length}件</span></div>${renderBlogPostBand(popular)}</div></section>
-  <section class="mx-auto max-w-7xl px-4 py-12 sm:px-6"><div class="grid gap-10 lg:grid-cols-[minmax(0,1fr)_320px]"><div><h2 class="mb-5 text-xl font-semibold tracking-tight">タグから探す</h2><div class="flex flex-wrap gap-2">${tags}</div></div><div><h2 class="mb-5 text-xl font-semibold tracking-tight">アーカイブ</h2><div class="rounded-xl border bg-card p-4">${archiveHtml}</div></div></div></section>
-  <section class="border-t bg-card"><div class="mx-auto max-w-7xl px-4 py-12 sm:px-6"><h2 class="mb-5 text-xl font-semibold tracking-tight">運営者</h2><div class="flex flex-col gap-5 rounded-xl border bg-card p-5 sm:flex-row sm:items-center sm:justify-between"><div class="flex items-center gap-4"><div class="grid size-14 shrink-0 place-items-center rounded-xl bg-primary font-mono text-lg font-extrabold text-primary-foreground">EX</div><div><p class="font-semibold">s-yoshiki</p><p class="mt-1 text-sm text-muted-foreground">個人開発プロダクトの情報と技術構成を公開しています。</p></div></div><a class="text-sm font-medium no-underline" href="https://github.com/s-yoshiki" rel="noreferrer">GitHub ↗</a></div><p class="mt-4 text-xs text-muted-foreground">公開中のアプリケーションは <a class="underline" href="/apps/">アプリ一覧</a> から確認できます。</p></div></section>
+  <section aria-labelledby="products-heading" class="mx-auto max-w-7xl px-4 pb-12 sm:px-6">
+    <div class="mb-5 flex items-center justify-between gap-4"><h2 id="products-heading" class="flex items-center gap-2 text-xl font-semibold tracking-tight">プロダクト</h2><a class="text-sm font-medium text-muted-foreground no-underline" href="/apps/">アプリ一覧へ</a></div>
+    <ul class="grid list-none grid-cols-1 gap-3.5 p-0 sm:grid-cols-2">${productsHtml}</ul>
+  </section>
+  <section aria-labelledby="updates-heading" class="border-t bg-card"><div class="mx-auto max-w-7xl px-4 py-12 sm:px-6"><div class="mb-5 flex items-center justify-between gap-4"><h2 id="updates-heading" class="flex items-center gap-2 text-xl font-semibold tracking-tight">最新の更新</h2><div class="flex items-center gap-4 text-sm"><a class="font-medium text-muted-foreground no-underline" href="/changelog/">更新履歴</a><a class="font-medium text-muted-foreground no-underline" href="/articles/">すべての記事</a></div></div>${renderBlogPostBand(latest)}</div></section>
 </div>`;
 }
 
 export function renderStaticApps(applications: readonly Application[]): string {
   const applicationsHtml = applications
-    .map(
-      (application) => `<li class="rounded-xl border p-5">
-  <h2 class="text-xl font-semibold"><a href="https://${escapeHtml(application.host)}/">${escapeHtml(application.name)}</a></h2>
-  <p class="mt-3 leading-relaxed text-muted-foreground">${escapeHtml(application.description)}</p>
-  <p class="mt-3 text-xs text-muted-foreground">${escapeHtml(application.stack.join(" · "))}</p>
-</li>`,
-    )
+    .map((application) => `<li>${renderProductCard(application)}</li>`)
     .join("");
-  return `<section aria-labelledby="apps-heading" class="mx-auto max-w-7xl px-4 py-12 sm:px-6"><h1 id="apps-heading" class="text-3xl font-bold tracking-tight sm:text-5xl">公開中のWebアプリケーション</h1><p class="mt-5 max-w-2xl leading-relaxed text-muted-foreground">開発や日々の作業で欲しくなった道具を、小さなWebアプリケーションとして公開しています。各アプリは登録なしで利用できます。</p><section aria-labelledby="applications-heading" class="mt-12"><h2 id="applications-heading" class="mb-5 font-mono text-xs font-semibold tracking-[0.12em] text-muted-foreground uppercase">アプリケーション</h2><ul class="grid list-none gap-3.5 p-0">${applicationsHtml}</ul></section></section>`;
+  return `<section aria-labelledby="apps-heading" class="mx-auto max-w-7xl px-4 py-12 sm:px-6"><p class="mb-2 font-mono text-xs tracking-[0.12em] text-primary uppercase">APPS</p><h1 id="apps-heading" class="text-3xl font-bold tracking-tight sm:text-5xl">公開中のWebアプリケーション</h1><p class="mt-4 max-w-2xl leading-relaxed text-muted-foreground">開発や日々の作業で欲しくなった道具を、小さなWebアプリケーションとして公開しています。各アプリは登録なしで利用できます。</p><section aria-labelledby="applications-heading" class="mt-12"><h2 id="applications-heading" class="mb-5 font-mono text-xs font-semibold tracking-[0.12em] text-muted-foreground uppercase">アプリケーション</h2><ul class="grid list-none grid-cols-1 gap-3.5 p-0 sm:grid-cols-2 xl:grid-cols-3">${applicationsHtml}</ul></section></section>`;
 }
 
 export function renderStaticAbout(): string {
-  return `<section aria-labelledby="about-heading" class="mx-auto max-w-4xl px-4 py-10 sm:px-6 sm:py-14">
+  return `<section aria-labelledby="about-heading" class="mx-auto max-w-7xl px-4 py-12 sm:px-6">
+  <p class="mb-2 font-mono text-xs tracking-[0.12em] text-primary uppercase">ABOUT</p>
   <h1 id="about-heading" class="text-3xl font-bold tracking-tight sm:text-5xl">EX FOUNDRYについて</h1>
   <div class="blog-content mt-8 max-w-2xl">
     <p>EX FOUNDRYは、日々の作業で欲しくなった小さなWebアプリケーションを作って公開している個人プロジェクトです。すべてブラウザだけで利用でき、ログインを必須にしないことを基本にしています。</p>
@@ -377,7 +404,7 @@ export function renderStaticContact(): string {
       `<article class="rounded-xl border bg-card p-5"><h2 class="text-lg font-semibold tracking-tight">${escapeHtml(channel.title)}</h2><p class="mt-2 text-sm leading-relaxed text-muted-foreground">${escapeHtml(channel.description)}</p><a class="mt-4 inline-flex text-sm font-medium text-primary underline-offset-4 hover:underline" href="${escapeHtml(channel.href)}" rel="noreferrer" target="_blank">${escapeHtml(channel.label)} ↗</a></article>`,
   ).join("");
 
-  return `<section aria-labelledby="contact-heading" class="mx-auto max-w-4xl px-4 py-10 sm:px-6 sm:py-14"><p class="mb-3 font-mono text-xs tracking-[0.12em] text-primary uppercase">CONTACT</p><h1 id="contact-heading" class="text-3xl font-bold tracking-tight sm:text-5xl">お問い合わせ</h1><p class="mt-5 max-w-2xl leading-relaxed text-muted-foreground">記事や公開中のアプリケーションについて、誤りの報告、更新情報、改善案を受け付けています。静的サイトのため、GitHub Issuesを公開の連絡窓口として利用しています。</p><div class="mt-10 grid gap-4">${channels}</div><p class="mt-8 text-sm leading-relaxed text-muted-foreground">連絡内容に個人情報や秘密情報を含めないでください。すべての問い合わせに返信できるとは限りませんが、確認した内容はサイトやアプリの改善に利用します。</p></section>`;
+  return `<section aria-labelledby="contact-heading" class="mx-auto max-w-4xl px-4 py-10 sm:px-6 sm:py-14"><p class="mb-2 font-mono text-xs tracking-[0.12em] text-primary uppercase">CONTACT</p><h1 id="contact-heading" class="text-3xl font-bold tracking-tight sm:text-5xl">お問い合わせ</h1><p class="mt-4 max-w-2xl leading-relaxed text-muted-foreground">記事や公開中のアプリケーションについて、誤りの報告、更新情報、改善案を受け付けています。静的サイトのため、GitHub Issuesを公開の連絡窓口として利用しています。</p><div class="mt-10 grid gap-4">${channels}</div><p class="mt-8 text-sm leading-relaxed text-muted-foreground">連絡内容に個人情報や秘密情報を含めないでください。すべての問い合わせに返信できるとは限りませんが、確認した内容はサイトやアプリの改善に利用します。</p></section>`;
 }
 
 export function renderStaticEditorialPolicy(): string {
@@ -390,12 +417,23 @@ export function renderStaticEditorialPolicy(): string {
       `<section aria-labelledby="policy-${index}"><h2 id="policy-${index}">${escapeHtml(section.heading)}</h2>${section.paragraphs.map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join("")}</section>`,
   ).join("");
 
-  return `<article class="mx-auto max-w-4xl px-4 py-10 sm:px-6 sm:py-14"><p class="mb-3 font-mono text-xs tracking-[0.12em] text-primary uppercase">EDITORIAL POLICY</p><h1 class="text-3xl font-bold tracking-tight sm:text-5xl">編集方針</h1><p class="mt-5 max-w-2xl leading-relaxed text-muted-foreground">EX FOUNDRYの記事をどのような目的で作成し、どのように更新・訂正しているかを説明します。</p><section aria-labelledby="publication-process-heading" class="mt-10 rounded-xl border bg-card p-5 sm:p-6"><h2 id="publication-process-heading" class="text-xl font-semibold tracking-tight">記事を公開するまで</h2><ol class="mt-5 grid gap-4">${steps}</ol></section><div class="${BLOG_CONTENT_CLASS} mt-10">${sections}</div></article>`;
+  return `<article class="mx-auto max-w-4xl px-4 py-10 sm:px-6 sm:py-14"><p class="mb-2 font-mono text-xs tracking-[0.12em] text-primary uppercase">EDITORIAL POLICY</p><h1 class="text-3xl font-bold tracking-tight sm:text-5xl">編集方針</h1><p class="mt-4 max-w-2xl leading-relaxed text-muted-foreground">EX FOUNDRYの記事をどのような目的で作成し、どのように更新・訂正しているかを説明します。</p><section aria-labelledby="publication-process-heading" class="mt-10 rounded-xl border bg-card p-5 sm:p-6"><h2 id="publication-process-heading" class="text-xl font-semibold tracking-tight">記事を公開するまで</h2><ol class="mt-5 grid gap-4">${steps}</ol></section><div class="${BLOG_CONTENT_CLASS} mt-10">${sections}</div></article>`;
+}
+
+export function renderStaticChangelog(posts: readonly BlogPostSummary[]): string {
+  const releases = posts.filter((post) => post.contentType === "release");
+  const body =
+    releases.length === 0
+      ? `<p class="mt-10 rounded-xl border border-dashed p-8 text-center text-muted-foreground">リリース記事はまだありません。</p>`
+      : `<div class="mt-10">${renderBlogPostList(releases)}</div>`;
+
+  return `<section aria-labelledby="changelog-heading" class="mx-auto max-w-4xl px-4 py-12 sm:px-6"><p class="mb-2 font-mono text-xs tracking-[0.12em] text-primary uppercase">CHANGELOG</p><h1 id="changelog-heading" class="text-3xl font-bold tracking-tight sm:text-5xl">更新履歴</h1><p class="mt-4 max-w-2xl leading-relaxed text-muted-foreground">DevToys for web、クソゲーの森、ひまつぶし研究室、NPB Analysis、EX FOUNDRY自体のリリース記事を日付順にまとめています。</p>${body}</section>`;
 }
 
 export function renderStaticPrivacy(): string {
   return `<article class="mx-auto max-w-3xl px-4 py-10 sm:px-6 sm:py-14">
-  <h1 class="text-3xl font-bold tracking-tight">プライバシーポリシー</h1>
+  <p class="mb-2 font-mono text-xs tracking-[0.12em] text-primary uppercase">PRIVACY</p>
+  <h1 class="text-3xl font-bold tracking-tight sm:text-5xl">プライバシーポリシー</h1>
   <div class="${BLOG_CONTENT_CLASS} mt-8">
     <h2>広告について</h2>
     <p>当サイトでは、Google AdSenseを利用して広告を配信する場合があります。Googleなどの第三者配信事業者は、Cookieを使用して、当サイトや他のサイトへの過去のアクセス情報に基づいた広告を配信することがあります。</p>

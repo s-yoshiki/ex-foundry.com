@@ -1,3 +1,4 @@
+import { PageHero } from "../components/page-hero";
 import { BLOG_CONTENT_CLASS } from "../features/blog/functions/blog-content-style";
 import { findRoute } from "../routing/routes";
 import { useDocumentMeta } from "../routing/use-document-meta";
@@ -7,7 +8,7 @@ export function PrivacyPage() {
 
   return (
     <article className="mx-auto max-w-3xl px-4 py-10 sm:px-6 sm:py-14">
-      <h1 className="text-3xl font-bold tracking-tight">プライバシーポリシー</h1>
+      <PageHero eyebrow="PRIVACY" title="プライバシーポリシー" />
       <div className={`${BLOG_CONTENT_CLASS} mt-8`}>
         <h2>広告について</h2>
         <p>

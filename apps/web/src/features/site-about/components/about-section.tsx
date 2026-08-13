@@ -1,4 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle, TagList } from "@repo/ui";
+import { PageHero } from "../../../components/page-hero";
 import { Link } from "../../../routing/link";
 import { getHighlights } from "../functions/get-highlights";
 
@@ -19,21 +20,15 @@ export function AboutSection() {
   const highlights = getHighlights();
 
   return (
-    <section aria-labelledby="about-heading">
-      <h1
-        className="mb-5 font-mono text-xs font-semibold tracking-[0.12em] text-muted-foreground uppercase"
-        id="about-heading"
-      >
-        EX FOUNDRYについて
-      </h1>
+    <section aria-labelledby="about-heading" className="mx-auto max-w-7xl px-4 py-12 sm:px-6">
+      <PageHero
+        description="EX FOUNDRYは、日々の作業で欲しくなった小さなWebアプリケーションを作って公開している個人プロジェクトです。すべてブラウザだけで動作し、ログインなしで利用できます。"
+        eyebrow="ABOUT"
+        title="EX FOUNDRYについて"
+        titleId="about-heading"
+      />
 
-      <p className="mb-7 max-w-[680px] leading-loose text-muted-foreground">
-        EX
-        FOUNDRYは、日々の作業で欲しくなった小さなWebアプリケーションを作って公開している個人プロジェクトです。
-        すべてブラウザだけで動作し、ログインなしで利用できます。
-      </p>
-
-      <ul className="mb-8 grid list-none grid-cols-[repeat(auto-fit,minmax(220px,1fr))] gap-3.5 p-0">
+      <ul className="mt-10 mb-8 grid list-none grid-cols-[repeat(auto-fit,minmax(220px,1fr))] gap-3.5 p-0">
         {highlights.map((highlight) => (
           <li key={highlight.title}>
             <Card className="h-full gap-3 py-5">

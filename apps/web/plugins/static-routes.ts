@@ -12,11 +12,13 @@ import {
   renderArticleIndex,
   renderStaticAbout,
   renderStaticApps,
+  renderStaticChangelog,
   renderStaticContact,
   renderStaticEditorialPolicy,
   renderStaticHome,
   renderStaticPrivacy,
 } from "./blog-content";
+import { renderProductDetail } from "./product-content";
 import { replaceHeadTag, replaceTitle } from "./replace-head-tags";
 
 /** `/about` -> `about/index.html`, so a static host can serve it directly. */
@@ -59,7 +61,7 @@ function renderStaticRouteContent(route: RouteMeta, posts: readonly BuiltBlogPos
 
   switch (route.id) {
     case "home":
-      return renderStaticHome(summaries);
+      return renderStaticHome(summaries, getApplications());
     case "apps":
       return renderStaticApps(getApplications());
     case "about":
@@ -70,6 +72,8 @@ function renderStaticRouteContent(route: RouteMeta, posts: readonly BuiltBlogPos
       return renderStaticEditorialPolicy();
     case "articles":
       return renderArticleIndex(summaries);
+    case "changelog":
+      return renderStaticChangelog(summaries);
     case "privacy":
       return renderStaticPrivacy();
   }
@@ -78,12 +82,14 @@ function renderStaticRouteContent(route: RouteMeta, posts: readonly BuiltBlogPos
 export function renderSitemap(
   routes: readonly RouteMeta[],
   posts: readonly BlogPostSummary[] = [],
+  productSlugs: readonly string[] = [],
 ): string {
   const entries = [
     ...routes.map((route) => ({
       path: route.path,
       priority: route.path === "/" ? "1.0" : "0.7",
     })),
+    ...productSlugs.map((slug) => ({ path: `/products/${slug}/`, priority: "0.8" })),
     ...posts.map((post) => ({ path: `${post.path}/`, priority: "0.6" })),
   ]
     .map(
@@ -163,9 +169,34 @@ export function staticRoutes(): Plugin {
         }),
       );
 
+      const applications = getApplications();
+      const summaries = summariesFrom(posts);
+
+      await Promise.all(
+        applications.map(async (application) => {
+          const productIndex = join(outDir, outputFileName(`/products/${application.slug}`));
+          const productHtml = renderRouteHtml(indexHtml, {
+            description: application.description,
+            path: `/products/${application.slug}/`,
+            title: `${application.name} - EX FOUNDRY`,
+          });
+
+          await mkdir(dirname(productIndex), { recursive: true });
+          await writeFile(
+            productIndex,
+            replaceRootContent(productHtml, renderProductDetail(application, summaries)),
+            "utf8",
+          );
+        }),
+      );
+
       await writeFile(
         join(outDir, "sitemap.xml"),
-        renderSitemap(ROUTES, summariesFrom(posts)),
+        renderSitemap(
+          ROUTES,
+          summaries,
+          applications.map((application) => application.slug),
+        ),
         "utf8",
       );
       await writeFile(join(outDir, "robots.txt"), renderRobots(), "utf8");

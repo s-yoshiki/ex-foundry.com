@@ -1,4 +1,5 @@
 import { BookOpenCheck, Bot, RefreshCcw, ShieldCheck } from "lucide-react";
+import { PageHero } from "../../../components/page-hero";
 import { BLOG_CONTENT_CLASS } from "../../blog/functions/blog-content-style";
 import { EDITORIAL_POLICY_SECTIONS, EDITORIAL_POLICY_STEPS } from "../content";
 
@@ -7,13 +8,11 @@ const SECTION_ICONS = [BookOpenCheck, ShieldCheck, RefreshCcw, Bot, ShieldCheck]
 export function EditorialPolicySection() {
   return (
     <article className="mx-auto max-w-4xl px-4 py-10 sm:px-6 sm:py-14">
-      <p className="mb-3 font-mono text-xs tracking-[0.12em] text-primary uppercase">
-        EDITORIAL POLICY
-      </p>
-      <h1 className="text-3xl font-bold tracking-tight sm:text-5xl">編集方針</h1>
-      <p className="mt-5 max-w-2xl leading-relaxed text-muted-foreground">
-        EX FOUNDRYの記事をどのような目的で作成し、どのように更新・訂正しているかを説明します。
-      </p>
+      <PageHero
+        description="EX FOUNDRYの記事をどのような目的で作成し、どのように更新・訂正しているかを説明します。"
+        eyebrow="EDITORIAL POLICY"
+        title="編集方針"
+      />
 
       <section
         aria-labelledby="publication-process-heading"
