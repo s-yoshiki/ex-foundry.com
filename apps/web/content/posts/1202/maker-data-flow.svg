@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 380" role="img" aria-labelledby="title description">
+  <title id="title">ひまつぶし研究室の決定論的な結果生成と画像処理</title>
+  <desc id="description">入力からシードを作って結果をブラウザで再計算し、画像もCanvasで端末内処理する構成図</desc>
+  <defs>
+    <marker id="arrow" markerHeight="8" markerWidth="8" orient="auto-start-reverse" refX="7" refY="4" viewBox="0 0 8 8">
+      <path d="M0 0L8 4L0 8Z" fill="#475569" />
+    </marker>
+  </defs>
+  <rect width="960" height="380" rx="24" fill="#f8fafc" />
+  <text x="40" y="42" fill="#0f172a" font-family="sans-serif" font-size="22" font-weight="700">ひまつぶし研究室のクライアント処理</text>
+  <text x="40" y="68" fill="#64748b" font-family="sans-serif" font-size="14">同じ入力を同じ結果へ戻し、画像をアップロードせずに加工する</text>
+
+  <rect x="40" y="105" width="190" height="100" rx="15" fill="#eff6ff" stroke="#2563eb" stroke-width="2" />
+  <text x="135" y="139" fill="#1e3a8a" font-family="sans-serif" font-size="17" font-weight="700" text-anchor="middle">入力</text>
+  <text x="135" y="167" fill="#334155" font-family="sans-serif" font-size="14" text-anchor="middle">toolId / value / date</text>
+  <line x1="230" x2="305" y1="155" y2="155" stroke="#475569" stroke-width="2" marker-end="url(#arrow)" />
+
+  <rect x="305" y="105" width="190" height="100" rx="15" fill="#fefce8" stroke="#ca8a04" stroke-width="2" />
+  <text x="400" y="139" fill="#854d0e" font-family="sans-serif" font-size="17" font-weight="700" text-anchor="middle">seed</text>
+  <text x="400" y="167" fill="#334155" font-family="sans-serif" font-size="14" text-anchor="middle">純粋な計算</text>
+  <line x1="495" x2="570" y1="155" y2="155" stroke="#475569" stroke-width="2" marker-end="url(#arrow)" />
+
+  <rect x="570" y="105" width="190" height="100" rx="15" fill="#ecfdf5" stroke="#059669" stroke-width="2" />
+  <text x="665" y="139" fill="#065f46" font-family="sans-serif" font-size="17" font-weight="700" text-anchor="middle">結果</text>
+  <text x="665" y="167" fill="#334155" font-family="sans-serif" font-size="14" text-anchor="middle">ブラウザで再計算</text>
+  <line x1="760" x2="835" y1="155" y2="155" stroke="#475569" stroke-width="2" marker-end="url(#arrow)" />
+
+  <rect x="835" y="105" width="85" height="100" rx="15" fill="#fff" stroke="#cbd5e1" />
+  <text x="877" y="143" fill="#334155" font-family="sans-serif" font-size="14" text-anchor="middle">URL</text>
+  <text x="877" y="168" fill="#64748b" font-family="sans-serif" font-size="12" text-anchor="middle">共有</text>
+
+  <line x1="400" x2="400" y1="205" y2="260" stroke="#475569" stroke-width="2" marker-end="url(#arrow)" />
+  <text x="414" y="239" fill="#64748b" font-family="sans-serif" font-size="12">別の入力経路</text>
+  <rect x="305" y="260" width="190" height="75" rx="15" fill="#f3e8ff" stroke="#9333ea" stroke-width="2" />
+  <text x="400" y="291" fill="#6b21a8" font-family="sans-serif" font-size="16" font-weight="700" text-anchor="middle">画像ファイル</text>
+  <text x="400" y="316" fill="#6b21a8" font-family="sans-serif" font-size="13" text-anchor="middle">Canvasで端末内処理</text>
+  <line x1="495" x2="570" y1="298" y2="298" stroke="#475569" stroke-width="2" marker-end="url(#arrow)" />
+  <rect x="570" y="260" width="190" height="75" rx="15" fill="#fff" stroke="#cbd5e1" />
+  <text x="665" y="291" fill="#334155" font-family="sans-serif" font-size="16" font-weight="700" text-anchor="middle">加工後の画像</text>
+  <text x="665" y="316" fill="#64748b" font-family="sans-serif" font-size="13" text-anchor="middle">サーバーへ保存しない</text>
+</svg>

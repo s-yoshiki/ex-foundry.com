@@ -32,6 +32,26 @@ packages/game
   └─ client              ← ブラウザでだけ読み込む
 ```
 
+![クソゲーの森のゲームレジストリと描画方式の分岐](./kusoge-rendering.svg)
+
+ゲームの一覧とルートを一つのレジストリから生成すると、サイト側がゲーム内部の描画エンジンへ依存せずに済みます。次はメタデータを使う境界を示す説明用の簡略例です。
+
+```ts
+type GameDefinition = {
+  slug: string;
+  title: string;
+  renderer: "phaser" | "dom";
+  loadClient: () => Promise<unknown>;
+};
+
+const games: readonly GameDefinition[] = [
+  { slug: "runner", title: "ランナー", renderer: "phaser", loadClient: loadRunner },
+  { slug: "othello", title: "オセロ", renderer: "dom", loadClient: loadOthello },
+];
+```
+
+SSGやSSRが参照するのは`slug`、`title`、操作説明のような安全なメタデータだけにし、`loadClient`はブラウザでゲームページを開いた後に呼び出します。これにより、ゲームエンジンを使わない一覧ページまでCanvas初期化の影響を受けず、ゲームごとのチャンク分割も維持できます。
+
 オセロのようなDOMゲームでは、ルールとAIを純粋なTypeScriptとして保持します。盤面の状態、合法手、石をひっくり返す処理、勝敗判定をUIコンポーネントから分離することで、表示を変更してもルールのテストを再利用できます。8×8固定の定数にせず、盤面からサイズを扱えるようにすることで、設定変更がUI全体へ波及しないようにしています。
 
 DOMを使うゲームでは、盤面をボタンや要素として表現できるため、フォーカス、キーボード操作、ラベル、テーマの仕組みを利用できます。一方で、毎フレーム大量の要素を更新するゲームには向かず、ゲームの性質に合わないDOM化は処理負荷と実装量を増やします。描画方式の違いを隠すのではなく、ゲームごとに理由を明示することを設計上の判断としています。

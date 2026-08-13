@@ -22,6 +22,28 @@ Browser
        └─ CloudFront /api/* → Lambda Function URL
 ```
 
+![DevToys Webのブラウザ処理と診断APIの境界](./devtoys-boundary.svg)
+
+実装では、ツールの定義に「ネットワーク通信が必要か」という性質を持たせ、実行経路を選ぶ判断を一か所に集約します。以下は実際のAPIクライアントやツール実装を転載したものではなく、責務の分け方を示す説明用の簡略例です。
+
+```ts
+type Tool = {
+  requiresNetwork: boolean;
+  runInBrowser: (input: string) => string;
+  runThroughApi: (input: string) => Promise<string>;
+};
+
+async function runTool(tool: Tool, input: string): Promise<string> {
+  if (!tool.requiresNetwork) {
+    return tool.runInBrowser(input);
+  }
+
+  return tool.runThroughApi(input);
+}
+```
+
+この分岐をUIの表示にも反映し、ブラウザだけで処理するツールには「入力は外部へ送信されない」、診断ツールには「対象URLへリクエストする」と説明します。経路をコードと画面の両方で明示することで、便利なツール集であることと、入力データの扱いを利用者が判断できることを両立します。
+
 入力データを外部へ送る必要がないツールはクライアント側で計算します。DNSやTLS、外部HTMLを取得する機能は、ブラウザのCORS制約やネットワーク境界があるためAPI側へ分離します。この境界をUIにも表示することで、利用者が「入力はどこへ送られるのか」を判断できるようにします。
 
 API側へ入力を渡す場合は、単にURLを受け取って取得するだけにはしません。URLの形式、プロトコル、ポート、リダイレクト、応答サイズ、タイムアウトなどを検証し、ローカルネットワークや意図しない宛先へアクセスする機能にならないようにします。エラー時には利用者が次に確認できる情報を返し、サーバー内部のスタックトレースや環境情報をそのまま表示しないことも重要です。

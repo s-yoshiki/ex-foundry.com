@@ -1,6 +1,7 @@
-import { mkdir, writeFile } from "node:fs/promises";
+import { copyFile, mkdir, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import type { Plugin } from "vite";
+import { getAllPostAssets } from "../../../packages/blog-content/src/index";
 import { getApplications } from "../src/features/app-directory/functions/get-applications";
 import { canonicalUrl, ROUTES, SITE_URL } from "../src/routing/routes";
 import type { RouteMeta } from "../src/routing/types";
@@ -160,6 +161,15 @@ export function staticRoutes(): Plugin {
           );
           await mkdir(dirname(contentFile), { recursive: true });
           await writeFile(contentFile, post.html, "utf8");
+        }),
+      );
+
+      await Promise.all(
+        getAllPostAssets(join(root, "content/posts")).map(async (asset) => {
+          const target = join(outDir, `entry/${asset.id}`, asset.asset);
+
+          await mkdir(dirname(target), { recursive: true });
+          await copyFile(asset.filepath, target);
         }),
       );
 
