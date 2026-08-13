@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 380" role="img" aria-labelledby="title description">
+  <title id="title">DevToys Webのブラウザ処理と診断APIの境界</title>
+  <desc id="description">ブラウザ内で完結する変換ツールと、CloudFrontを経由してLambdaへ接続する診断ツールを分ける構成図</desc>
+  <defs>
+    <marker id="arrow" markerHeight="8" markerWidth="8" orient="auto-start-reverse" refX="7" refY="4" viewBox="0 0 8 8">
+      <path d="M0 0L8 4L0 8Z" fill="#475569" />
+    </marker>
+  </defs>
+  <rect width="960" height="380" rx="24" fill="#f8fafc" />
+  <text x="40" y="42" fill="#0f172a" font-family="sans-serif" font-size="22" font-weight="700">DevToys Webの処理境界</text>
+  <text x="40" y="68" fill="#64748b" font-family="sans-serif" font-size="14">通信が不要な処理をブラウザへ残し、診断だけをAPIへ渡す</text>
+
+  <rect x="40" y="104" width="255" height="222" rx="16" fill="#eff6ff" stroke="#2563eb" stroke-width="2" />
+  <text x="66" y="138" fill="#1e3a8a" font-family="sans-serif" font-size="18" font-weight="700">Browser</text>
+  <text x="66" y="174" fill="#334155" font-family="sans-serif" font-size="14">JSON / text / encoding</text>
+  <text x="66" y="198" fill="#334155" font-family="sans-serif" font-size="14">入力を端末内で処理</text>
+  <rect x="66" y="228" width="203" height="65" rx="10" fill="#dbeafe" />
+  <text x="167" y="256" fill="#1e40af" font-family="sans-serif" font-size="14" font-weight="700" text-anchor="middle">外部へ送信しない</text>
+  <text x="167" y="278" fill="#1e40af" font-family="sans-serif" font-size="12" text-anchor="middle">（ブラウザ完結ツール）</text>
+
+  <rect x="360" y="104" width="240" height="222" rx="16" fill="#fefce8" stroke="#ca8a04" stroke-width="2" />
+  <text x="386" y="138" fill="#854d0e" font-family="sans-serif" font-size="18" font-weight="700">Routing boundary</text>
+  <text x="386" y="174" fill="#334155" font-family="sans-serif" font-size="14">requiresNetwork?</text>
+  <line x1="295" x2="360" y1="176" y2="176" stroke="#475569" stroke-width="2" marker-end="url(#arrow)" />
+  <text x="315" y="162" fill="#64748b" font-family="sans-serif" font-size="12">入力</text>
+  <line x1="600" x2="665" y1="176" y2="176" stroke="#475569" stroke-width="2" marker-end="url(#arrow)" />
+  <text x="607" y="162" fill="#64748b" font-family="sans-serif" font-size="12">true</text>
+
+  <rect x="665" y="104" width="255" height="222" rx="16" fill="#fff7ed" stroke="#ea580c" stroke-width="2" />
+  <text x="691" y="138" fill="#9a3412" font-family="sans-serif" font-size="18" font-weight="700">CloudFront / Lambda</text>
+  <text x="691" y="174" fill="#334155" font-family="sans-serif" font-size="14">DNS / TLS / OGP / WHOIS</text>
+  <text x="691" y="198" fill="#334155" font-family="sans-serif" font-size="14">URL検証・タイムアウト</text>
+  <rect x="691" y="228" width="203" height="65" rx="10" fill="#ffedd5" />
+  <text x="792" y="256" fill="#9a3412" font-family="sans-serif" font-size="14" font-weight="700" text-anchor="middle">対象URLへ通信</text>
+  <text x="792" y="278" fill="#9a3412" font-family="sans-serif" font-size="12" text-anchor="middle">（診断ツール）</text>
+</svg>

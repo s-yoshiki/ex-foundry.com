@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 380" role="img" aria-labelledby="title description">
+  <title id="title">EX FOUNDRYの情報サイトとプロダクトの配信境界</title>
+  <desc id="description">Markdownとfront matterをViteで静的HTMLへ変換し、EX FOUNDRYと各プロダクトを分けて配信する構成図</desc>
+  <defs>
+    <marker id="arrow" markerHeight="8" markerWidth="8" orient="auto-start-reverse" refX="7" refY="4" viewBox="0 0 8 8">
+      <path d="M0 0L8 4L0 8Z" fill="#475569" />
+    </marker>
+  </defs>
+  <rect width="960" height="380" rx="24" fill="#f8fafc" />
+  <text x="40" y="42" fill="#0f172a" font-family="sans-serif" font-size="22" font-weight="700">EX FOUNDRYの公開経路</text>
+  <text x="40" y="68" fill="#64748b" font-family="sans-serif" font-size="14">記事の生成とプロダクト本体の実行環境を分離する</text>
+
+  <rect x="40" y="105" width="230" height="125" rx="16" fill="#eff6ff" stroke="#2563eb" stroke-width="2" />
+  <text x="62" y="137" fill="#1e3a8a" font-family="sans-serif" font-size="17" font-weight="700">GitHub repository</text>
+  <text x="62" y="166" fill="#334155" font-family="sans-serif" font-size="14">Markdown</text>
+  <text x="62" y="188" fill="#334155" font-family="sans-serif" font-size="14">front matter</text>
+  <text x="62" y="210" fill="#334155" font-family="sans-serif" font-size="14">記事専用SVG</text>
+
+  <line x1="270" x2="365" y1="167" y2="167" stroke="#475569" stroke-width="2" marker-end="url(#arrow)" />
+  <text x="283" y="151" fill="#64748b" font-family="sans-serif" font-size="13">pnpm verify</text>
+
+  <rect x="365" y="105" width="230" height="125" rx="16" fill="#fefce8" stroke="#ca8a04" stroke-width="2" />
+  <text x="387" y="137" fill="#854d0e" font-family="sans-serif" font-size="17" font-weight="700">Vite build</text>
+  <text x="387" y="166" fill="#334155" font-family="sans-serif" font-size="14">HTML / content.html</text>
+  <text x="387" y="188" fill="#334155" font-family="sans-serif" font-size="14">sitemap.xml</text>
+  <text x="387" y="210" fill="#334155" font-family="sans-serif" font-size="14">Article JSON-LD</text>
+
+  <line x1="595" x2="690" y1="167" y2="167" stroke="#475569" stroke-width="2" marker-end="url(#arrow)" />
+
+  <rect x="690" y="105" width="230" height="125" rx="16" fill="#ecfdf5" stroke="#059669" stroke-width="2" />
+  <text x="712" y="137" fill="#065f46" font-family="sans-serif" font-size="17" font-weight="700">GitHub Pages</text>
+  <text x="712" y="166" fill="#334155" font-family="sans-serif" font-size="14">ex-foundry.com</text>
+  <text x="712" y="188" fill="#334155" font-family="sans-serif" font-size="14">記事と案内ページ</text>
+  <text x="712" y="210" fill="#334155" font-family="sans-serif" font-size="14">静的ファイル配信</text>
+
+  <line x1="805" x2="805" y1="230" y2="270" stroke="#475569" stroke-width="2" marker-end="url(#arrow)" />
+  <text x="40" y="274" fill="#334155" font-family="sans-serif" font-size="14" font-weight="700">プロダクト本体は独立したサイト</text>
+  <rect x="40" y="292" width="200" height="54" rx="12" fill="#fff" stroke="#cbd5e1" />
+  <text x="140" y="325" fill="#334155" font-family="sans-serif" font-size="14" text-anchor="middle">DevToys Web</text>
+  <rect x="260" y="292" width="200" height="54" rx="12" fill="#fff" stroke="#cbd5e1" />
+  <text x="360" y="325" fill="#334155" font-family="sans-serif" font-size="14" text-anchor="middle">ひまつぶし研究室</text>
+  <rect x="480" y="292" width="200" height="54" rx="12" fill="#fff" stroke="#cbd5e1" />
+  <text x="580" y="325" fill="#334155" font-family="sans-serif" font-size="14" text-anchor="middle">NPB Analysis</text>
+  <rect x="700" y="292" width="200" height="54" rx="12" fill="#fff" stroke="#cbd5e1" />
+  <text x="800" y="325" fill="#334155" font-family="sans-serif" font-size="14" text-anchor="middle">クソゲーの森</text>
+</svg>
