@@ -8,7 +8,12 @@ import { ArticleContent } from "./article-content";
 import { ArticleTableOfContents } from "./article-table-of-contents";
 import { BlogPostBand } from "./blog-post-band";
 
-export function ArticlePage() {
+type ArticlePageProps = {
+  /** Pre-rendered body, supplied only by the SSR entry point. */
+  presetHtml?: string;
+};
+
+export function ArticlePage({ presetHtml }: ArticlePageProps = {}) {
   const { location } = useNavigation();
   const id = getBlogPostId(location.pathname);
   const post = id === undefined ? undefined : findBlogPost(id);
@@ -148,7 +153,7 @@ export function ArticlePage() {
             ) : null}
             <ArticleTableOfContents items={post.toc} variant="inline" />
             <div id="article-content">
-              <ArticleContent path={post.contentPath} />
+              <ArticleContent path={post.contentPath} presetHtml={presetHtml} />
             </div>
             <section
               aria-labelledby="article-feedback-heading"

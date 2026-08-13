@@ -18,13 +18,13 @@ function renderList(initialUrl = "/") {
 }
 
 describe("ApplicationList", () => {
-  it("renders every application as an external link", () => {
+  it("links each application to its product page", () => {
     renderList("/apps");
 
     for (const application of getApplications()) {
       expect(screen.getByRole("link", { name: new RegExp(application.name) })).toHaveAttribute(
         "href",
-        `https://${application.host}/`,
+        `/products/${application.slug}/`,
       );
     }
   });

@@ -1,4 +1,5 @@
 import { ExternalLink, FileWarning, MessageSquareText, UserRound } from "lucide-react";
+import { PageHero } from "../../../components/page-hero";
 import { CONTACT_CHANNELS } from "../content";
 
 const ICONS = [FileWarning, MessageSquareText, UserRound] as const;
@@ -9,14 +10,12 @@ export function ContactSection() {
       aria-labelledby="contact-heading"
       className="mx-auto max-w-4xl px-4 py-10 sm:px-6 sm:py-14"
     >
-      <p className="mb-3 font-mono text-xs tracking-[0.12em] text-primary uppercase">CONTACT</p>
-      <h1 className="text-3xl font-bold tracking-tight sm:text-5xl" id="contact-heading">
-        お問い合わせ
-      </h1>
-      <p className="mt-5 max-w-2xl leading-relaxed text-muted-foreground">
-        記事や公開中のアプリケーションについて、誤りの報告、更新情報、改善案を受け付けています。静的サイトのため、GitHub
-        Issuesを公開の連絡窓口として利用しています。
-      </p>
+      <PageHero
+        description="記事や公開中のアプリケーションについて、誤りの報告、更新情報、改善案を受け付けています。静的サイトのため、GitHub Issuesを公開の連絡窓口として利用しています。"
+        eyebrow="CONTACT"
+        title="お問い合わせ"
+        titleId="contact-heading"
+      />
 
       <div className="mt-10 grid gap-4">
         {CONTACT_CHANNELS.map((channel, index) => {

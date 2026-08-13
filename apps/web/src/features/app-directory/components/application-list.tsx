@@ -38,7 +38,7 @@ export function ApplicationList() {
           条件に一致するアプリケーションはありません。検索語やカテゴリを変更してください。
         </p>
       ) : (
-        <ul className="grid list-none gap-3.5 p-0">
+        <ul className="grid list-none grid-cols-1 gap-3.5 p-0 sm:grid-cols-2 xl:grid-cols-3">
           {visibleApplications.map((application) => (
             <li key={application.host}>
               <ApplicationCard application={application} />

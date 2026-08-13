@@ -7,6 +7,8 @@ type AppCardProps = Omit<ComponentPropsWithoutRef<"a">, "children"> & {
   badge?: ReactNode;
   description: string;
   host: string;
+  /** Small icon tile giving the card a visual anchor besides its name. */
+  mark?: ReactNode;
   name: string;
   tags?: readonly string[];
 };
@@ -20,6 +22,7 @@ export function AppCard({
   className,
   description,
   host,
+  mark,
   name,
   tags = [],
   ...props
@@ -27,13 +30,22 @@ export function AppCard({
   return (
     <a
       className={cn(
-        "group relative flex flex-col gap-2 rounded-xl border bg-card p-6 pr-14",
+        "group relative flex flex-col gap-3 rounded-xl border bg-card p-6 pr-14",
         "text-card-foreground no-underline shadow-xs transition-[border-color,transform]",
         "hover:-translate-y-0.5 hover:border-primary",
         className,
       )}
       {...props}
     >
+      {mark ? (
+        <span
+          aria-hidden="true"
+          className="grid size-10 shrink-0 place-items-center rounded-lg bg-primary/10 text-primary"
+        >
+          {mark}
+        </span>
+      ) : null}
+
       <span className="flex flex-wrap items-center gap-2.5">
         <span className="text-lg font-bold tracking-tight">{name}</span>
         {badge}

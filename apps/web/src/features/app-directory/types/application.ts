@@ -9,6 +9,8 @@ export type Application = {
   description: string;
   host: `${string}.ex-foundry.com`;
   name: string;
+  /** Joins this application to its blog posts via `BlogPost.product`. */
+  slug: string;
   /** Technologies shown on the card and matched by the search box. */
   stack: readonly string[];
   status: ApplicationStatus;

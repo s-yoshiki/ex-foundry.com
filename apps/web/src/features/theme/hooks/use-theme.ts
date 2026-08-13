@@ -9,10 +9,16 @@ import {
 } from "../functions/theme-preference";
 import type { ThemePreference } from "../types/theme";
 
+function readInitialThemePreference(): ThemePreference {
+  if (typeof window === "undefined") {
+    return "system";
+  }
+
+  return readThemePreference(window.localStorage);
+}
+
 export function useTheme() {
-  const [preference, setPreferenceState] = useState<ThemePreference>(() =>
-    readThemePreference(window.localStorage),
-  );
+  const [preference, setPreferenceState] = useState<ThemePreference>(readInitialThemePreference);
   const [systemPrefersDark, setSystemPrefersDark] = useState(prefersDarkScheme);
 
   useEffect(() => {

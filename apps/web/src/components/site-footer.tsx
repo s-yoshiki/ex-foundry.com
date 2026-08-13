@@ -25,6 +25,9 @@ export function SiteFooter() {
           <Link className="text-muted-foreground no-underline hover:text-foreground" to="apps">
             アプリ一覧
           </Link>
+          <Link className="text-muted-foreground no-underline hover:text-foreground" to="changelog">
+            更新履歴
+          </Link>
           <Link className="text-muted-foreground no-underline hover:text-foreground" to="about">
             このサイトについて
           </Link>

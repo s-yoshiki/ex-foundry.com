@@ -2,6 +2,7 @@ import { createBrowserRouter, Outlet, type RouteObject } from "react-router";
 import { App } from "../../../app";
 import { ArticlePage } from "../../../features/blog/components/article-page";
 import { NotFoundPage } from "../../../pages/not-found-page";
+import { ProductPage } from "../../../pages/product-page";
 import { ROUTE_COMPONENTS } from "../../route-components";
 import { ROUTES } from "../../routes";
 import { ReactRouterNavigationProvider } from "./navigation-provider";
@@ -30,6 +31,7 @@ export function createAppRouter() {
       children: [
         ...children,
         { Component: ArticlePage, path: "entry/:id" },
+        { Component: ProductPage, path: "products/:slug" },
         { Component: NotFoundPage, path: "*" },
       ],
       path: "/",

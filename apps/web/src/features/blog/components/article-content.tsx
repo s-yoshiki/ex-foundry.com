@@ -3,11 +3,25 @@
 import { useEffect, useState } from "react";
 import { BLOG_CONTENT_CLASS } from "../functions/blog-content-style";
 
-export function ArticleContent({ path }: { path: string }) {
-  const [html, setHtml] = useState<string | null>(null);
+type ArticleContentProps = {
+  path: string;
+  /**
+   * Pre-rendered body, supplied only by the SSR entry point so the static
+   * build embeds the real article text instead of the loading placeholder.
+   * The live client always fetches fresh and never passes this.
+   */
+  presetHtml?: string;
+};
+
+export function ArticleContent({ path, presetHtml }: ArticleContentProps) {
+  const [html, setHtml] = useState<string | null>(presetHtml ?? null);
   const [failed, setFailed] = useState(false);
 
   useEffect(() => {
+    if (presetHtml !== undefined) {
+      return;
+    }
+
     let active = true;
 
     setHtml(null);
@@ -28,7 +42,7 @@ export function ArticleContent({ path }: { path: string }) {
     return () => {
       active = false;
     };
-  }, [path]);
+  }, [path, presetHtml]);
 
   if (failed) {
     return (
