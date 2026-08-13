@@ -6,11 +6,15 @@ import { matchRoute, ROUTES } from "../routing/routes";
 export function SiteNav() {
   const { location } = useNavigation();
   const active = matchRoute(location.pathname);
+  const activeId = location.pathname.startsWith("/entry/") ? "home" : active?.id;
+  const visibleRoutes = ROUTES.filter(
+    (route) => route.id === "home" || route.id === "apps" || route.id === "about",
+  );
 
   return (
     <nav aria-label="サイト内" className="flex gap-1">
-      {ROUTES.map((route) => {
-        const isActive = route.id === active?.id;
+      {visibleRoutes.map((route) => {
+        const isActive = route.id === activeId;
 
         return (
           <Link

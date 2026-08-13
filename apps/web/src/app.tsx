@@ -1,4 +1,3 @@
-import { PageShell } from "@repo/ui";
 import type { ReactNode } from "react";
 import { SiteFooter } from "./components/site-footer";
 import { SiteHeader } from "./components/site-header";
@@ -22,15 +21,13 @@ export function App({ children }: { children: ReactNode }) {
         本文へスキップ
       </a>
 
-      <PageShell>
+      <div className="min-h-screen bg-background">
         <SiteHeader />
 
-        <main className="grid gap-16" id="main">
-          {children}
-        </main>
+        <main id="main">{children}</main>
 
         <SiteFooter />
-      </PageShell>
+      </div>
     </>
   );
 }

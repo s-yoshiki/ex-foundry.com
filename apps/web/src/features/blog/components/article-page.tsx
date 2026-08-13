@@ -1,6 +1,7 @@
 import { useNavigation } from "../../../routing/navigation-context";
 import { useDocumentMeta } from "../../../routing/use-document-meta";
 import { findBlogPost, getBlogPostId } from "../functions/get-blog-posts";
+import { AiGeneratedBadge } from "./ai-generated-badge";
 import { ArticleContent } from "./article-content";
 
 export function ArticlePage() {
@@ -51,12 +52,16 @@ export function ArticlePage() {
         <h1 className="text-3xl font-bold leading-tight tracking-tight sm:text-5xl">
           {post.title}
         </h1>
-        <p className="mt-4 text-sm text-muted-foreground">
+        <p className="mt-4 flex items-center gap-2 text-sm text-muted-foreground">
           <time dateTime={post.publishedOn}>{post.publishedOn}</time> · {post.author}
+          {post.aiGenerated ? <AiGeneratedBadge /> : null}
         </p>
         <ul aria-label="タグ" className="mt-5 flex flex-wrap gap-2">
           {post.tags.map((tag) => (
-            <li className="rounded-full border px-2.5 py-1 text-xs" key={tag}>
+            <li
+              className="rounded-full bg-secondary px-2.5 py-1 text-xs text-secondary-foreground"
+              key={tag}
+            >
               {tag}
             </li>
           ))}

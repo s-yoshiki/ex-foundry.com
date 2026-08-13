@@ -26,7 +26,7 @@ export function useApplicationFilter(applications: readonly Application[]) {
 
   const apply = useCallback(
     (next: typeof filter) => {
-      navigate(`${routePath("home")}${toApplicationSearchString(next)}`, { replace: true });
+      navigate(`${routePath("apps")}${toApplicationSearchString(next)}`, { replace: true });
     },
     [navigate],
   );

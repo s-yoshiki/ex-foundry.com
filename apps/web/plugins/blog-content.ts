@@ -9,6 +9,7 @@ import {
   readMarkdownFile,
   renderMarkdown,
 } from "../../../packages/blog-content/src/index";
+import { POPULAR_POST_PATHS } from "../../../packages/blog-content/src/posts/popular-post-paths";
 import type { Application } from "../src/features/app-directory/types/application";
 import { BLOG_CONTENT_CLASS } from "../src/features/blog/functions/blog-content-style";
 
@@ -146,15 +147,21 @@ export function loadBlogSummaries(root: string): Promise<readonly BlogPostSummar
 
 export function renderArticleContent(post: BuiltBlogPost): string {
   const tags = post.tags
-    .map((tag) => `<li class="rounded-full border px-2.5 py-1 text-xs">${escapeHtml(tag)}</li>`)
+    .map(
+      (tag) =>
+        `<li class="rounded-full bg-secondary px-2.5 py-1 text-xs text-secondary-foreground">${escapeHtml(tag)}</li>`,
+    )
     .join("");
+  const aiBadge = post.aiGenerated
+    ? `<span class="inline-flex items-center gap-1 rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-medium text-primary">AI補助</span>`
+    : "";
 
   return `<article class="mx-auto max-w-4xl px-4 py-10 sm:px-6 sm:py-14">
   <nav aria-label="パンくずリスト" class="mb-8 text-sm text-muted-foreground"><a href="/">EX FOUNDRY</a> / <a href="/articles/">記事</a> / <span>${escapeHtml(post.title)}</span></nav>
   <header class="mb-10 border-b pb-8">
     <p class="mb-3 font-mono text-xs tracking-[0.12em] text-primary uppercase">TECHNICAL NOTE</p>
     <h1 class="text-3xl font-bold leading-tight tracking-tight sm:text-5xl">${escapeHtml(post.title)}</h1>
-    <p class="mt-4 text-sm text-muted-foreground"><time datetime="${escapeHtml(post.publishedOn)}">${escapeHtml(post.publishedOn)}</time> · ${escapeHtml(post.author)}</p>
+    <p class="mt-4 flex items-center gap-2 text-sm text-muted-foreground"><time datetime="${escapeHtml(post.publishedOn)}">${escapeHtml(post.publishedOn)}</time> · ${escapeHtml(post.author)}${aiBadge}</p>
     <ul class="mt-5 flex flex-wrap gap-2" aria-label="タグ">${tags}</ul>
   </header>
   <div class="${BLOG_CONTENT_CLASS} max-w-none">${post.html}</div>
@@ -162,36 +169,119 @@ export function renderArticleContent(post: BuiltBlogPost): string {
 </article>`;
 }
 
-export function renderArticleIndex(posts: readonly BlogPostSummary[]): string {
-  const items = posts
+function renderBlogPostCard(post: BlogPostSummary): string {
+  const tags = post.tags
+    .slice(0, 3)
     .map(
-      (post) => `<li class="rounded-xl border p-5">
-  <p class="font-mono text-xs text-muted-foreground">${escapeHtml(post.publishedOn)}</p>
-  <h2 class="mt-2 text-xl font-semibold"><a href="${escapeHtml(`${post.path}/`)}">${escapeHtml(post.title)}</a></h2>
-  <p class="mt-3 leading-relaxed text-muted-foreground">${escapeHtml(post.description)}</p>
-  <ul class="mt-4 flex flex-wrap gap-2" aria-label="タグ">${post.tags
-    .slice(0, 5)
-    .map(
-      (tag) => `<li class="rounded-full bg-secondary px-2.5 py-1 text-xs">${escapeHtml(tag)}</li>`,
-    )
-    .join("")}</ul>
-</li>`,
+      (tag) =>
+        `<li class="rounded-full bg-secondary px-2 py-0.5 text-[10px] text-secondary-foreground">${escapeHtml(tag)}</li>`,
     )
     .join("");
+  const aiBadge = post.aiGenerated
+    ? `<span class="inline-flex items-center gap-1 rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-medium text-primary">AI補助</span>`
+    : "";
+  const thumbnail = post.coverImage
+    ? `<img src="${escapeHtml(post.coverImage)}" alt="" aria-hidden="true" class="size-full object-contain" />`
+    : "EX";
 
-  return `<section aria-labelledby="articles-heading" class="mx-auto max-w-5xl px-4 py-10 sm:px-6 sm:py-14">
+  return `<article class="group relative flex w-full gap-3.5 rounded-xl border border-border bg-card p-4 transition-colors hover:border-foreground/25 hover:bg-muted/40">
+  <div class="grid size-11 shrink-0 place-items-center overflow-hidden rounded-lg bg-muted text-xs font-bold text-muted-foreground">${thumbnail}</div>
+  <div class="min-w-0 flex-1">
+    <div class="flex items-center gap-2 text-[11px] text-muted-foreground"><time datetime="${escapeHtml(post.publishedOn)}">${escapeHtml(post.publishedOn)}</time>${aiBadge}<span class="ml-auto" aria-hidden="true">↗</span></div>
+    <h2 class="mt-1.5 line-clamp-2 text-sm font-semibold leading-snug tracking-tight sm:text-[15px]"><a class="after:absolute after:inset-0" href="${escapeHtml(`${post.path}/`)}">${escapeHtml(post.title)}</a></h2>
+    <ul class="mt-2.5 flex flex-wrap gap-1.5" aria-label="タグ">${tags}</ul>
+  </div>
+</article>`;
+}
+
+function renderBlogPostBand(posts: readonly BlogPostSummary[]): string {
+  return `<div class="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3">${posts.map(renderBlogPostCard).join("")}</div>`;
+}
+
+export function renderArticleIndex(posts: readonly BlogPostSummary[]): string {
+  return `<section aria-labelledby="articles-heading" class="mx-auto max-w-7xl px-4 py-12 sm:px-6">
+  <div class="mb-8 flex flex-col gap-5 border-b pb-8 lg:flex-row lg:items-end lg:justify-between">
+    <div>
   <p class="mb-3 font-mono text-xs tracking-[0.12em] text-primary uppercase">KNOWLEDGE BASE</p>
   <h1 id="articles-heading" class="text-3xl font-bold tracking-tight sm:text-5xl">技術記事</h1>
-  <p class="mt-5 max-w-2xl leading-relaxed text-muted-foreground">EX FOUNDRYのアプリケーション開発、設計、運用で得た知見を、再現できる形で記録しています。</p>
-  <p class="mt-6 text-sm text-muted-foreground">${posts.length}件の記事</p>
-  <ul class="mt-6 grid list-none gap-4 p-0 md:grid-cols-2">${items}</ul>
+  <p class="mt-4 max-w-2xl leading-relaxed text-muted-foreground">EX FOUNDRYのアプリケーション開発、設計、運用で得た知見を、再現できる形で記録しています。</p>
+    </div>
+    <form action="/articles/" class="relative w-full max-w-xl" method="get" role="search" aria-label="記事を検索">
+      <span aria-hidden="true" class="absolute top-1/2 left-3 -translate-y-1/2 text-muted-foreground">⌕</span>
+      <input aria-label="記事を検索" class="h-9 w-full rounded-full border bg-background px-9 text-sm" name="q" placeholder="記事を検索" type="search" />
+    </form>
+  </div>
+  <p class="mb-5 text-sm text-muted-foreground">${posts.length}件の記事</p>
+  ${renderBlogPostBand(posts)}
 </section>`;
 }
 
-export function renderStaticHome(
-  posts: readonly BlogPostSummary[],
-  applications: readonly Application[],
-): string {
+export function renderStaticHome(posts: readonly BlogPostSummary[]): string {
+  const tagCounts = new Map<string, number>();
+  const archive = new Map<string, Map<string, number>>();
+
+  for (const post of posts) {
+    for (const tag of post.tags) tagCounts.set(tag, (tagCounts.get(tag) ?? 0) + 1);
+
+    const year = post.publishedOn.slice(0, 4);
+    const month = post.publishedOn.slice(5, 7);
+    const months = archive.get(year) ?? new Map<string, number>();
+    months.set(month, (months.get(month) ?? 0) + 1);
+    archive.set(year, months);
+  }
+
+  const tags = [...tagCounts.entries()]
+    .sort(
+      ([leftName, leftCount], [rightName, rightCount]) =>
+        rightCount - leftCount || leftName.localeCompare(rightName, "ja"),
+    )
+    .slice(0, 30)
+    .map(
+      ([name, count]) =>
+        `<a class="inline-flex items-center gap-1.5 rounded-full border bg-card px-3 py-1.5 text-xs no-underline" href="/articles/?tag=${encodeURIComponent(name)}"><span aria-hidden="true" class="size-1.5 rounded-full bg-primary"></span>${escapeHtml(name)} <span class="text-muted-foreground">${count}</span></a>`,
+    )
+    .join("");
+
+  const archiveHtml = [...archive.entries()]
+    .sort(([left], [right]) => right.localeCompare(left))
+    .map(([year, months], index) => {
+      const count = [...months.values()].reduce((total, value) => total + value, 0);
+      const monthLinks = [...months.entries()]
+        .sort(([left], [right]) => right.localeCompare(left))
+        .map(
+          ([month, monthCount]) =>
+            `<li><a class="flex items-center justify-between rounded-md px-2 py-1.5 text-xs text-muted-foreground no-underline hover:bg-muted hover:text-foreground" href="/articles/?year=${year}&month=${month}"><span>⌑ ${Number(month)}月</span><span>${monthCount}件</span></a></li>`,
+        )
+        .join("");
+
+      return `<details class="group border-b last:border-0"${index === 0 ? " open" : ""}><summary class="flex cursor-pointer list-none items-center justify-between py-3 text-sm font-semibold">${year}<span class="text-xs font-normal text-muted-foreground">${count}件</span></summary><ul class="mb-2 grid gap-1 pl-3">${monthLinks}</ul></details>`;
+    })
+    .join("");
+
+  const popularPaths = new Set<string>(POPULAR_POST_PATHS);
+  const popular = posts.filter((post) => popularPaths.has(post.path));
+
+  return `<div>
+  <section aria-labelledby="home-heading" class="mx-auto max-w-7xl px-4 py-12 sm:px-6">
+    <div class="mb-6 flex flex-col gap-4 border-b pb-8 lg:flex-row lg:items-end lg:justify-between">
+      <div>
+        <p class="mb-2 font-mono text-xs tracking-[0.12em] text-primary uppercase">DEVELOPMENT JOURNAL</p>
+        <h1 id="home-heading" class="text-3xl font-bold tracking-tight sm:text-5xl">新着記事</h1>
+        <p class="mt-4 max-w-2xl leading-relaxed text-muted-foreground">個人開発したWebアプリケーションと、設計・実装・運用で得た知見を再現できる形で記録しています。</p>
+      </div>
+      <form action="/articles/" class="relative w-full max-w-xl" method="get" role="search" aria-label="記事を検索"><span aria-hidden="true" class="absolute top-1/2 left-3 -translate-y-1/2 text-muted-foreground">⌕</span><input aria-label="記事を検索" class="h-9 w-full rounded-full border bg-background px-9 text-sm" name="q" placeholder="記事を検索" type="search" /></form>
+    </div>
+    <div class="mb-5 flex items-center justify-between text-xs text-muted-foreground"><span>${Math.min(posts.length, 15)}件を表示中</span><span>全${posts.length}件</span></div>
+    ${renderBlogPostBand(posts.slice(0, 15))}
+    ${posts.length > 15 ? '<div class="mt-8 text-center"><a class="inline-flex rounded-full border px-4 py-2 text-sm font-medium no-underline" href="/articles/">すべての記事を見る</a></div>' : ""}
+  </section>
+  <section aria-labelledby="popular-heading" class="border-y bg-card"><div class="mx-auto max-w-7xl px-4 py-12 sm:px-6"><div class="mb-5 flex items-center justify-between gap-4"><h2 id="popular-heading" class="text-xl font-semibold tracking-tight">よく読まれている記事</h2><span class="text-xs text-muted-foreground">${popular.length}件</span></div>${renderBlogPostBand(popular)}</div></section>
+  <section class="mx-auto max-w-7xl px-4 py-12 sm:px-6"><div class="grid gap-10 lg:grid-cols-[minmax(0,1fr)_320px]"><div><h2 class="mb-5 text-xl font-semibold tracking-tight">タグから探す</h2><div class="flex flex-wrap gap-2">${tags}</div></div><div><h2 class="mb-5 text-xl font-semibold tracking-tight">アーカイブ</h2><div class="rounded-xl border bg-card p-4">${archiveHtml}</div></div></div></section>
+  <section class="border-t bg-card"><div class="mx-auto max-w-7xl px-4 py-12 sm:px-6"><h2 class="mb-5 text-xl font-semibold tracking-tight">運営者</h2><div class="flex flex-col gap-5 rounded-xl border bg-card p-5 sm:flex-row sm:items-center sm:justify-between"><div class="flex items-center gap-4"><div class="grid size-14 shrink-0 place-items-center rounded-xl bg-primary font-mono text-lg font-extrabold text-primary-foreground">EX</div><div><p class="font-semibold">s-yoshiki</p><p class="mt-1 text-sm text-muted-foreground">個人開発と技術の記録を公開しています。</p></div></div><a class="text-sm font-medium no-underline" href="https://github.com/s-yoshiki" rel="noreferrer">GitHub ↗</a></div><p class="mt-4 text-xs text-muted-foreground">公開中のアプリケーションは <a class="underline" href="/apps/">アプリ一覧</a> から確認できます。</p></div></section>
+</div>`;
+}
+
+export function renderStaticApps(applications: readonly Application[]): string {
   const applicationsHtml = applications
     .map(
       (application) => `<li class="rounded-xl border p-5">
@@ -201,27 +291,7 @@ export function renderStaticHome(
 </li>`,
     )
     .join("");
-  const latest = posts
-    .slice(0, 6)
-    .map(
-      (post) =>
-        `<li><a href="${escapeHtml(`${post.path}/`)}" class="font-semibold">${escapeHtml(post.title)}</a><span class="ml-3 text-xs text-muted-foreground">${escapeHtml(post.publishedOn)}</span></li>`,
-    )
-    .join("");
-
-  return `<section aria-labelledby="home-heading" class="mx-auto max-w-5xl px-4 py-10 sm:px-6 sm:py-14">
-  <h1 id="home-heading" class="text-3xl font-bold tracking-tight sm:text-5xl">EX FOUNDRY</h1>
-  <p class="mt-5 max-w-2xl text-lg leading-relaxed text-muted-foreground">個人開発したWebアプリケーションと、そこから得た設計・実装・運用の知見を公開しています。</p>
-  <p class="mt-6"><a href="/articles/" class="font-semibold">技術記事を読む（${posts.length}件）</a></p>
-  <section aria-labelledby="applications-heading" class="mt-12">
-    <h2 id="applications-heading" class="text-xl font-semibold">公開中のWebアプリケーション</h2>
-    <ul class="mt-4 grid list-none gap-4 p-0 md:grid-cols-2">${applicationsHtml}</ul>
-  </section>
-  <section aria-labelledby="latest-articles-heading" class="mt-12">
-    <h2 id="latest-articles-heading" class="text-xl font-semibold">最近の記事</h2>
-    <ul class="mt-4 grid list-none gap-3 p-0">${latest}</ul>
-  </section>
-</section>`;
+  return `<section aria-labelledby="apps-heading" class="mx-auto max-w-7xl px-4 py-12 sm:px-6"><h1 id="apps-heading" class="text-3xl font-bold tracking-tight sm:text-5xl">公開中のWebアプリケーション</h1><p class="mt-5 max-w-2xl leading-relaxed text-muted-foreground">開発や日々の作業で欲しくなった道具を、小さなWebアプリケーションとして公開しています。各アプリは登録なしで利用できます。</p><section aria-labelledby="applications-heading" class="mt-12"><h2 id="applications-heading" class="mb-5 font-mono text-xs font-semibold tracking-[0.12em] text-muted-foreground uppercase">アプリケーション</h2><ul class="grid list-none gap-3.5 p-0">${applicationsHtml}</ul></section></section>`;
 }
 
 export function renderStaticAbout(): string {
@@ -261,7 +331,8 @@ export function blogContent(): Plugin {
       if (id !== RESOLVED_BLOG_CONTENT_MODULE) return undefined;
 
       const posts = await loadBlogSummaries(process.cwd());
-      return `export const BLOG_POSTS = ${JSON.stringify(posts)};`;
+      return `export const BLOG_POSTS = ${JSON.stringify(posts)};
+export const BLOG_POPULAR_POST_PATHS = ${JSON.stringify(POPULAR_POST_PATHS)};`;
     },
   };
 }
