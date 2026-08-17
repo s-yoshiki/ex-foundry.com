@@ -88,13 +88,13 @@ TanStack Routerはsearch paramsの型付けとバリデーションを提供し�
 
 ## 静的HTMLの生成
 
-GitHub PagesにはSPA fallbackがありません。`/about`へ直接アクセスするには
+GitHub PagesにはSPA fallbackがありません。`/about/`へ直接アクセスするには
 実ファイルが必要です。`plugins/static-routes.ts`がmanifestから
 ルートごとのHTMLを生成します。
 
 ```text
 dist/index.html         # /
-dist/about/index.html   # /about
+dist/about/index.html   # /about/
 dist/sitemap.xml
 dist/robots.txt
 ```

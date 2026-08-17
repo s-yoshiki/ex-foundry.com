@@ -62,7 +62,7 @@ pnpm --filter @repo/api build
 - 存在しないパス（例: `/no-such-page`）で404ページが返る
 - `view-source:`でJSON-LDが埋め込まれている
 - `robots.txt`と`sitemap.xml`が200で返る
-- `/`と`/about`のtitle、description、canonical、`og:url`がそれぞれ異なる
+- `/`と`/about/`のtitle、description、canonical、`og:url`がそれぞれ異なる
 - `og.png`が200かつ画像の`Content-Type`で返る
 - 初回表示とSPA遷移でGA4 `page_view`が1件ずつ送信される
 

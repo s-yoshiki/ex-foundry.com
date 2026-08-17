@@ -74,7 +74,7 @@ describe("ApplicationList", () => {
     const categories = screen.getByRole("radiogroup", { name: "カテゴリ" });
     await user.click(within(categories).getByRole("radio", { name: /ツール/ }));
 
-    expect(navigations.at(-1)).toBe("/apps?category=tool");
+    expect(navigations.at(-1)).toBe("/apps/?category=tool");
   });
 
   it("ignores an unusable category in the URL", () => {

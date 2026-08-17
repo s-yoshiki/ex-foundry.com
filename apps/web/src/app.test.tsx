@@ -66,7 +66,7 @@ describe("App shell", () => {
     const nav = screen.getByRole("navigation", { name: "サイト内" });
     await user.click(within(nav).getByRole("link", { name: "このサイトについて" }));
 
-    expect(navigations).toEqual(["/about"]);
+    expect(navigations).toEqual(["/about/"]);
   });
 });
 
