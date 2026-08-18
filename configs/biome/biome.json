@@ -31,8 +31,25 @@
   },
   "linter": {
     "enabled": true,
+    "domains": {
+      "next": "none",
+      "qwik": "none",
+      "react": "all",
+      "reactNative": "none",
+      "solid": "none",
+      "svelte": "none",
+      "project": "none",
+      "test": "all",
+      "tailwind": "all",
+      "vue": "none"
+    },
     "rules": {
-      "preset": "recommended"
+      "preset": "all",
+      "correctness": {
+        "noUndeclaredVariables": "off",
+        "noUnusedInstantiation": "off",
+        "useUniqueElementIds": "off"
+      }
     }
   },
   "javascript": {

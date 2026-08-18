@@ -29,5 +29,6 @@
 | [0017](0017-editorial-guidance-pages.md) | 編集方針とお問い合わせを公開ページとして提供する | Accepted |
 | [0018](0018-product-information-site.md) | EX FOUNDRYをプロダクト情報サイトとして再構成する | Accepted |
 | [0019](0019-article-examples-and-diagrams.md) | 記事に実装例と構成図を含める | Accepted |
+| [0020](0020-biome-strict-rule-preset.md) | Biomeの適用可能なルールを厳格化する | Accepted |
 
 テンプレート: [template.md](template.md)
