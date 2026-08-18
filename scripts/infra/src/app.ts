@@ -30,6 +30,7 @@ export function buildApp({ repositoryRoot }: BuildAppOptions): App {
   Tags.of(app).add("ManagedBy", "cdk");
   Tags.of(app).add("Project", PROJECT_SLUG);
 
+  // biome-ignore lint/correctness/noUnusedInstantiation: CDK constructs register themselves in the construct tree.
   new ApiStack(app, constructId(environment.name, "Api"), {
     allowedOrigins: ALLOWED_ORIGINS[environment.name],
     bundleDirectory: join(repositoryRoot, "apps", "api", "dist"),
