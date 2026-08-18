@@ -23,8 +23,8 @@
     "verify:biome-config": "node scripts/verify-biome-config.mjs"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.5.7",
-    "turbo": "2.10.8",
+    "@biomejs/biome": "2.5.8",
+    "turbo": "2.10.10",
     "typescript": "7.0.2"
   }
 }
