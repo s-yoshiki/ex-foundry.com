@@ -1,4 +1,5 @@
 import { BookOpenCheck, Bot, RefreshCcw, ShieldCheck } from "lucide-react";
+import { useId } from "react";
 import { PageHero } from "../../../components/page-hero";
 import { BLOG_CONTENT_CLASS } from "../../blog/functions/blog-content-style";
 import { EDITORIAL_POLICY_SECTIONS, EDITORIAL_POLICY_STEPS } from "../content";
@@ -6,6 +7,8 @@ import { EDITORIAL_POLICY_SECTIONS, EDITORIAL_POLICY_STEPS } from "../content";
 const SECTION_ICONS = [BookOpenCheck, ShieldCheck, RefreshCcw, Bot, ShieldCheck] as const;
 
 export function EditorialPolicySection() {
+  const publicationProcessHeadingId = useId();
+
   return (
     <article className="mx-auto max-w-4xl px-4 py-10 sm:px-6 sm:py-14">
       <PageHero
@@ -15,10 +18,10 @@ export function EditorialPolicySection() {
       />
 
       <section
-        aria-labelledby="publication-process-heading"
+        aria-labelledby={publicationProcessHeadingId}
         className="mt-10 rounded-xl border bg-card p-5 sm:p-6"
       >
-        <h2 className="text-xl font-semibold tracking-tight" id="publication-process-heading">
+        <h2 className="text-xl font-semibold tracking-tight" id={publicationProcessHeadingId}>
           記事を公開するまで
         </h2>
         <ol className="mt-5 grid gap-4">

@@ -1,4 +1,5 @@
 import { Bot, CalendarDays, ChevronRight, Clock3, Sparkles, TriangleAlert } from "lucide-react";
+import { useId } from "react";
 import { useNavigation } from "../../../routing/navigation-context";
 import { useDocumentMeta } from "../../../routing/use-document-meta";
 import { findBlogPost, getBlogPostId, getRecommendedBlogPosts } from "../functions/get-blog-posts";
@@ -14,6 +15,8 @@ type ArticlePageProps = {
 };
 
 export function ArticlePage({ presetHtml }: ArticlePageProps = {}) {
+  const articleContentId = useId();
+  const feedbackHeadingId = useId();
   const { location } = useNavigation();
   const id = getBlogPostId(location.pathname);
   const post = id === undefined ? undefined : findBlogPost(id);
@@ -152,14 +155,14 @@ export function ArticlePage({ presetHtml }: ArticlePageProps = {}) {
               </aside>
             ) : null}
             <ArticleTableOfContents items={post.toc} variant="inline" />
-            <div id="article-content">
+            <div id={articleContentId}>
               <ArticleContent path={post.contentPath} presetHtml={presetHtml} />
             </div>
             <section
-              aria-labelledby="article-feedback-heading"
+              aria-labelledby={feedbackHeadingId}
               className="mt-10 rounded-xl border border-border bg-card p-5"
             >
-              <h2 className="text-lg font-semibold tracking-tight" id="article-feedback-heading">
+              <h2 className="text-lg font-semibold tracking-tight" id={feedbackHeadingId}>
                 記事の更新・修正
               </h2>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">

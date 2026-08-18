@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useId, useMemo } from "react";
 import { buildCategoryOptions } from "../functions/application-labels";
 import { useApplicationFilter } from "../hooks/use-application-filter";
 import { useApplications } from "../hooks/use-applications";
@@ -6,6 +6,7 @@ import { ApplicationCard } from "./application-card";
 import { ApplicationFilter } from "./application-filter";
 
 export function ApplicationList() {
+  const headingId = useId();
   const applications = useApplications();
   const { category, query, setCategory, setQuery, visibleApplications } =
     useApplicationFilter(applications);
@@ -13,10 +14,10 @@ export function ApplicationList() {
   const options = useMemo(() => buildCategoryOptions(applications), [applications]);
 
   return (
-    <section aria-labelledby="applications-heading">
+    <section aria-labelledby={headingId}>
       <h2
         className="mb-5 font-mono text-xs font-semibold tracking-[0.12em] text-muted-foreground uppercase"
-        id="applications-heading"
+        id={headingId}
       >
         アプリケーション
       </h2>

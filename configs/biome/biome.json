@@ -44,10 +44,7 @@
       "vue": "none"
     },
     "rules": {
-      "preset": "all",
-      "correctness": {
-        "useUniqueElementIds": "off"
-      }
+      "preset": "all"
     }
   },
   "javascript": {

@@ -35,8 +35,11 @@ describe("App shell", () => {
   it("offers a skip link that targets the main landmark", () => {
     renderApp(<HomePage />);
 
-    expect(screen.getByRole("link", { name: "本文へスキップ" })).toHaveAttribute("href", "#main");
-    expect(screen.getByRole("main")).toHaveAttribute("id", "main");
+    const main = screen.getByRole("main");
+    expect(screen.getByRole("link", { name: "本文へスキップ" })).toHaveAttribute(
+      "href",
+      `#${main.id}`,
+    );
   });
 
   it("renders a single level-one heading on every page", () => {
