@@ -18,7 +18,10 @@ export function BlogSectionHeading({
 
   return (
     <div className="mb-5 flex items-center justify-between gap-4">
-      <Heading className="flex items-center gap-2 text-xl font-semibold tracking-tight" id={headingId}>
+      <Heading
+        className="flex items-center gap-2 text-xl font-semibold tracking-tight"
+        id={headingId}
+      >
         <Icon aria-hidden="true" className="size-5 text-primary" />
         {title}
       </Heading>
