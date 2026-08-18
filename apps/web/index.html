@@ -44,7 +44,7 @@
       window.dataLayer = window.dataLayer || [];
       function gtag() {
         // biome-ignore lint/complexity/noArguments: The Google tag queue requires an Arguments object.
-        dataLayer.push(arguments);
+        globalThis.dataLayer.push(arguments);
       }
       gtag("js", new Date());
       // Page views are sent manually after client-side navigation instead,

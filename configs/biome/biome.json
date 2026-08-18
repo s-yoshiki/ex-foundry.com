@@ -46,7 +46,6 @@
     "rules": {
       "preset": "all",
       "correctness": {
-        "noUndeclaredVariables": "off",
         "useUniqueElementIds": "off"
       }
     }
