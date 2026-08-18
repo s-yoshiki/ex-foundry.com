@@ -40,7 +40,7 @@ export function BlogHome() {
           }
           as="h1"
           icon={LayoutGrid}
-          id="products-heading"
+          headingId="products-heading"
           title="プロダクト"
         />
         <div className="grid grid-cols-1 gap-3.5 sm:grid-cols-2">
@@ -70,7 +70,7 @@ export function BlogHome() {
               </div>
             }
             icon={Sparkles}
-            id="updates-heading"
+            headingId="updates-heading"
             title="最新の更新"
           />
           <BlogPostBand posts={latestPosts} />

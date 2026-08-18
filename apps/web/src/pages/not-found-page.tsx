@@ -1,3 +1,4 @@
+import { useId } from "react";
 import { Link } from "../routing/link";
 import { useDocumentTitle } from "../routing/use-document-meta";
 
@@ -7,13 +8,14 @@ import { useDocumentTitle } from "../routing/use-document-meta";
  * canonical link is deliberately left pointing at the previous route.
  */
 export function NotFoundPage() {
+  const headingId = useId();
   useDocumentTitle("ページが見つかりません - EX FOUNDRY");
 
   return (
-    <section aria-labelledby="not-found-heading" className="py-10 text-center">
+    <section aria-labelledby={headingId} className="py-10 text-center">
       <p className="font-mono text-sm tracking-[0.14em] text-primary">404 NOT FOUND</p>
 
-      <h1 className="mt-3 mb-4 text-2xl font-bold tracking-tight" id="not-found-heading">
+      <h1 className="mt-3 mb-4 text-2xl font-bold tracking-tight" id={headingId}>
         ページが見つかりません
       </h1>
 

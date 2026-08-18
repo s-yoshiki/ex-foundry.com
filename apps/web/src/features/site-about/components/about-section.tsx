@@ -1,4 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle, TagList } from "@repo/ui";
+import { useId } from "react";
 import { PageHero } from "../../../components/page-hero";
 import { Link } from "../../../routing/link";
 import { getHighlights } from "../functions/get-highlights";
@@ -17,6 +18,7 @@ const STACK = [
 ] as const;
 
 export function AboutSection() {
+  const guidanceHeadingId = useId();
   const highlights = getHighlights();
 
   return (
@@ -46,8 +48,8 @@ export function AboutSection() {
       <h3 className="mb-3 text-sm font-semibold text-muted-foreground">このサイトの技術スタック</h3>
       <TagList items={STACK} label="このサイトの技術スタック" />
 
-      <section aria-labelledby="about-guidance-heading" className="mt-10 border-t pt-8">
-        <h2 className="text-xl font-semibold tracking-tight" id="about-guidance-heading">
+      <section aria-labelledby={guidanceHeadingId} className="mt-10 border-t pt-8">
+        <h2 className="text-xl font-semibold tracking-tight" id={guidanceHeadingId}>
           運営方針とお問い合わせ
         </h2>
         <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground">

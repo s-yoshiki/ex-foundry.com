@@ -1,5 +1,5 @@
 import { ChoiceGroup, type ChoiceOption, SearchField } from "@repo/ui";
-import { useMemo } from "react";
+import { useId, useMemo } from "react";
 import type { CategoryOption } from "../functions/application-labels";
 import type { CategoryFilterValue } from "../types/application";
 
@@ -18,6 +18,7 @@ export function ApplicationFilter({
   options,
   query,
 }: ApplicationFilterProps) {
+  const searchId = useId();
   const choices = useMemo<readonly ChoiceOption<CategoryFilterValue>[]>(
     () =>
       options.map((option) => ({
@@ -35,7 +36,7 @@ export function ApplicationFilter({
   return (
     <div className="mb-5 grid gap-4">
       <SearchField
-        id="application-search"
+        inputId={searchId}
         label="アプリケーションを検索"
         onChange={onQueryChange}
         placeholder="名前・説明・技術スタックで絞り込み"
