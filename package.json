@@ -19,7 +19,8 @@
     "test": "turbo run test",
     "test:coverage": "turbo run test:coverage",
     "typecheck": "turbo run typecheck",
-    "verify": "pnpm check && pnpm typecheck && pnpm test && pnpm build"
+    "verify": "pnpm verify:biome-config && pnpm check && pnpm typecheck && pnpm test && pnpm build",
+    "verify:biome-config": "node scripts/verify-biome-config.mjs"
   },
   "devDependencies": {
     "@biomejs/biome": "2.5.7",

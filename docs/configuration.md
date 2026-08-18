@@ -81,6 +81,28 @@ pnpm check:fix
 入口です。実設定は`root: false`として、ネストしたBiome projectとして扱われるのを
 防ぎます。
 
+汎用ルールは`preset: "all"`を使い、Biome 2.5.7で提供されるdomainはすべて設定に
+明記します。利用中のdomainは`all`、未使用または解決精度を確認できていないdomainは
+`none`です。
+
+| domain | 設定 | 根拠 |
+| --- | --- | --- |
+| `react` / `test` / `tailwind` | `all` | React、Vitest、Tailwind CSSを利用する |
+| `turborepo` / `types` | `all` | TurborepoとTypeScriptを利用する |
+| `drizzle` / `next` / `playwright` / `qwik` / `reactNative` / `solid` / `svelte` / `vue` | `none` | 該当するframeworkまたはtoolを利用しない |
+| `project` | `none` | workspaceの拡張子なしimportを解決できず、`noUnresolvedImports`が誤検知する |
+
+`project` domainを再評価する場合は、まず次のコマンドで解決精度を確認します。
+
+```sh
+pnpm exec biome lint --only=project --reporter=summary --max-diagnostics=none .
+```
+
+domain表と`preset`の意図しない緩和は`pnpm verify:biome-config`で検出し、`pnpm verify`
+からCIでも実行します。既存の個別抑制を追加・変更する場合は、対象ルールを指定した
+`biome-ignore`と、frameworkの仕様・生成物・外部APIなど抑制理由を同じ行に残します。
+設定全体の無効化や、理由のないpath単位の例外は追加しません。
+
 generated directoryは実設定の`files.includes`で除外します。例外ルールは
 全体で無効にせず、必要なpathへoverrideを設定します。
 

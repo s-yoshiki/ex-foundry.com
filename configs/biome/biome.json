@@ -32,15 +32,19 @@
   "linter": {
     "enabled": true,
     "domains": {
+      "drizzle": "none",
       "next": "none",
+      "playwright": "none",
+      "project": "none",
       "qwik": "none",
       "react": "all",
       "reactNative": "none",
       "solid": "none",
       "svelte": "none",
-      "project": "none",
-      "test": "all",
       "tailwind": "all",
+      "test": "all",
+      "turborepo": "all",
+      "types": "all",
       "vue": "none"
     },
     "rules": {
