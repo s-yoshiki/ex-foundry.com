@@ -85,7 +85,16 @@ export function findRoute(id: RouteId): RouteMeta {
 }
 
 export function routePath(id: RouteId): string {
-  return findRoute(id).path;
+  return canonicalPath(findRoute(id).path);
+}
+
+/** Static hosting serves non-root pages from `<path>/index.html`. */
+function canonicalPath(path: string): string {
+  if (path === "/") {
+    return "/";
+  }
+
+  return `/${path.replace(/^\/+|\/+$/g, "")}/`;
 }
 
 /** Matches a pathname to a route, tolerating a trailing slash. */
@@ -97,5 +106,5 @@ export function matchRoute(pathname: string): RouteMeta | undefined {
 }
 
 export function canonicalUrl(path: string): string {
-  return `${SITE_URL}${path === "/" ? "/" : path}`;
+  return `${SITE_URL}${canonicalPath(path)}`;
 }

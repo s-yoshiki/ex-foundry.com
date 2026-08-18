@@ -73,8 +73,8 @@ describe("renderRouteHtml", () => {
 
     expect(html).toContain("<title>About page</title>");
     expect(html).toContain('content="about description"');
-    expect(html).toContain('href="https://ex-foundry.com/about"');
-    expect(html).toContain('content="https://ex-foundry.com/about"');
+    expect(html).toContain('href="https://ex-foundry.com/about/"');
+    expect(html).toContain('content="https://ex-foundry.com/about/"');
   });
 
   it("keeps the application mount point intact", () => {
@@ -86,7 +86,7 @@ describe("renderSitemap", () => {
   it("lists every route as an absolute URL", () => {
     const sitemap = renderSitemap([aboutRoute]);
 
-    expect(sitemap).toContain("<loc>https://ex-foundry.com/about</loc>");
+    expect(sitemap).toContain("<loc>https://ex-foundry.com/about/</loc>");
     expect(sitemap.startsWith('<?xml version="1.0" encoding="UTF-8"?>')).toBe(true);
   });
 

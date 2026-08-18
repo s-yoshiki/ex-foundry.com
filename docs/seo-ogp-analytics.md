@@ -68,7 +68,7 @@ dist/robots.txt
 canonical URLは`canonicalUrl()`が生成します。
 
 - トップページは`https://ex-foundry.com/`
-- `/about`は`https://ex-foundry.com/about`
+- `/about/`は`https://ex-foundry.com/about/`
 - query stringとfragmentはcanonicalへ含めない
 - sitemapへ載せるURLとcanonicalを一致させる
 
@@ -221,7 +221,7 @@ query stringは含め、fragmentは含めません。広告ブロッカーなど
 2. DevToolsのNetworkで`google-analytics.com/g/collect`または
    `analytics.google.com/g/collect`を絞り込む
 3. 初回表示で`page_view`が1件だけ送られることを確認する
-4. `/`から`/about`へクライアント遷移し、追加の`page_view`が1件だけ送られることを確認する
+4. `/`から`/about/`へクライアント遷移し、追加の`page_view`が1件だけ送られることを確認する
 5. payloadの`page_location`と`page_title`が遷移後のrouteと一致することを確認する
 6. GA4 DebugViewまたはRealtimeでイベントを確認する
 

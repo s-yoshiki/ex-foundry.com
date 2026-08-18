@@ -35,6 +35,7 @@ describe("findRoute", () => {
 describe("routePath", () => {
   it("resolves an id to its path", () => {
     expect(routePath("home")).toBe("/");
+    expect(routePath("about")).toBe("/about/");
   });
 });
 
@@ -56,6 +57,6 @@ describe("matchRoute", () => {
 describe("canonicalUrl", () => {
   it("builds an absolute URL", () => {
     expect(canonicalUrl("/")).toBe("https://ex-foundry.com/");
-    expect(canonicalUrl("/about")).toBe("https://ex-foundry.com/about");
+    expect(canonicalUrl("/about")).toBe("https://ex-foundry.com/about/");
   });
 });
