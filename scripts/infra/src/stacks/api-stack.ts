@@ -81,6 +81,7 @@ export class ApiStack extends Stack {
 
     this.functionUrl = url.url;
 
+    // biome-ignore lint/correctness/noUnusedInstantiation: CDK outputs register themselves in the construct tree.
     new CfnOutput(this, "ApiUrl", {
       description: "Base URL for VITE_API_BASE_URL",
       exportName: resourceName(environment.name, "api", "url"),
