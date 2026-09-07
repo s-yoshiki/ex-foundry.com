@@ -20,12 +20,12 @@
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
-    "@types/aws-lambda": "8.10.162",
-    "@types/node": "26.1.2",
-    "@vitest/coverage-v8": "4.1.10",
-    "esbuild": "0.28.1",
-    "tsx": "4.23.9",
+    "@types/aws-lambda": "8.10.163",
+    "@types/node": "26.4.1",
+    "@vitest/coverage-v8": "5.0.0",
+    "esbuild": "0.28.2",
+    "tsx": "4.23.13",
     "typescript": "7.0.2",
-    "vitest": "4.1.10"
+    "vitest": "5.0.0"
   }
 }
