@@ -1,5 +1,5 @@
 import { CalendarDays, Hash } from "lucide-react";
-import { useMemo } from "react";
+import { useId, useMemo } from "react";
 import { PageHero } from "../../../components/page-hero";
 import { Link } from "../../../routing/link";
 import { useNavigation } from "../../../routing/navigation-context";
@@ -13,11 +13,11 @@ import type { BlogContentType } from "../types/blog-post";
 import { getBlogProductLabel } from "../types/blog-post";
 import { BlogArchive } from "./blog-archive";
 import { BlogPostBand } from "./blog-post-band";
-import { BlogSearch } from "./blog-search";
 import { BlogSectionHeading } from "./blog-section-heading";
 import { BlogTag } from "./blog-tag";
 
 export function ArticleList() {
+  const headingId = useId();
   const { location } = useNavigation();
   const posts = getBlogPosts();
   const params = useMemo(() => new URLSearchParams(location.search), [location.search]);
@@ -55,15 +55,14 @@ export function ArticleList() {
     query !== "" || tag !== "" || year !== "" || month !== "" || type !== "" || product !== "";
 
   return (
-    <section aria-labelledby="articles-heading" className="mx-auto max-w-7xl px-4 py-12 sm:px-6">
+    <section aria-labelledby={headingId} className="mx-auto max-w-7xl px-4 py-12 sm:px-6">
       <PageHero
-        action={<BlogSearch />}
-        bordered
+        bordered={true}
         className="mb-8"
         description="EX FOUNDRYで提供しているプロダクトの目的、技術構成、リリース情報、運用上の判断を公式情報として公開しています。"
         eyebrow="KNOWLEDGE BASE"
         title="プロダクト情報"
-        titleId="articles-heading"
+        titleId={headingId}
       />
 
       <div className="grid items-start gap-10 lg:grid-cols-[minmax(0,1fr)_280px]">
@@ -89,7 +88,7 @@ export function ArticleList() {
 
           <div className="mb-5 flex items-center justify-between text-sm text-muted-foreground">
             <span>
-              {product !== "" ? `${getBlogProductLabel(product)}の` : ""}
+              {product === "" ? "" : `${getBlogProductLabel(product)}の`}
               {filteredPosts.length}件の記事
               {hasFilter ? "（絞り込み中）" : ""}
             </span>

@@ -3,7 +3,17 @@ import { Link } from "../routing/link";
 import { useNavigation } from "../routing/navigation-context";
 import { matchRoute, ROUTES } from "../routing/routes";
 
-export function SiteNav() {
+export function SiteNav({
+  ariaLabel = "サイト内",
+  className,
+  linkClassName,
+  onNavigate,
+}: {
+  ariaLabel?: string;
+  className?: string;
+  linkClassName?: string;
+  onNavigate?: () => void;
+} = {}) {
   const { location } = useNavigation();
   const active = matchRoute(location.pathname);
   const activeId = location.pathname.startsWith("/entry/")
@@ -20,7 +30,7 @@ export function SiteNav() {
   );
 
   return (
-    <nav aria-label="サイト内" className="flex shrink-0 gap-1">
+    <nav aria-label={ariaLabel} className={cn("flex shrink-0 gap-1", className)}>
       {visibleRoutes.map((route) => {
         const isActive = route.id === activeId;
 
@@ -32,8 +42,10 @@ export function SiteNav() {
               isActive
                 ? "bg-secondary text-secondary-foreground"
                 : "text-muted-foreground hover:text-foreground",
+              linkClassName,
             )}
             key={route.id}
+            onClick={onNavigate}
             to={route.id}
           >
             {route.navLabel}

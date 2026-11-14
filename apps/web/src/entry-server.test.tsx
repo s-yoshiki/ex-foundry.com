@@ -19,7 +19,7 @@ describe("renderRoute", () => {
   it("renders the home page with the products grid", () => {
     const view = renderRouteIntoDocument("/");
 
-    expect(view.getByRole("heading", { name: /個人開発プロダクトを/ })).toBeInTheDocument();
+    expect(view.getByRole("heading", { name: "プロダクト一覧" })).toBeInTheDocument();
     expect(view.getByText("DevToys for web")).toBeInTheDocument();
   });
 

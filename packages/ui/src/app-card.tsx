@@ -30,33 +30,33 @@ export function AppCard({
   return (
     <a
       className={cn(
-        "group relative flex flex-col gap-3 rounded-xl border bg-card p-6 pr-14",
-        "text-card-foreground no-underline shadow-xs transition-[border-color,transform]",
-        "hover:-translate-y-0.5 hover:border-primary",
+        "group flex h-full flex-col gap-4 rounded-2xl border bg-card p-5",
+        "text-card-foreground no-underline shadow-xs transition-[border-color,box-shadow,transform]",
+        "hover:-translate-y-0.5 hover:border-primary/50 hover:shadow-md",
+        "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring",
         className,
       )}
       {...props}
     >
-      {mark ? (
-        <span
-          aria-hidden="true"
-          className="grid size-10 shrink-0 place-items-center rounded-lg bg-primary/10 text-primary"
-        >
-          {mark}
+      <span className="flex items-center gap-3">
+        {mark ? (
+          <span
+            aria-hidden="true"
+            className="grid size-11 shrink-0 place-items-center rounded-xl bg-primary/10 text-primary"
+          >
+            {mark}
+          </span>
+        ) : null}
+        <span className="flex min-w-0 flex-1 flex-wrap items-center gap-2">
+          <span className="text-base font-semibold tracking-tight sm:text-lg">{name}</span>
+          {badge}
         </span>
-      ) : null}
-
-      <span className="flex flex-wrap items-center gap-2.5">
-        <span className="text-lg font-bold tracking-tight">{name}</span>
-        {badge}
       </span>
 
-      <span className="font-mono text-xs text-primary">{host}</span>
-
-      <span className="leading-relaxed text-muted-foreground">{description}</span>
+      <span className="text-sm leading-6 text-muted-foreground">{description}</span>
 
       {tags.length > 0 && (
-        <span className="mt-1 flex flex-wrap gap-1.5">
+        <span className="flex flex-wrap gap-1.5">
           {tags.map((tag) => (
             <Badge className="font-mono text-muted-foreground" key={tag} variant="outline">
               {tag}
@@ -65,10 +65,16 @@ export function AppCard({
         </span>
       )}
 
-      <ArrowUpRight
-        aria-hidden="true"
-        className="absolute top-6 right-6 size-4 text-primary transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
-      />
+      <span className="mt-auto flex items-center justify-between gap-3 border-t pt-3 text-xs">
+        <span className="truncate font-mono text-muted-foreground">{host}</span>
+        <span className="flex shrink-0 items-center gap-1 font-medium text-primary">
+          詳細を見る
+          <ArrowUpRight
+            aria-hidden="true"
+            className="size-3.5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+          />
+        </span>
+      </span>
     </a>
   );
 }
