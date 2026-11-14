@@ -10,7 +10,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@shikijs/rehype": "4.4.3",
+    "@shikijs/rehype": "4.5.0",
     "cheerio": "1.2.0",
     "github-slugger": "2.0.0",
     "gray-matter": "4.0.3",
