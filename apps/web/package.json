@@ -19,24 +19,24 @@
     "lucide-react": "catalog:",
     "react": "19.3.0",
     "react-dom": "19.3.0",
-    "react-router": "8.4.0",
+    "react-router": "catalog:",
     "zod": "catalog:"
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
-    "@tailwindcss/vite": "4.3.5",
+    "@tailwindcss/vite": "catalog:",
     "@testing-library/jest-dom": "catalog:",
     "@testing-library/react": "catalog:",
     "@testing-library/user-event": "catalog:",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
-    "@vitejs/plugin-react": "6.3.0",
+    "@vitejs/plugin-react": "catalog:",
     "@vitest/coverage-v8": "catalog:",
     "cheerio": "catalog:",
     "happy-dom": "catalog:",
-    "tailwindcss": "4.3.5",
+    "tailwindcss": "catalog:",
     "typescript": "catalog:",
-    "vite": "8.3.8",
+    "vite": "catalog:",
     "vitest": "catalog:"
   }
 }

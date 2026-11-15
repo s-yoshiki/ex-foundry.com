@@ -17,11 +17,11 @@
     "ui:add": "shadcn add"
   },
   "dependencies": {
-    "class-variance-authority": "0.7.1",
-    "clsx": "2.1.1",
+    "class-variance-authority": "catalog:",
+    "clsx": "catalog:",
     "lucide-react": "catalog:",
-    "radix-ui": "1.7.0",
-    "tailwind-merge": "3.7.0"
+    "radix-ui": "catalog:",
+    "tailwind-merge": "catalog:"
   },
   "devDependencies": {
     "@repo/tailwind-config": "workspace:*",
@@ -35,7 +35,7 @@
     "happy-dom": "catalog:",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
-    "shadcn": "4.23.0",
+    "shadcn": "catalog:",
     "typescript": "catalog:",
     "vitest": "catalog:"
   },
