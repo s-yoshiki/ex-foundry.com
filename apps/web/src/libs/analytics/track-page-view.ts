@@ -1,4 +1,4 @@
-import type { GtagFunction } from "./gtag";
+import type { GtagFunction } from './gtag';
 
 export type PageView = {
   pageLocation: string;
@@ -13,11 +13,11 @@ export type PageView = {
  * rather than a thrown error.
  */
 export function trackPageView(gtag: GtagFunction | undefined, page: PageView): void {
-  if (typeof gtag !== "function") {
+  if (typeof gtag !== 'function') {
     return;
   }
 
-  gtag("event", "page_view", {
+  gtag('event', 'page_view', {
     page_location: page.pageLocation,
     page_title: page.pageTitle,
   });

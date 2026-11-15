@@ -1,13 +1,13 @@
-import { renderToStaticMarkup } from "react-dom/server";
-import { App } from "./app";
-import { ArticlePage } from "./features/blog/components/article-page";
-import { getBlogPostId } from "./features/blog/functions/get-blog-posts";
-import { getProductSlug } from "./features/product-detail/functions/get-product";
-import { NotFoundPage } from "./pages/not-found-page";
-import { ProductPage } from "./pages/product-page";
-import { MemoryNavigationProvider } from "./routing/adapters/memory/memory-navigation";
-import { ROUTE_COMPONENTS } from "./routing/route-components";
-import { matchRoute } from "./routing/routes";
+import { renderToStaticMarkup } from 'react-dom/server';
+import { App } from './app';
+import { ArticlePage } from './features/blog/components/article-page';
+import { getBlogPostId } from './features/blog/functions/get-blog-posts';
+import { getProductSlug } from './features/product-detail/functions/get-product';
+import { NotFoundPage } from './pages/not-found-page';
+import { ProductPage } from './pages/product-page';
+import { MemoryNavigationProvider } from './routing/adapters/memory/memory-navigation';
+import { ROUTE_COMPONENTS } from './routing/route-components';
+import { matchRoute } from './routing/routes';
 
 /**
  * Picks the page component for a build-time route the same way the router

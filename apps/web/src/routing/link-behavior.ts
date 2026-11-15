@@ -26,5 +26,5 @@ export function shouldLetBrowserHandle(event: LinkActivation, target?: string): 
     return true;
   }
 
-  return target !== undefined && target !== "" && target !== "_self";
+  return target !== undefined && target !== '' && target !== '_self';
 }

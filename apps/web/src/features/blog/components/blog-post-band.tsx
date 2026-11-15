@@ -1,5 +1,5 @@
-import type { BlogPost } from "../types/blog-post";
-import { BlogPostCard } from "./blog-post-card";
+import type { BlogPost } from '../types/blog-post';
+import { BlogPostCard } from './blog-post-card';
 
 export function BlogPostBand({ posts }: { posts: readonly BlogPost[] }) {
   if (posts.length === 0) {

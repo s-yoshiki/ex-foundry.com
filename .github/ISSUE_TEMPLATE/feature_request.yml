@@ -1,7 +1,7 @@
 name: Feature request
 description: 新しい機能や改善を提案する
-title: "Feat: "
-projects: ["s-yoshiki/1"]
+title: 'Feat: '
+projects: ['s-yoshiki/1']
 body:
   - type: textarea
     id: problem

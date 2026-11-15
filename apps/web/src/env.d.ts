@@ -10,8 +10,8 @@ interface ImportMeta {
   readonly env: ImportMetaEnv;
 }
 
-declare module "virtual:ex-foundry-blog-content" {
-  import type { BlogPost } from "./features/blog/types/blog-post";
+declare module 'virtual:ex-foundry-blog-content' {
+  import type { BlogPost } from './features/blog/types/blog-post';
 
   export const BLOG_POSTS: readonly BlogPost[];
   export const BLOG_POPULAR_POST_PATHS: readonly string[];

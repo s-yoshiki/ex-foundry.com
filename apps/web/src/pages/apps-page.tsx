@@ -1,11 +1,11 @@
-import { ErrorBoundary } from "../components/error-boundary";
-import { PageHero } from "../components/page-hero";
-import { ApplicationList } from "../features/app-directory/components/application-list";
-import { findRoute } from "../routing/routes";
-import { useDocumentMeta } from "../routing/use-document-meta";
+import { ErrorBoundary } from '../components/error-boundary';
+import { PageHero } from '../components/page-hero';
+import { ApplicationList } from '../features/app-directory/components/application-list';
+import { findRoute } from '../routing/routes';
+import { useDocumentMeta } from '../routing/use-document-meta';
 
 export function AppsPage() {
-  useDocumentMeta(findRoute("apps"));
+  useDocumentMeta(findRoute('apps'));
 
   return (
     <section aria-labelledby="apps-heading" className="mx-auto w-full max-w-7xl px-4 py-12 sm:px-6">

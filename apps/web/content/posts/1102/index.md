@@ -1,13 +1,13 @@
 ---
-title: "DevToys Webの技術構成：静的なツール画面とAPI診断を分離する"
-path: "/entry/1102"
-date: "2026-08-11 10:00"
-coverImage: "../../../images/thumbnail/typescript-logo.png"
-author: "s-yoshiki"
+title: 'DevToys Webの技術構成：静的なツール画面とAPI診断を分離する'
+path: '/entry/1102'
+date: '2026-08-11 10:00'
+coverImage: '../../../images/thumbnail/typescript-logo.png'
+author: 's-yoshiki'
 aiGenerated: true
-contentType: "architecture"
-product: "devtoys"
-tags: ["DevToys Web", "Next.js", "React", "Lambda", "CloudFront", "API"]
+contentType: 'architecture'
+product: 'devtoys'
+tags: ['DevToys Web', 'Next.js', 'React', 'Lambda', 'CloudFront', 'API']
 ---
 
 ## 画面と診断APIを分ける
@@ -60,7 +60,7 @@ API側へ入力を渡す場合、単にURLを受け取って取得するだけ�
 
 本番構成は、静的な画面をCloudFrontから配信し、`/api/*`だけをLambda Function URLへルーティングします。CloudFrontのOACでLambdaのURLを保護し、ブラウザにAWS認証情報を持たせることはありません。画面の静的アセットとAPIの実行環境を分けることで、変換ツールの表示を軽く保ちながら、診断機能だけにサーバー処理を割り当てられます。
 
-GitHub Actionsでは、Node.js 26とpnpm 11を使って検証し、AWS OIDCでデプロイします。長期アクセスキーをリポジトリへ保存しないこと、環境名を明示して誤ったAWS環境へデプロイしないことを運用上の制約にしています。Pull Requestではテスト、型チェック、ビルドを通したうえで、APIのモックテストとWeb画面の確認を分けて行います。
+GitHub Actionsでは、Node.js 26とpnpm 12を使って検証し、AWS OIDCでデプロイします。長期アクセスキーをリポジトリへ保存しないこと、環境名を明示して誤ったAWS環境へデプロイしないことを運用上の制約にしています。Pull Requestではテスト、型チェック、ビルドを通したうえで、APIのモックテストとWeb画面の確認を分けて行います。
 
 ## ツール追加時の判断
 

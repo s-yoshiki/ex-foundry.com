@@ -4,17 +4,17 @@ import {
   type ApplicationCategory,
   type ApplicationStatus,
   type CategoryFilterValue,
-} from "../types/application";
+} from '../types/application';
 
 export const CATEGORY_LABELS = {
-  data: "データ",
-  entertainment: "エンタメ",
-  tool: "ツール",
+  data: 'データ',
+  entertainment: 'エンタメ',
+  tool: 'ツール',
 } as const satisfies Record<ApplicationCategory, string>;
 
 export const STATUS_LABELS = {
-  active: "公開中",
-  beta: "ベータ",
+  active: '公開中',
+  beta: 'ベータ',
 } as const satisfies Record<ApplicationStatus, string>;
 
 export type CategoryOption = {
@@ -36,5 +36,5 @@ export function buildCategoryOptions(
     value: category satisfies CategoryFilterValue,
   })).filter((option) => option.count > 0);
 
-  return [{ count: applications.length, label: "すべて", value: "all" }, ...populated];
+  return [{ count: applications.length, label: 'すべて', value: 'all' }, ...populated];
 }

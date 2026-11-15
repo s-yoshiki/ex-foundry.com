@@ -18,20 +18,20 @@ pnpm verify
 
 ## Guides
 
-| Document |
-| --- |
-| [adding-a-feature](adding-a-feature.md) |
-| [api-contract](api-contract.md) |
-| [architecture](architecture.md) |
-| [configuration](configuration.md) |
-| [conventions](conventions.md) |
-| [deployment](deployment.md) |
-| [infrastructure](infrastructure.md) |
-| [routing](routing.md) |
+| Document                                  |
+| ----------------------------------------- |
+| [adding-a-feature](adding-a-feature.md)   |
+| [api-contract](api-contract.md)           |
+| [architecture](architecture.md)           |
+| [configuration](configuration.md)         |
+| [conventions](conventions.md)             |
+| [deployment](deployment.md)               |
+| [infrastructure](infrastructure.md)       |
+| [routing](routing.md)                     |
 | [seo-ogp-analytics](seo-ogp-analytics.md) |
-| [template-usage](template-usage.md) |
-| [testing](testing.md) |
-| [ui](ui.md) |
+| [template-usage](template-usage.md)       |
+| [testing](testing.md)                     |
+| [ui](ui.md)                               |
 
 ## Writing rules
 

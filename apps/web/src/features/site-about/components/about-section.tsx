@@ -1,20 +1,20 @@
-import { Card, CardContent, CardHeader, CardTitle, TagList } from "@repo/ui";
-import { useId } from "react";
-import { PageHero } from "../../../components/page-hero";
-import { Link } from "../../../routing/link";
-import { getHighlights } from "../functions/get-highlights";
+import { Card, CardContent, CardHeader, CardTitle, TagList } from '@repo/ui';
+import { useId } from 'react';
+import { PageHero } from '../../../components/page-hero';
+import { Link } from '../../../routing/link';
+import { getHighlights } from '../functions/get-highlights';
 
 const STACK = [
-  "TypeScript",
-  "React 19",
-  "Vite",
-  "Hono",
-  "Tailwind CSS 4",
-  "shadcn/ui",
-  "Turborepo",
-  "pnpm",
-  "Biome",
-  "GitHub Actions",
+  'TypeScript',
+  'React 19',
+  'Vite',
+  'Hono',
+  'Tailwind CSS 4',
+  'shadcn/ui',
+  'Turborepo',
+  'pnpm',
+  'Oxlint / Oxfmt',
+  'GitHub Actions',
 ] as const;
 
 export function AboutSection() {

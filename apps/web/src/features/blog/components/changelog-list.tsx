@@ -1,11 +1,11 @@
-import { useMemo } from "react";
-import { PageHero } from "../../../components/page-hero";
-import { getBlogPosts } from "../functions/get-blog-posts";
-import { BlogPostCard } from "./blog-post-card";
+import { useMemo } from 'react';
+import { PageHero } from '../../../components/page-hero';
+import { getBlogPosts } from '../functions/get-blog-posts';
+import { BlogPostCard } from './blog-post-card';
 
 export function ChangelogList() {
   const releases = useMemo(
-    () => getBlogPosts().filter((post) => post.contentType === "release"),
+    () => getBlogPosts().filter((post) => post.contentType === 'release'),
     [],
   );
 

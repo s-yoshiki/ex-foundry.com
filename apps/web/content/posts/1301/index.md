@@ -1,13 +1,13 @@
 ---
-title: "NPB Analysis：日本プロ野球の選手成績を検索・比較・可視化する"
-path: "/entry/1301"
-date: "2026-08-12 09:00"
-coverImage: "../../../images/thumbnail/code.jpeg"
-author: "s-yoshiki"
+title: 'NPB Analysis：日本プロ野球の選手成績を検索・比較・可視化する'
+path: '/entry/1301'
+date: '2026-08-12 09:00'
+coverImage: '../../../images/thumbnail/code.jpeg'
+author: 's-yoshiki'
 aiGenerated: true
-contentType: "product"
-product: "npb"
-tags: ["NPB Analysis", "日本プロ野球", "成績データ", "検索", "可視化"]
+contentType: 'product'
+product: 'npb'
+tags: ['NPB Analysis', '日本プロ野球', '成績データ', '検索', '可視化']
 ---
 
 ## NPB Analysisとは

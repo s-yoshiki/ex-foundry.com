@@ -1,23 +1,23 @@
 ---
-title: "クソゲーの森の設計：PhaserとDOMをゲームごとに使い分ける"
-path: "/entry/1402"
-date: "2026-08-09 09:00"
-coverImage: "../../../images/thumbnail/typescript-logo.png"
-author: "s-yoshiki"
+title: 'クソゲーの森の設計：PhaserとDOMをゲームごとに使い分ける'
+path: '/entry/1402'
+date: '2026-08-09 09:00'
+coverImage: '../../../images/thumbnail/typescript-logo.png'
+author: 's-yoshiki'
 aiGenerated: true
-contentType: "architecture"
-product: "kusoge"
-tags: ["クソゲーの森", "Phaser", "React", "DOM", "SSG", "Web Worker"]
+contentType: 'architecture'
+product: 'kusoge'
+tags: ['クソゲーの森', 'Phaser', 'React', 'DOM', 'SSG', 'Web Worker']
 ---
 
 ## Phaserを前提にしない
 
 クソゲーの森では、すべてのゲームを同じ描画エンジンへ乗せるのではなく、ゲームの性質に応じて方式を選びます。毎フレーム動くゲームや当たり判定が必要なものにはPhaserを使い、静的な盤面をクリックするオセロにはDOMを使うといった具合です。描画方式を統一することよりも、ゲームループが必要か、入力を要素として扱いたいか、アクセシビリティやテーマの仕組みをそのまま使えるかを基準に選んでいます。
 
-| ゲームの性質 | 描画方式 | 理由 |
-| --- | --- | --- |
-| 座標、速度、衝突、毎フレーム更新 | Phaser / Canvas | ゲームループと描画をまとめやすい |
-| 盤面を選び、手番を進める | React / DOM | キーボード、読み上げ、テーマをそのまま使える |
+| ゲームの性質                     | 描画方式        | 理由                                         |
+| -------------------------------- | --------------- | -------------------------------------------- |
+| 座標、速度、衝突、毎フレーム更新 | Phaser / Canvas | ゲームループと描画をまとめやすい             |
+| 盤面を選び、手番を進める         | React / DOM     | キーボード、読み上げ、テーマをそのまま使える |
 
 ## packagesへゲーム本体を分離する
 
@@ -40,13 +40,13 @@ packages/game
 type GameDefinition = {
   slug: string;
   title: string;
-  renderer: "phaser" | "dom";
+  renderer: 'phaser' | 'dom';
   loadClient: () => Promise<unknown>;
 };
 
 const games: readonly GameDefinition[] = [
-  { slug: "runner", title: "ランナー", renderer: "phaser", loadClient: loadRunner },
-  { slug: "othello", title: "オセロ", renderer: "dom", loadClient: loadOthello },
+  { slug: 'runner', title: 'ランナー', renderer: 'phaser', loadClient: loadRunner },
+  { slug: 'othello', title: 'オセロ', renderer: 'dom', loadClient: loadOthello },
 ];
 ```
 

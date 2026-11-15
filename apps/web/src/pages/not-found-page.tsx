@@ -1,6 +1,6 @@
-import { useId } from "react";
-import { Link } from "../routing/link";
-import { useDocumentTitle } from "../routing/use-document-meta";
+import { useId } from 'react';
+import { Link } from '../routing/link';
+import { useDocumentTitle } from '../routing/use-document-meta';
 
 /**
  * Shown when client-side navigation lands on an unknown path. A direct visit is
@@ -9,7 +9,7 @@ import { useDocumentTitle } from "../routing/use-document-meta";
  */
 export function NotFoundPage() {
   const headingId = useId();
-  useDocumentTitle("ページが見つかりません - EX FOUNDRY");
+  useDocumentTitle('ページが見つかりません - EX FOUNDRY');
 
   return (
     <section aria-labelledby={headingId} className="py-10 text-center">

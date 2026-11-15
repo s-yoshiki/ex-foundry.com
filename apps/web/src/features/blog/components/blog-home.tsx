@@ -1,11 +1,11 @@
-import { Sparkles } from "lucide-react";
-import { useId } from "react";
-import { Link } from "../../../routing/link";
-import { ApplicationCard } from "../../app-directory/components/application-card";
-import { getApplications } from "../../app-directory/functions/get-applications";
-import { getBlogPosts } from "../functions/get-blog-posts";
-import { BlogPostBand } from "./blog-post-band";
-import { BlogSectionHeading } from "./blog-section-heading";
+import { Sparkles } from 'lucide-react';
+import { useId } from 'react';
+import { Link } from '../../../routing/link';
+import { ApplicationCard } from '../../app-directory/components/application-card';
+import { getApplications } from '../../app-directory/functions/get-applications';
+import { getBlogPosts } from '../functions/get-blog-posts';
+import { BlogPostBand } from './blog-post-band';
+import { BlogSectionHeading } from './blog-section-heading';
 
 const LATEST_POST_COUNT = 3;
 

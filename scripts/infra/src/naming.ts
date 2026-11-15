@@ -1,7 +1,7 @@
-import type { EnvironmentName } from "./environments";
+import type { EnvironmentName } from './environments';
 
-export const PROJECT_SLUG = "ex-foundry";
-export const PROJECT_NAME = "ExFoundry";
+export const PROJECT_SLUG = 'ex-foundry';
+export const PROJECT_NAME = 'ExFoundry';
 
 /**
  * Physical resource name, e.g. `ex-foundry-dev-api`.
@@ -11,12 +11,12 @@ export const PROJECT_NAME = "ExFoundry";
  * `prd` from colliding.
  */
 export function resourceName(environment: EnvironmentName, ...parts: string[]): string {
-  return [PROJECT_SLUG, environment, ...parts].join("-");
+  return [PROJECT_SLUG, environment, ...parts].join('-');
 }
 
 /** CloudFormation stack name, e.g. `ExFoundry-Dev-Api`. */
 export function stackName(environment: EnvironmentName, stack: string): string {
-  return [PROJECT_NAME, capitalize(environment), stack].join("-");
+  return [PROJECT_NAME, capitalize(environment), stack].join('-');
 }
 
 /** Construct id inside the CDK app, e.g. `DevApi`. */

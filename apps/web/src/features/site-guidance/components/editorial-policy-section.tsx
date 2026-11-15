@@ -1,8 +1,8 @@
-import { BookOpenCheck, Bot, RefreshCcw, ShieldCheck } from "lucide-react";
-import { useId } from "react";
-import { PageHero } from "../../../components/page-hero";
-import { BLOG_CONTENT_CLASS } from "../../blog/functions/blog-content-style";
-import { EDITORIAL_POLICY_SECTIONS, EDITORIAL_POLICY_STEPS } from "../content";
+import { BookOpenCheck, Bot, RefreshCcw, ShieldCheck } from 'lucide-react';
+import { useId } from 'react';
+import { PageHero } from '../../../components/page-hero';
+import { BLOG_CONTENT_CLASS } from '../../blog/functions/blog-content-style';
+import { EDITORIAL_POLICY_SECTIONS, EDITORIAL_POLICY_STEPS } from '../content';
 
 const SECTION_ICONS = [BookOpenCheck, ShieldCheck, RefreshCcw, Bot, ShieldCheck] as const;
 

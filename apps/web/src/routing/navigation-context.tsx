@@ -1,5 +1,5 @@
-import { createContext, useContext } from "react";
-import type { NavigationPort } from "./types";
+import { createContext, useContext } from 'react';
+import type { NavigationPort } from './types';
 
 const NavigationContext = createContext<NavigationPort | undefined>(undefined);
 
@@ -18,7 +18,7 @@ export function useNavigation(): NavigationPort {
   const port = useContext(NavigationContext);
 
   if (port === undefined) {
-    throw new Error("useNavigation must be used inside a NavigationProvider.");
+    throw new Error('useNavigation must be used inside a NavigationProvider.');
   }
 
   return port;

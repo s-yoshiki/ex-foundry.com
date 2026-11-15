@@ -1,7 +1,7 @@
-/* biome-ignore-all lint/security/noDangerouslySetInnerHtml: content is sanitized during the static build before it reaches the browser. */
+/* lint/security/noDangerouslySetInnerHtml: content is sanitized during the static build before it reaches the browser. */
 
-import { useEffect, useState } from "react";
-import { BLOG_CONTENT_CLASS } from "../functions/blog-content-style";
+import { useEffect, useState } from 'react';
+import { BLOG_CONTENT_CLASS } from '../functions/blog-content-style';
 
 type ArticleContentProps = {
   path: string;

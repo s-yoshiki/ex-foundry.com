@@ -1,6 +1,6 @@
-import { ExternalLink, FileWarning, MessageSquareText, UserRound } from "lucide-react";
-import { PageHero } from "../../../components/page-hero";
-import { CONTACT_CHANNELS } from "../content";
+import { ExternalLink, FileWarning, MessageSquareText, UserRound } from 'lucide-react';
+import { PageHero } from '../../../components/page-hero';
+import { CONTACT_CHANNELS } from '../content';
 
 const ICONS = [FileWarning, MessageSquareText, UserRound] as const;
 

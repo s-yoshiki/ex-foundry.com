@@ -1,13 +1,13 @@
-import { Bot, CalendarDays, ChevronRight, Clock3, Sparkles, TriangleAlert } from "lucide-react";
-import { useId } from "react";
-import { useNavigation } from "../../../routing/navigation-context";
-import { useDocumentMeta } from "../../../routing/use-document-meta";
-import { findBlogPost, getBlogPostId, getRecommendedBlogPosts } from "../functions/get-blog-posts";
-import { BLOG_CONTENT_TYPE_LABELS, getBlogProductLabel } from "../types/blog-post";
-import { AiGeneratedBadge } from "./ai-generated-badge";
-import { ArticleContent } from "./article-content";
-import { ArticleTableOfContents } from "./article-table-of-contents";
-import { BlogPostBand } from "./blog-post-band";
+import { Bot, CalendarDays, ChevronRight, Clock3, Sparkles, TriangleAlert } from 'lucide-react';
+import { useId } from 'react';
+import { useNavigation } from '../../../routing/navigation-context';
+import { useDocumentMeta } from '../../../routing/use-document-meta';
+import { findBlogPost, getBlogPostId, getRecommendedBlogPosts } from '../functions/get-blog-posts';
+import { BLOG_CONTENT_TYPE_LABELS, getBlogProductLabel } from '../types/blog-post';
+import { AiGeneratedBadge } from './ai-generated-badge';
+import { ArticleContent } from './article-content';
+import { ArticleTableOfContents } from './article-table-of-contents';
+import { BlogPostBand } from './blog-post-band';
 
 type ArticlePageProps = {
   /** Pre-rendered body, supplied only by the SSR entry point. */
@@ -23,17 +23,17 @@ export function ArticlePage({ presetHtml }: ArticlePageProps = {}) {
   const articleRoute = post
     ? {
         description: post.description,
-        id: "articles" as const,
-        navLabel: "プロダクト情報",
+        id: 'articles' as const,
+        navLabel: 'プロダクト情報',
         path: `${post.path}/`,
         title: `${post.title} - EX FOUNDRY`,
       }
     : {
-        description: "指定された記事は存在しないか、移動しました。",
-        id: "articles" as const,
-        navLabel: "プロダクト情報",
-        path: "/articles/",
-        title: "記事が見つかりません - EX FOUNDRY",
+        description: '指定された記事は存在しないか、移動しました。',
+        id: 'articles' as const,
+        navLabel: 'プロダクト情報',
+        path: '/articles/',
+        title: '記事が見つかりません - EX FOUNDRY',
       };
 
   useDocumentMeta(articleRoute);

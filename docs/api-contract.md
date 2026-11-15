@@ -63,7 +63,7 @@ route境界でパラメータを検証し、エラーはコントラクトの形
 const parsed = healthResponseSchema.safeParse(await response.json());
 
 if (!parsed.success) {
-  return { message: "APIの応答が共有スキーマと一致しません。", status: "error" };
+  return { message: 'APIの応答が共有スキーマと一致しません。', status: 'error' };
 }
 ```
 

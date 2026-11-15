@@ -43,13 +43,13 @@
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag() {
-        // biome-ignore lint/complexity/noArguments: The Google tag queue requires an Arguments object.
+        // lint/complexity/noArguments: The Google tag queue requires an Arguments object.
         globalThis.dataLayer.push(arguments);
       }
-      gtag("js", new Date());
+      gtag('js', new Date());
       // Page views are sent manually after client-side navigation instead,
       // see src/features/analytics/hooks/use-page-view-tracking.ts.
-      gtag("config", "G-ECD2N4RTYS", { send_page_view: false });
+      gtag('config', 'G-ECD2N4RTYS', { send_page_view: false });
     </script>
     <title>EX FOUNDRY - プロダクト情報と開発記録</title>
     <!--
@@ -60,12 +60,12 @@
     <script>
       (() => {
         try {
-          const stored = localStorage.getItem("ex-foundry:theme");
-          const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+          const stored = localStorage.getItem('ex-foundry:theme');
+          const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
           document.documentElement.dataset.theme =
-            stored === "light" || stored === "dark" ? stored : prefersDark ? "dark" : "light";
+            stored === 'light' || stored === 'dark' ? stored : prefersDark ? 'dark' : 'light';
         } catch {
-          document.documentElement.dataset.theme = "dark";
+          document.documentElement.dataset.theme = 'dark';
         }
       })();
     </script>

@@ -4,18 +4,32 @@ updates:
     directory: /
     schedule:
       interval: weekly
+      day: tuesday
+      time: '02:00'
+      timezone: Asia/Tokyo
+    open-pull-requests-limit: 10
     groups:
-      development-dependencies:
-        dependency-type: development
-      production-dependencies:
-        dependency-type: production
-    open-pull-requests-limit: 5
+      minor-and-patch:
+        applies-to: version-updates
+        patterns:
+          - '*'
+        update-types:
+          - minor
+          - patch
 
   - package-ecosystem: github-actions
     directory: /
     schedule:
       interval: weekly
+      day: tuesday
+      time: '02:00'
+      timezone: Asia/Tokyo
+    open-pull-requests-limit: 10
     groups:
-      github-actions:
+      minor-and-patch:
+        applies-to: version-updates
         patterns:
-          - "*"
+          - '*'
+        update-types:
+          - minor
+          - patch

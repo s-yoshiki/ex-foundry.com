@@ -51,8 +51,8 @@ portを小さく保つことが移植性の条件です。
 
 ```ts
 export const ROUTES = [
-  { id: "home", path: "/", title: "...", description: "...", navLabel: "アプリ一覧" },
-  { id: "about", path: "/about", title: "...", description: "...", navLabel: "このサイトについて" },
+  { id: 'home', path: '/', title: '...', description: '...', navLabel: 'アプリ一覧' },
+  { id: 'about', path: '/about', title: '...', description: '...', navLabel: 'このサイトについて' },
 ] as const satisfies readonly RouteMeta[];
 ```
 
@@ -73,8 +73,8 @@ componentを混ぜると、Viteの設定がアプリ全体を巻き込みます�
 
 ```ts
 const searchParamsSchema = z.object({
-  category: z.enum(["all", ...APPLICATION_CATEGORIES]).catch("all"),
-  q: z.string().max(100).catch(""),
+  category: z.enum(['all', ...APPLICATION_CATEGORIES]).catch('all'),
+  q: z.string().max(100).catch(''),
 });
 ```
 
@@ -107,9 +107,9 @@ OGP、構造化データ、sitemap、GA4との関係は
 
 404には2種類あります。
 
-| 経路 | 応答 |
-| --- | --- |
-| 未知のパスへ直接アクセス | `public/404.html`（HTTP 404、静的） |
+| 経路                         | 応答                                |
+| ---------------------------- | ----------------------------------- |
+| 未知のパスへ直接アクセス     | `public/404.html`（HTTP 404、静的） |
 | クライアント遷移で未知のパス | `pages/not-found-page.tsx`（SPA内） |
 
 ## ルートを追加する

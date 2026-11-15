@@ -20,14 +20,14 @@ install scriptを必要とする依存関係は`allowBuilds`へ明示し、追�
 
 `turbo.json`は次の共通taskを定義します。
 
-| task | 内容 |
-| --- | --- |
-| `dev` | cacheなし、常駐 |
-| `typecheck` | 依存packageから順に実行 |
-| `test` | 依存packageのbuild後に実行 |
+| task            | 内容                          |
+| --------------- | ----------------------------- |
+| `dev`           | cacheなし、常駐               |
+| `typecheck`     | 依存packageから順に実行       |
+| `test`          | 依存packageのbuild後に実行    |
 | `test:coverage` | `coverage/`を成果物として扱う |
-| `test:watch` | cacheなし、常駐 |
-| `build` | typecheck後に成果物を生成 |
+| `test:watch`    | cacheなし、常駐               |
+| `build`         | typecheck後に成果物を生成     |
 
 新しいapp/packageは、必要な同名scriptを自身の`package.json`へ追加します。
 scriptが無いworkspaceはそのtaskの実行対象から自動的に外れます。
@@ -59,10 +59,11 @@ project references（`references`）は使いません。
 `globals: false`のため、`describe` / `it` / `expect`は明示的にimportします。
 setupファイルの役割は[テスト方針](testing.md)を参照してください。
 
-## Biome
+## Oxlint と Oxfmt
 
-BiomeをFormatterとLinterの唯一の基盤として使います。ESLintとPrettierを重ねて
-同じ責務を持たせません。
+TypeScript / JavaScript の lint には Oxlint、format には Oxfmt を使います。共有設定は
+`configs/oxlint/` と `configs/oxfmt/` に置き、ルートの設定ファイルから参照します。
+依存バージョンは `pnpm-workspace.yaml` の catalog で一元管理します。
 
 ```sh
 pnpm lint
@@ -71,40 +72,12 @@ pnpm check
 pnpm check:fix
 ```
 
-- `lint`: lintのみ
-- `format:check`: format差分のみ
-- `check`: lintとformatをまとめて確認
-- `check:fix`: 安全に修正できる項目を反映
+- `lint`: lint のみ
+- `format:check`: format 差分のみ
+- `check`: lint と format をまとめて確認
+- `check:fix`: 自動修正できる lint と format を反映
 
-実設定は`configs/biome/biome.json`に置き、ルート`biome.json`からextendsします。
-ルートの薄い設定は、CLIとエディタがリポジトリルートから設定を探索するための
-入口です。実設定は`root: false`として、ネストしたBiome projectとして扱われるのを
-防ぎます。
-
-汎用ルールは`preset: "all"`を使い、Biome 2.5.7で提供されるdomainはすべて設定に
-明記します。利用中のdomainは`all`、未使用または解決精度を確認できていないdomainは
-`none`です。
-
-| domain | 設定 | 根拠 |
-| --- | --- | --- |
-| `react` / `test` / `tailwind` | `all` | React、Vitest、Tailwind CSSを利用する |
-| `turborepo` / `types` | `all` | TurborepoとTypeScriptを利用する |
-| `drizzle` / `next` / `playwright` / `qwik` / `reactNative` / `solid` / `svelte` / `vue` | `none` | 該当するframeworkまたはtoolを利用しない |
-| `project` | `none` | workspaceの拡張子なしimportを解決できず、`noUnresolvedImports`が誤検知する |
-
-`project` domainを再評価する場合は、まず次のコマンドで解決精度を確認します。
-
-```sh
-pnpm exec biome lint --only=project --reporter=summary --max-diagnostics=none .
-```
-
-domain表と`preset`の意図しない緩和は`pnpm verify:biome-config`で検出し、`pnpm verify`
-からCIでも実行します。既存の個別抑制を追加・変更する場合は、対象ルールを指定した
-`biome-ignore`と、frameworkの仕様・生成物・外部APIなど抑制理由を同じ行に残します。
-設定全体の無効化や、理由のないpath単位の例外は追加しません。
-
-generated directoryは実設定の`files.includes`で除外します。例外ルールは
-全体で無効にせず、必要なpathへoverrideを設定します。
+CI は Node.js 26 と pnpm 12 を使い、`pnpm verify` で lint、format、型検査、テスト、build を確認します。
 
 ## Tailwind CSS
 
@@ -113,8 +86,8 @@ Tailwind CSS 4はJavaScript configではなくCSS-first configurationを使い�
 packageとして管理します。
 
 ```css
-@import "tailwindcss";
-@import "@repo/tailwind-config/theme.css";
+@import 'tailwindcss';
+@import '@repo/tailwind-config/theme.css';
 @source "../../../packages/ui/src";
 ```
 

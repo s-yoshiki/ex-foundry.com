@@ -1,7 +1,7 @@
-import { mkdir, writeFile } from "node:fs/promises";
-import { dirname, join } from "node:path";
-import { parseFeatureName } from "./feature-name";
-import { buildFeatureFiles } from "./templates";
+import { mkdir, writeFile } from 'node:fs/promises';
+import { dirname, join } from 'node:path';
+import { parseFeatureName } from './feature-name';
+import { buildFeatureFiles } from './templates';
 
 export type CreateFeatureOptions = {
   /** Workspace root, used to resolve the target app. */
@@ -15,7 +15,7 @@ export type CreateFeatureResult =
   | { ok: false; reason: string };
 
 export function featureDirectory(root: string, app: string, name: string): string {
-  return join(root, "apps", app, "src", "features", name);
+  return join(root, 'apps', app, 'src', 'features', name);
 }
 
 /**
@@ -43,7 +43,7 @@ export async function createFeature({
     await mkdir(dirname(target), { recursive: true });
 
     try {
-      await writeFile(target, file.contents, { encoding: "utf8", flag: "wx" });
+      await writeFile(target, file.contents, { encoding: 'utf8', flag: 'wx' });
     } catch (error) {
       if (isFileExistsError(error)) {
         return { ok: false, reason: `${target} は既に存在します。` };
@@ -60,9 +60,9 @@ export async function createFeature({
 
 function isFileExistsError(error: unknown): boolean {
   return (
-    typeof error === "object" &&
+    typeof error === 'object' &&
     error !== null &&
-    "code" in error &&
-    (error as { code: unknown }).code === "EEXIST"
+    'code' in error &&
+    (error as { code: unknown }).code === 'EEXIST'
   );
 }

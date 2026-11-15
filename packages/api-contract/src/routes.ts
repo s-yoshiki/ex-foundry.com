@@ -6,8 +6,8 @@
  * both sides instead of at runtime.
  */
 export const API_ROUTES = {
-  greeting: "/api/greeting/:name",
-  health: "/health",
+  greeting: '/api/greeting/:name',
+  health: '/health',
 } as const;
 
 export function healthPath(): string {

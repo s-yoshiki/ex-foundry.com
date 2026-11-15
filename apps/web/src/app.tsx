@@ -1,8 +1,8 @@
-import type { ReactNode } from "react";
-import { useId } from "react";
-import { SiteFooter } from "./components/site-footer";
-import { SiteHeader } from "./components/site-header";
-import { usePageViewTracking } from "./hooks/use-page-view-tracking";
+import type { ReactNode } from 'react';
+import { useId } from 'react';
+import { SiteFooter } from './components/site-footer';
+import { SiteHeader } from './components/site-header';
+import { usePageViewTracking } from './hooks/use-page-view-tracking';
 
 /**
  * Application shell shared by every route.

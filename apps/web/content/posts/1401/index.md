@@ -1,13 +1,13 @@
 ---
-title: "クソゲーの森：小さな2Dゲームを気軽に遊ぶ静的サイト"
-path: "/entry/1401"
-date: "2026-08-10 09:00"
-coverImage: "../../../images/thumbnail/code.webp"
-author: "s-yoshiki"
+title: 'クソゲーの森：小さな2Dゲームを気軽に遊ぶ静的サイト'
+path: '/entry/1401'
+date: '2026-08-10 09:00'
+coverImage: '../../../images/thumbnail/code.webp'
+author: 's-yoshiki'
 aiGenerated: true
-contentType: "product"
-product: "kusoge"
-tags: ["クソゲーの森", "2Dゲーム", "Phaser", "ブラウザゲーム", "静的サイト"]
+contentType: 'product'
+product: 'kusoge'
+tags: ['クソゲーの森', '2Dゲーム', 'Phaser', 'ブラウザゲーム', '静的サイト']
 ---
 
 ## クソゲーの森とは

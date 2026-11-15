@@ -1,4 +1,4 @@
-export { API_ROUTES, greetingPath, healthPath } from "./routes";
+export { API_ROUTES, greetingPath, healthPath } from './routes';
 export {
   type ErrorCode,
   type ErrorResponse,
@@ -10,4 +10,4 @@ export {
   greetingResponseSchema,
   type HealthResponse,
   healthResponseSchema,
-} from "./schemas";
+} from './schemas';

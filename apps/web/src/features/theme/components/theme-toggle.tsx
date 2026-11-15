@@ -1,7 +1,7 @@
-import { ChoiceGroup, type ChoiceOption } from "@repo/ui";
-import { Monitor, Moon, Sun } from "lucide-react";
-import { useTheme } from "../hooks/use-theme";
-import type { ThemePreference } from "../types/theme";
+import { ChoiceGroup, type ChoiceOption } from '@repo/ui';
+import { Monitor, Moon, Sun } from 'lucide-react';
+import { useTheme } from '../hooks/use-theme';
+import type { ThemePreference } from '../types/theme';
 
 const options: readonly ChoiceOption<ThemePreference>[] = [
   {
@@ -11,7 +11,7 @@ const options: readonly ChoiceOption<ThemePreference>[] = [
         <span className="sr-only sm:not-sr-only">自動</span>
       </>
     ),
-    value: "system",
+    value: 'system',
   },
   {
     label: (
@@ -20,7 +20,7 @@ const options: readonly ChoiceOption<ThemePreference>[] = [
         <span className="sr-only sm:not-sr-only">ライト</span>
       </>
     ),
-    value: "light",
+    value: 'light',
   },
   {
     label: (
@@ -29,7 +29,7 @@ const options: readonly ChoiceOption<ThemePreference>[] = [
         <span className="sr-only sm:not-sr-only">ダーク</span>
       </>
     ),
-    value: "dark",
+    value: 'dark',
   },
 ];
 

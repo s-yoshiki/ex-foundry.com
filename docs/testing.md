@@ -13,13 +13,13 @@ pnpm --filter @repo/web test:watch
 
 各workspaceは自身の`vitest.config.ts`を持ちます（`apps/web`のみ`vite.config.ts`に統合）。
 
-| workspace | environment | 主な対象 |
-| --- | --- | --- |
-| `apps/web` | `happy-dom` | feature、component、Reactのhook |
-| `apps/api` | `node` | route、バリデーション、エラーハンドリング |
-| `packages/ui` | `happy-dom` | UIプリミティブの振る舞いとアクセシビリティ |
-| `packages/api-contract` | `node` | スキーマの受理・拒否条件 |
-| `scripts/*` | `node` | CLIの入力検証とファイル生成 |
+| workspace               | environment | 主な対象                                   |
+| ----------------------- | ----------- | ------------------------------------------ |
+| `apps/web`              | `happy-dom` | feature、component、Reactのhook            |
+| `apps/api`              | `node`      | route、バリデーション、エラーハンドリング  |
+| `packages/ui`           | `happy-dom` | UIプリミティブの振る舞いとアクセシビリティ |
+| `packages/api-contract` | `node`      | スキーマの受理・拒否条件                   |
+| `scripts/*`             | `node`      | CLIの入力検証とファイル生成                |
 
 ## 何をテストするか
 
@@ -29,7 +29,7 @@ pnpm --filter @repo/web test:watch
 最も安く、最も壊れにくいテストになります。
 
 ```ts
-expect(filterApplications(applications, { category: "all", query: "react rust" })).toHaveLength(0);
+expect(filterApplications(applications, { category: 'all', query: 'react rust' })).toHaveLength(0);
 ```
 
 ### hooks / components
@@ -42,8 +42,8 @@ expect(filterApplications(applications, { category: "all", query: "react rust" }
 - landmark、見出し階層、フォームラベルの関連付けを検証します。
 
 ```tsx
-await user.type(screen.getByLabelText("アプリケーションを検索"), "NPB");
-expect(screen.queryByRole("link", { name: /DevToys/ })).not.toBeInTheDocument();
+await user.type(screen.getByLabelText('アプリケーションを検索'), 'NPB');
+expect(screen.queryByRole('link', { name: /DevToys/ })).not.toBeInTheDocument();
 ```
 
 ### API
@@ -55,7 +55,7 @@ expect(screen.queryByRole("link", { name: /DevToys/ })).not.toBeInTheDocument();
 - 内部エラーの詳細（stack trace、接続情報）がレスポンスへ漏れないこと
 
 ```ts
-expect(text).not.toContain("database password");
+expect(text).not.toContain('database password');
 ```
 
 ### 共有コントラクト
@@ -70,7 +70,7 @@ expect(text).not.toContain("database password");
 - fixtureはテストファイルの近くに置き、本番データを持ち込みません。
 
 ```ts
-const result = await fetchHealth("http://api.example.com", fetchImpl);
+const result = await fetchHealth('http://api.example.com', fetchImpl);
 ```
 
 ## 環境の注意点

@@ -2,10 +2,10 @@
   "name": "@repo/create-feature",
   "version": "0.0.0",
   "private": true,
-  "type": "module",
   "bin": {
     "create-feature": "./src/cli.ts"
   },
+  "type": "module",
   "scripts": {
     "start": "tsx src/cli.ts",
     "test": "vitest run",
@@ -15,10 +15,10 @@
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
-    "@types/node": "26.6.6",
-    "@vitest/coverage-v8": "5.1.0",
-    "tsx": "4.23.15",
-    "typescript": "7.0.2",
-    "vitest": "5.1.0"
+    "@types/node": "catalog:",
+    "@vitest/coverage-v8": "catalog:",
+    "tsx": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
   }
 }

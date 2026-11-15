@@ -1,13 +1,13 @@
 ---
-title: "EX FOUNDRYのサイト構成：プロダクト情報を静的サイトで配信する"
-path: "/entry/1002"
-date: "2026-08-13 09:00"
-coverImage: "../../../images/thumbnail/github-logo.png"
-author: "s-yoshiki"
+title: 'EX FOUNDRYのサイト構成：プロダクト情報を静的サイトで配信する'
+path: '/entry/1002'
+date: '2026-08-13 09:00'
+coverImage: '../../../images/thumbnail/github-logo.png'
+author: 's-yoshiki'
 aiGenerated: true
-contentType: "architecture"
-product: "ex-foundry"
-tags: ["EX FOUNDRY", "Vite", "React", "GitHub Pages", "静的サイト"]
+contentType: 'architecture'
+product: 'ex-foundry'
+tags: ['EX FOUNDRY', 'Vite', 'React', 'GitHub Pages', '静的サイト']
 ---
 
 ## 何を一つにまとめ、何を分けるか
@@ -49,11 +49,11 @@ Markdown
 記事を追加するときは、本文だけでなく、どのプロダクトのどの種類の情報なのかをfront matterに記録します。以下は実際のファイルで使っている項目を抜き出した、説明用の簡略例です。`contentType`を明示することで、紹介、技術構成、リリース、運用の記事を一覧で分類できます。
 
 ```yaml
-title: "EX FOUNDRYのサイト構成"
-path: "/entry/1002"
-contentType: "architecture"
-product: "ex-foundry"
-tags: ["Vite", "GitHub Pages", "静的サイト"]
+title: 'EX FOUNDRYのサイト構成'
+path: '/entry/1002'
+contentType: 'architecture'
+product: 'ex-foundry'
+tags: ['Vite', 'GitHub Pages', '静的サイト']
 ```
 
 このメタデータは一覧カードの表示だけに使うわけではありません。同じ入力から記事詳細のcanonical URL、sitemap、Articleの構造化データも生成しています。そのため本文を書いてから手作業でURL一覧を更新するといった手順は不要で、公開対象として認識された記事は自動的に各出力へ反映されます。

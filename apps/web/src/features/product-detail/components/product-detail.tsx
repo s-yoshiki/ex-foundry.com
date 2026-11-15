@@ -1,11 +1,11 @@
-import { Badge } from "@repo/ui";
-import { ArrowUpRight } from "lucide-react";
-import { Link } from "../../../routing/link";
-import { CATEGORY_ICONS } from "../../app-directory/functions/application-icons";
-import { STATUS_LABELS } from "../../app-directory/functions/application-labels";
-import type { Application, ApplicationCategory } from "../../app-directory/types/application";
-import { BlogPostBand } from "../../blog/components/blog-post-band";
-import type { Product } from "../types/product";
+import { Badge } from '@repo/ui';
+import { ArrowUpRight } from 'lucide-react';
+import { Link } from '../../../routing/link';
+import { CATEGORY_ICONS } from '../../app-directory/functions/application-icons';
+import { STATUS_LABELS } from '../../app-directory/functions/application-labels';
+import type { Application, ApplicationCategory } from '../../app-directory/types/application';
+import { BlogPostBand } from '../../blog/components/blog-post-band';
+import type { Product } from '../types/product';
 
 function ProductMark({ category }: { category: ApplicationCategory }) {
   const Icon = CATEGORY_ICONS[category];
@@ -62,7 +62,7 @@ export function ProductDetail({ product }: { product: Product }) {
                 <h1 className="text-2xl font-bold leading-tight tracking-tight sm:text-4xl">
                   {application.name}
                 </h1>
-                <Badge variant={application.status === "active" ? "default" : "secondary"}>
+                <Badge variant={application.status === 'active' ? 'default' : 'secondary'}>
                   {STATUS_LABELS[application.status]}
                 </Badge>
               </div>

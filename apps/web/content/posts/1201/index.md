@@ -1,13 +1,13 @@
 ---
-title: "ひまつぶし研究室：ログイン不要の小さなツールを集めたサイト"
-path: "/entry/1201"
-date: "2026-08-10 10:00"
-coverImage: "../../../images/thumbnail/code.webp"
-author: "s-yoshiki"
+title: 'ひまつぶし研究室：ログイン不要の小さなツールを集めたサイト'
+path: '/entry/1201'
+date: '2026-08-10 10:00'
+coverImage: '../../../images/thumbnail/code.webp'
+author: 's-yoshiki'
 aiGenerated: true
-contentType: "product"
-product: "maker"
-tags: ["ひまつぶし研究室", "Maker", "診断", "ジェネレーター", "ログイン不要"]
+contentType: 'product'
+product: 'maker'
+tags: ['ひまつぶし研究室', 'Maker', '診断', 'ジェネレーター', 'ログイン不要']
 ---
 
 ## コンセプト

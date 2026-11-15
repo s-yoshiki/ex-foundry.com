@@ -1,13 +1,13 @@
 ---
-title: "クソゲーの森 2026年8月リリース：ゲームパッケージとSSGを拡張"
-path: "/entry/1403"
-date: "2026-08-11 08:00"
-coverImage: "../../../images/thumbnail/code.webp"
-author: "s-yoshiki"
+title: 'クソゲーの森 2026年8月リリース：ゲームパッケージとSSGを拡張'
+path: '/entry/1403'
+date: '2026-08-11 08:00'
+coverImage: '../../../images/thumbnail/code.webp'
+author: 's-yoshiki'
 aiGenerated: true
-contentType: "release"
-product: "kusoge"
-tags: ["クソゲーの森", "リリース", "Phaser", "SSG", "ゲーム追加"]
+contentType: 'release'
+product: 'kusoge'
+tags: ['クソゲーの森', 'リリース', 'Phaser', 'SSG', 'ゲーム追加']
 ---
 
 ## 今回の更新

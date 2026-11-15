@@ -1,9 +1,9 @@
-import { Badge } from "@repo/ui/components/ui/badge";
-import { cn } from "@repo/ui/lib/utils";
-import { ArrowUpRight } from "lucide-react";
-import type { ComponentPropsWithoutRef, ReactNode } from "react";
+import { Badge } from '@repo/ui/components/ui/badge';
+import { cn } from '@repo/ui/lib/utils';
+import { ArrowUpRight } from 'lucide-react';
+import type { ComponentPropsWithoutRef, ReactNode } from 'react';
 
-type AppCardProps = Omit<ComponentPropsWithoutRef<"a">, "children"> & {
+type AppCardProps = Omit<ComponentPropsWithoutRef<'a'>, 'children'> & {
   badge?: ReactNode;
   description: string;
   host: string;
@@ -30,10 +30,10 @@ export function AppCard({
   return (
     <a
       className={cn(
-        "group flex h-full flex-col gap-4 rounded-2xl border bg-card p-5",
-        "text-card-foreground no-underline shadow-xs transition-[border-color,box-shadow,transform]",
-        "hover:-translate-y-0.5 hover:border-primary/50 hover:shadow-md",
-        "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring",
+        'group flex h-full flex-col gap-4 rounded-2xl border bg-card p-5',
+        'text-card-foreground no-underline shadow-xs transition-[border-color,box-shadow,transform]',
+        'hover:-translate-y-0.5 hover:border-primary/50 hover:shadow-md',
+        'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring',
         className,
       )}
       {...props}

@@ -1,10 +1,10 @@
-import type { ComponentPropsWithoutRef } from "react";
-import { shouldLetBrowserHandle } from "./link-behavior";
-import { useNavigation } from "./navigation-context";
-import { routePath } from "./routes";
-import type { RouteId } from "./types";
+import type { ComponentPropsWithoutRef } from 'react';
+import { shouldLetBrowserHandle } from './link-behavior';
+import { useNavigation } from './navigation-context';
+import { routePath } from './routes';
+import type { RouteId } from './types';
 
-type LinkProps = Omit<ComponentPropsWithoutRef<"a">, "href"> & {
+type LinkProps = Omit<ComponentPropsWithoutRef<'a'>, 'href'> & {
   replace?: boolean;
   /** Query string to append, including the leading "?". */
   search?: string;
@@ -17,7 +17,7 @@ type LinkProps = Omit<ComponentPropsWithoutRef<"a">, "href"> & {
  */
 export function Link({ children, onClick, replace, search, target, to, ...props }: LinkProps) {
   const { navigate } = useNavigation();
-  const href = `${routePath(to)}${search ?? ""}`;
+  const href = `${routePath(to)}${search ?? ''}`;
 
   return (
     <a

@@ -1,14 +1,14 @@
-import { getApplications } from "../../app-directory/functions/get-applications";
-import { getBlogPosts } from "../../blog/functions/get-blog-posts";
-import { BLOG_CONTENT_TYPE_LABELS, type BlogContentType } from "../../blog/types/blog-post";
-import type { Product } from "../types/product";
+import { getApplications } from '../../app-directory/functions/get-applications';
+import { getBlogPosts } from '../../blog/functions/get-blog-posts';
+import { BLOG_CONTENT_TYPE_LABELS, type BlogContentType } from '../../blog/types/blog-post';
+import type { Product } from '../types/product';
 
 /** Display order on the product page; unrelated to the alphabetical label map. */
 const CONTENT_TYPE_ORDER: readonly BlogContentType[] = [
-  "product",
-  "architecture",
-  "release",
-  "operations",
+  'product',
+  'architecture',
+  'release',
+  'operations',
 ];
 
 export function getProduct(slug: string): Product | undefined {

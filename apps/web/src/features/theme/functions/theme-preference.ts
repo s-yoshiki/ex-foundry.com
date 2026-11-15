@@ -1,12 +1,12 @@
-import type { ResolvedTheme, ThemePreference } from "../types/theme";
+import type { ResolvedTheme, ThemePreference } from '../types/theme';
 
 /** Kept in sync with the bootstrap script in `index.html`. */
-export const THEME_STORAGE_KEY = "ex-foundry:theme";
+export const THEME_STORAGE_KEY = 'ex-foundry:theme';
 
-export const DARK_SCHEME_QUERY = "(prefers-color-scheme: dark)";
+export const DARK_SCHEME_QUERY = '(prefers-color-scheme: dark)';
 
 export function isThemePreference(value: unknown): value is ThemePreference {
-  return value === "system" || value === "light" || value === "dark";
+  return value === 'system' || value === 'light' || value === 'dark';
 }
 
 /**
@@ -14,18 +14,18 @@ export function isThemePreference(value: unknown): value is ThemePreference {
  * anything a previous version wrote, and it throws outright when the browser
  * blocks storage access.
  */
-export function readThemePreference(storage: Pick<Storage, "getItem">): ThemePreference {
+export function readThemePreference(storage: Pick<Storage, 'getItem'>): ThemePreference {
   try {
     const stored: unknown = storage.getItem(THEME_STORAGE_KEY);
 
-    return isThemePreference(stored) ? stored : "system";
+    return isThemePreference(stored) ? stored : 'system';
   } catch {
-    return "system";
+    return 'system';
   }
 }
 
 export function writeThemePreference(
-  storage: Pick<Storage, "setItem">,
+  storage: Pick<Storage, 'setItem'>,
   preference: ThemePreference,
 ): void {
   try {
@@ -37,8 +37,8 @@ export function writeThemePreference(
 }
 
 export function resolveTheme(preference: ThemePreference, prefersDark: boolean): ResolvedTheme {
-  if (preference === "system") {
-    return prefersDark ? "dark" : "light";
+  if (preference === 'system') {
+    return prefersDark ? 'dark' : 'light';
   }
 
   return preference;
@@ -49,7 +49,7 @@ export function applyTheme(element: HTMLElement, theme: ResolvedTheme): void {
 }
 
 export function prefersDarkScheme(): boolean {
-  if (typeof window === "undefined" || typeof window.matchMedia !== "function") {
+  if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') {
     return true;
   }
 

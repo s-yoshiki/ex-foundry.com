@@ -1,5 +1,5 @@
-import { cn } from "@repo/ui";
-import type { ReactNode } from "react";
+import { cn } from '@repo/ui';
+import type { ReactNode } from 'react';
 
 type PageHeroProps = {
   action?: ReactNode;
@@ -27,8 +27,8 @@ export function PageHero({
   return (
     <div
       className={cn(
-        "flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between",
-        bordered && "border-b pb-8",
+        'flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between',
+        bordered && 'border-b pb-8',
         className,
       )}
     >

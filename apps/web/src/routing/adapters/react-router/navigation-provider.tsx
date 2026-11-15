@@ -1,8 +1,8 @@
-import type { ReactNode } from "react";
-import { useMemo } from "react";
-import { useLocation, useNavigate } from "react-router";
-import { NavigationProvider } from "../../navigation-context";
-import type { NavigationPort } from "../../types";
+import type { ReactNode } from 'react';
+import { useMemo } from 'react';
+import { useLocation, useNavigate } from 'react-router';
+import { NavigationProvider } from '../../navigation-context';
+import type { NavigationPort } from '../../types';
 
 /** Fulfils the navigation port with React Router's hooks. */
 export function ReactRouterNavigationProvider({ children }: { children: ReactNode }) {

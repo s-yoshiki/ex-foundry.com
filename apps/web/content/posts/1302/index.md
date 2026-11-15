@@ -1,13 +1,13 @@
 ---
-title: "NPB Analysisの技術構成：SQLiteデータパイプラインとReact Router SSR"
-path: "/entry/1302"
-date: "2026-08-11 09:00"
-coverImage: "../../../images/thumbnail/typescript-logo.png"
-author: "s-yoshiki"
+title: 'NPB Analysisの技術構成：SQLiteデータパイプラインとReact Router SSR'
+path: '/entry/1302'
+date: '2026-08-11 09:00'
+coverImage: '../../../images/thumbnail/typescript-logo.png'
+author: 's-yoshiki'
 aiGenerated: true
-contentType: "architecture"
-product: "npb"
-tags: ["NPB Analysis", "SQLite", "React Router", "SSR", "データパイプライン"]
+contentType: 'architecture'
+product: 'npb'
+tags: ['NPB Analysis', 'SQLite', 'React Router', 'SSR', 'データパイプライン']
 ---
 
 ## 静的サイトでは足りない理由

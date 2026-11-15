@@ -1,8 +1,8 @@
-import { ProductDetail } from "../features/product-detail/components/product-detail";
-import { getProduct, getProductSlug } from "../features/product-detail/functions/get-product";
-import { Link } from "../routing/link";
-import { useNavigation } from "../routing/navigation-context";
-import { useDocumentMeta } from "../routing/use-document-meta";
+import { ProductDetail } from '../features/product-detail/components/product-detail';
+import { getProduct, getProductSlug } from '../features/product-detail/functions/get-product';
+import { Link } from '../routing/link';
+import { useNavigation } from '../routing/navigation-context';
+import { useDocumentMeta } from '../routing/use-document-meta';
 
 export function ProductPage() {
   const { location } = useNavigation();
@@ -12,17 +12,17 @@ export function ProductPage() {
   const route = product
     ? {
         description: product.application.description,
-        id: "apps" as const,
-        navLabel: "アプリ一覧",
+        id: 'apps' as const,
+        navLabel: 'アプリ一覧',
         path: `/products/${product.application.slug}/`,
         title: `${product.application.name} - EX FOUNDRY`,
       }
     : {
-        description: "指定されたプロダクトは存在しないか、移動しました。",
-        id: "apps" as const,
-        navLabel: "アプリ一覧",
-        path: "/apps/",
-        title: "プロダクトが見つかりません - EX FOUNDRY",
+        description: '指定されたプロダクトは存在しないか、移動しました。',
+        id: 'apps' as const,
+        navLabel: 'アプリ一覧',
+        path: '/apps/',
+        title: 'プロダクトが見つかりません - EX FOUNDRY',
       };
 
   useDocumentMeta(route);

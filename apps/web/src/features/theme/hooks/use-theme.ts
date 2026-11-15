@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from 'react';
 import {
   applyTheme,
   DARK_SCHEME_QUERY,
@@ -6,12 +6,12 @@ import {
   readThemePreference,
   resolveTheme,
   writeThemePreference,
-} from "../functions/theme-preference";
-import type { ThemePreference } from "../types/theme";
+} from '../functions/theme-preference';
+import type { ThemePreference } from '../types/theme';
 
 function readInitialThemePreference(): ThemePreference {
-  if (typeof window === "undefined") {
-    return "system";
+  if (typeof window === 'undefined') {
+    return 'system';
   }
 
   return readThemePreference(window.localStorage);
@@ -22,16 +22,16 @@ export function useTheme() {
   const [systemPrefersDark, setSystemPrefersDark] = useState(prefersDarkScheme);
 
   useEffect(() => {
-    if (typeof window.matchMedia !== "function") {
+    if (typeof window.matchMedia !== 'function') {
       return;
     }
 
     const mediaQuery = window.matchMedia(DARK_SCHEME_QUERY);
     const handleChange = (event: MediaQueryListEvent) => setSystemPrefersDark(event.matches);
 
-    mediaQuery.addEventListener("change", handleChange);
+    mediaQuery.addEventListener('change', handleChange);
 
-    return () => mediaQuery.removeEventListener("change", handleChange);
+    return () => mediaQuery.removeEventListener('change', handleChange);
   }, []);
 
   const theme = resolveTheme(preference, systemPrefersDark);

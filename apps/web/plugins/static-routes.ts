@@ -1,35 +1,35 @@
-import { copyFile, mkdir, writeFile } from "node:fs/promises";
-import { dirname, join } from "node:path";
-import { createServer, type Plugin } from "vite";
-import { getAllPostAssets } from "../../../packages/blog-content/src/index";
-import { getApplications } from "../src/features/app-directory/functions/get-applications";
-import { canonicalUrl, ROUTES, SITE_URL } from "../src/routing/routes";
-import type { RouteMeta } from "../src/routing/types";
-import { type BlogPostSummary, type BuiltBlogPost, loadBlogContent } from "./blog-content";
-import { replaceHeadTag, replaceTitle } from "./replace-head-tags";
+import { copyFile, mkdir, writeFile } from 'node:fs/promises';
+import { dirname, join } from 'node:path';
+import { createServer, type Plugin } from 'vite';
+import { getAllPostAssets } from '../../../packages/blog-content/src/index';
+import { getApplications } from '../src/features/app-directory/functions/get-applications';
+import { canonicalUrl, ROUTES, SITE_URL } from '../src/routing/routes';
+import type { RouteMeta } from '../src/routing/types';
+import { type BlogPostSummary, type BuiltBlogPost, loadBlogContent } from './blog-content';
+import { replaceHeadTag, replaceTitle } from './replace-head-tags';
 
 type RenderRoute = (path: string, options?: { articleHtml?: string }) => string;
 
 /** `/about` -> `about/index.html`, so a static host can serve it directly. */
 export function outputFileName(path: string): string {
-  return path === "/" ? "index.html" : `${path.replace(/^\//, "")}/index.html`;
+  return path === '/' ? 'index.html' : `${path.replace(/^\//, '')}/index.html`;
 }
 
 export function renderRouteHtml(
   indexHtml: string,
-  route: Pick<RouteMeta, "description" | "path" | "title">,
+  route: Pick<RouteMeta, 'description' | 'path' | 'title'>,
 ): string {
   const url = canonicalUrl(route.path);
   let html = replaceTitle(indexHtml, route.title);
 
   for (const [matcher, valueAttribute, content] of [
-    ['name="description"', "content", route.description],
-    ['property="og:title"', "content", route.title],
-    ['property="og:description"', "content", route.description],
-    ['property="og:url"', "content", url],
-    ['name="twitter:title"', "content", route.title],
-    ['name="twitter:description"', "content", route.description],
-    ['rel="canonical"', "href", url],
+    ['name="description"', 'content', route.description],
+    ['property="og:title"', 'content', route.title],
+    ['property="og:description"', 'content', route.description],
+    ['property="og:url"', 'content', url],
+    ['name="twitter:title"', 'content', route.title],
+    ['name="twitter:description"', 'content', route.description],
+    ['rel="canonical"', 'href', url],
   ] as const) {
     html = replaceHeadTag(html, { content, matcher, valueAttribute });
   }
@@ -53,18 +53,18 @@ export function renderSitemap(
   const entries = [
     ...routes.map((route) => ({
       path: route.path,
-      priority: route.path === "/" ? "1.0" : "0.7",
+      priority: route.path === '/' ? '1.0' : '0.7',
     })),
-    ...productSlugs.map((slug) => ({ path: `/products/${slug}/`, priority: "0.8" })),
-    ...posts.map((post) => ({ path: `${post.path}/`, priority: "0.6" })),
+    ...productSlugs.map((slug) => ({ path: `/products/${slug}/`, priority: '0.8' })),
+    ...posts.map((post) => ({ path: `${post.path}/`, priority: '0.6' })),
   ]
     .map(
       (entry) =>
         `  <url>\n    <loc>${canonicalUrl(entry.path)}</loc>\n` +
-        "    <changefreq>weekly</changefreq>\n" +
+        '    <changefreq>weekly</changefreq>\n' +
         `    <priority>${entry.priority}</priority>\n  </url>`,
     )
-    .join("\n");
+    .join('\n');
 
   return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${entries}\n</urlset>\n`;
 }
@@ -88,21 +88,21 @@ export function renderRobots(): string {
  * content into the initial JS bundle.
  */
 export function staticRoutes(): Plugin {
-  let outDir = "dist";
+  let outDir = 'dist';
   let root = process.cwd();
 
   return {
-    name: "ex-foundry:static-routes",
-    apply: "build",
+    name: 'ex-foundry:static-routes',
+    apply: 'build',
     configResolved(config) {
       root = config.root;
       outDir = join(config.root, config.build.outDir);
     },
     async writeBundle(_options, bundle) {
-      const index = bundle["index.html"];
+      const index = bundle['index.html'];
 
-      if (index === undefined || index.type !== "asset") {
-        this.error("index.html was not produced by the build.");
+      if (index === undefined || index.type !== 'asset') {
+        this.error('index.html was not produced by the build.');
         return;
       }
 
@@ -114,11 +114,11 @@ export function staticRoutes(): Plugin {
       const ssrServer = await createServer({
         root,
         server: { middlewareMode: true },
-        appType: "custom",
+        appType: 'custom',
       });
 
       try {
-        const entryServerModule = await ssrServer.ssrLoadModule("/src/entry-server.tsx");
+        const entryServerModule = await ssrServer.ssrLoadModule('/src/entry-server.tsx');
         const renderRoute = entryServerModule.renderRoute as RenderRoute;
 
         await Promise.all(
@@ -127,14 +127,14 @@ export function staticRoutes(): Plugin {
             const routeHtml = renderRouteHtml(indexHtml, route);
 
             await mkdir(dirname(target), { recursive: true });
-            await writeFile(target, replaceRootContent(routeHtml, renderRoute(route.path)), "utf8");
+            await writeFile(target, replaceRootContent(routeHtml, renderRoute(route.path)), 'utf8');
           }),
         );
 
         await Promise.all(
           posts.map(async (post) => {
             const articleIndex = join(outDir, outputFileName(post.path));
-            const contentFile = join(outDir, post.contentPath.replace(/^\//, ""));
+            const contentFile = join(outDir, post.contentPath.replace(/^\//, ''));
             const articleHtml = renderRouteHtml(indexHtml, {
               description: post.description,
               path: `${post.path}/`,
@@ -145,10 +145,10 @@ export function staticRoutes(): Plugin {
             await writeFile(
               articleIndex,
               replaceRootContent(articleHtml, renderRoute(post.path, { articleHtml: post.html })),
-              "utf8",
+              'utf8',
             );
             await mkdir(dirname(contentFile), { recursive: true });
-            await writeFile(contentFile, post.html, "utf8");
+            await writeFile(contentFile, post.html, 'utf8');
           }),
         );
 
@@ -166,7 +166,7 @@ export function staticRoutes(): Plugin {
             await writeFile(
               productIndex,
               replaceRootContent(productHtml, renderRoute(productPath)),
-              "utf8",
+              'utf8',
             );
           }),
         );
@@ -175,7 +175,7 @@ export function staticRoutes(): Plugin {
       }
 
       await Promise.all(
-        getAllPostAssets(join(root, "content/posts")).map(async (asset) => {
+        getAllPostAssets(join(root, 'content/posts')).map(async (asset) => {
           const target = join(outDir, `entry/${asset.id}`, asset.asset);
 
           await mkdir(dirname(target), { recursive: true });
@@ -184,15 +184,15 @@ export function staticRoutes(): Plugin {
       );
 
       await writeFile(
-        join(outDir, "sitemap.xml"),
+        join(outDir, 'sitemap.xml'),
         renderSitemap(
           ROUTES,
           summaries,
           applications.map((application) => application.slug),
         ),
-        "utf8",
+        'utf8',
       );
-      await writeFile(join(outDir, "robots.txt"), renderRobots(), "utf8");
+      await writeFile(join(outDir, 'robots.txt'), renderRobots(), 'utf8');
     },
   };
 }

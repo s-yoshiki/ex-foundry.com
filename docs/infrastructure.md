@@ -22,8 +22,8 @@ scripts/infra/
 分離は**命名**で行います。
 
 ```ts
-resourceName("dev", "api");  // ex-foundry-dev-api
-stackName("dev", "Api");     // ExFoundry-Dev-Api
+resourceName('dev', 'api'); // ex-foundry-dev-api
+stackName('dev', 'Api'); // ExFoundry-Dev-Api
 ```
 
 物理名を持つリソース（Lambda関数、ロググループ、CloudFormation export）には
@@ -36,15 +36,15 @@ stackName("dev", "Api");     // ExFoundry-Dev-Api
 差分は`src/environments.ts`の1か所に集約します。
 stack側に`if (env === "prd")`を書かないでください。
 
-| | dev | prd |
-| --- | --- | --- |
-| メモリ | 256 MB | 512 MB |
-| 同時実行数の上限 | 5 | 無制限 |
-| ログ保持 | 1週間 | 3ヶ月 |
-| ログレベル | debug | info |
-| 削除ポリシー | DESTROY | RETAIN |
-| stack削除保護 | なし | あり |
-| 許可Origin | `http://localhost:5173` | `https://ex-foundry.com` |
+|                  | dev                     | prd                      |
+| ---------------- | ----------------------- | ------------------------ |
+| メモリ           | 256 MB                  | 512 MB                   |
+| 同時実行数の上限 | 5                       | 無制限                   |
+| ログ保持         | 1週間                   | 3ヶ月                    |
+| ログレベル       | debug                   | info                     |
+| 削除ポリシー     | DESTROY                 | RETAIN                   |
+| stack削除保護    | なし                    | あり                     |
+| 許可Origin       | `http://localhost:5173` | `https://ex-foundry.com` |
 
 regionはコードに固定しています（`ap-northeast-1`）。
 実行者のAWSプロファイル次第でデプロイ先が変わることを防ぐためです。

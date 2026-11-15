@@ -1,5 +1,5 @@
-import { cn } from "@repo/ui/lib/utils";
-import type { ReactNode } from "react";
+import { cn } from '@repo/ui/lib/utils';
+import type { ReactNode } from 'react';
 
 /**
  * Centred page container. Landmarks (`header`, `main`, `footer`) are the
@@ -7,7 +7,7 @@ import type { ReactNode } from "react";
  */
 export function PageShell({ children, className }: { children: ReactNode; className?: string }) {
   return (
-    <div className={cn("mx-auto w-full max-w-[880px] px-5 pt-10 pb-10 sm:pt-18", className)}>
+    <div className={cn('mx-auto w-full max-w-[880px] px-5 pt-10 pb-10 sm:pt-18', className)}>
       {children}
     </div>
   );

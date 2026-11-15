@@ -1,10 +1,10 @@
-import { PageHero } from "../components/page-hero";
-import { BLOG_CONTENT_CLASS } from "../features/blog/functions/blog-content-style";
-import { findRoute } from "../routing/routes";
-import { useDocumentMeta } from "../routing/use-document-meta";
+import { PageHero } from '../components/page-hero';
+import { BLOG_CONTENT_CLASS } from '../features/blog/functions/blog-content-style';
+import { findRoute } from '../routing/routes';
+import { useDocumentMeta } from '../routing/use-document-meta';
 
 export function PrivacyPage() {
-  useDocumentMeta(findRoute("privacy"));
+  useDocumentMeta(findRoute('privacy'));
 
   return (
     <article className="mx-auto max-w-3xl px-4 py-10 sm:px-6 sm:py-14">

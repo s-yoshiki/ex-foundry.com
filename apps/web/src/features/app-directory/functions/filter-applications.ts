@@ -1,8 +1,8 @@
-import type { Application, ApplicationFilter } from "../types/application";
+import type { Application, ApplicationFilter } from '../types/application';
 
 function buildHaystack(application: Application): string {
   return [application.name, application.description, application.host, ...application.stack]
-    .join(" ")
+    .join(' ')
     .toLowerCase();
 }
 
@@ -20,7 +20,7 @@ function matchesQuery(application: Application, terms: readonly string[]): boole
 export function toSearchTerms(query: string): readonly string[] {
   const normalized = query.trim().toLowerCase();
 
-  return normalized === "" ? [] : normalized.split(/\s+/);
+  return normalized === '' ? [] : normalized.split(/\s+/);
 }
 
 export function filterApplications(
@@ -31,7 +31,7 @@ export function filterApplications(
 
   return applications.filter(
     (application) =>
-      (filter.category === "all" || application.category === filter.category) &&
+      (filter.category === 'all' || application.category === filter.category) &&
       matchesQuery(application, terms),
   );
 }

@@ -1,13 +1,13 @@
 ---
-title: "DevToys Web 2026年8月リリース：診断ツールと開発用ユーティリティを拡張"
-path: "/entry/1103"
-date: "2026-08-11 09:00"
-coverImage: "../../../images/thumbnail/devtoys-web.jpg"
-author: "s-yoshiki"
+title: 'DevToys Web 2026年8月リリース：診断ツールと開発用ユーティリティを拡張'
+path: '/entry/1103'
+date: '2026-08-11 09:00'
+coverImage: '../../../images/thumbnail/devtoys-web.jpg'
+author: 's-yoshiki'
 aiGenerated: true
-contentType: "release"
-product: "devtoys"
-tags: ["DevToys Web", "リリース", "サイト診断", "JWT", "WHOIS"]
+contentType: 'release'
+product: 'devtoys'
+tags: ['DevToys Web', 'リリース', 'サイト診断', 'JWT', 'WHOIS']
 ---
 
 ## 今回の更新

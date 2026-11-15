@@ -40,7 +40,7 @@ pnpm --filter @repo/ui ui:add dialog
 
 ```ts
 // packages/ui/src/index.ts
-export { Dialog, DialogContent } from "@repo/ui/components/ui/dialog";
+export { Dialog, DialogContent } from '@repo/ui/components/ui/dialog';
 ```
 
 ## デザイントークン
@@ -78,7 +78,7 @@ shadcn/uiの語彙（`--background`、`--primary`、`--muted-foreground`など�
 プリミティブのラッパーは、アクセシビリティ上の契約をテストします。
 
 ```tsx
-expect(screen.getByRole("radiogroup", { name: "テーマ" })).toBeInTheDocument();
+expect(screen.getByRole('radiogroup', { name: 'テーマ' })).toBeInTheDocument();
 ```
 
 Radixのroleは素のHTMLと異なることがあります（`ToggleGroup type="single"`は

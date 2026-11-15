@@ -1,6 +1,6 @@
-import path from "node:path";
-import * as cheerio from "cheerio";
-import type { Plugin } from "vite";
+import path from 'node:path';
+import * as cheerio from 'cheerio';
+import type { Plugin } from 'vite';
 import {
   extractMdxTableOfContents,
   type Posts,
@@ -8,11 +8,11 @@ import {
   prependTableOfContents,
   readMarkdownFile,
   renderMarkdown,
-} from "../../../packages/blog-content/src/index";
-import { POPULAR_POST_PATHS } from "../../../packages/blog-content/src/posts/popular-post-paths";
-import type { BlogContentType } from "../src/features/blog/types/blog-post";
+} from '../../../packages/blog-content/src/index';
+import { POPULAR_POST_PATHS } from '../../../packages/blog-content/src/posts/popular-post-paths';
+import type { BlogContentType } from '../src/features/blog/types/blog-post';
 
-export const BLOG_CONTENT_MODULE = "virtual:ex-foundry-blog-content";
+export const BLOG_CONTENT_MODULE = 'virtual:ex-foundry-blog-content';
 const RESOLVED_BLOG_CONTENT_MODULE = `\0${BLOG_CONTENT_MODULE}`;
 
 export type BlogPostSummary = {
@@ -41,7 +41,7 @@ export type BuiltBlogPost = BlogPostSummary & {
 const contentCache = new Map<string, Promise<readonly BuiltBlogPost[]>>();
 
 function normalizeSource(source: string): string {
-  return source.replace(/<CopyCharacterButton\s+codePoint="([0-9A-Fa-f]+)"\s*\/>/g, "`U+$1`");
+  return source.replace(/<CopyCharacterButton\s+codePoint="([0-9A-Fa-f]+)"\s*\/>/g, '`U+$1`');
 }
 
 /**
@@ -53,55 +53,55 @@ function normalizeSource(source: string): string {
 export function sanitizeBlogHtml(html: string): string {
   const document = cheerio.load(html, null, false);
 
-  document("script, iframe, object, embed, form, input, button, style, link, noscript").remove();
-  document("*").each((_index, element) => {
-    if (!("attribs" in element)) return;
+  document('script, iframe, object, embed, form, input, button, style, link, noscript').remove();
+  document('*').each((_index, element) => {
+    if (!('attribs' in element)) return;
 
     for (const attribute of Object.keys(element.attribs)) {
       const normalized = attribute.toLowerCase();
-      const value = element.attribs[attribute] ?? "";
+      const value = element.attribs[attribute] ?? '';
 
-      if (normalized.startsWith("on") || normalized === "srcdoc") {
+      if (normalized.startsWith('on') || normalized === 'srcdoc') {
         document(element).removeAttr(attribute);
       }
 
-      if ((normalized === "href" || normalized === "src") && /^javascript:/i.test(value)) {
+      if ((normalized === 'href' || normalized === 'src') && /^javascript:/i.test(value)) {
         document(element).removeAttr(attribute);
       }
     }
   });
 
-  return document.root().html() ?? "";
+  return document.root().html() ?? '';
 }
 
 function extractDescription(html: string, title: string): string {
   const document = cheerio.load(html, null, false);
-  const paragraph = document("p").first().text().replace(/\s+/g, " ").trim();
+  const paragraph = document('p').first().text().replace(/\s+/g, ' ').trim();
   const value = paragraph || title;
   return value.length > 155 ? `${value.slice(0, 152).trimEnd()}…` : value;
 }
 
 function estimateReadingMinutes(html: string): number {
   const document = cheerio.load(html, null, false);
-  const text = document.root().text().replace(/\s+/g, "");
+  const text = document.root().text().replace(/\s+/g, '');
   return Math.max(1, Math.ceil(text.length / 500));
 }
 
 function normalizeContentType(value: string | undefined): BlogContentType {
-  if (value === "architecture" || value === "release" || value === "operations") {
+  if (value === 'architecture' || value === 'release' || value === 'operations') {
     return value;
   }
 
-  return "product";
+  return 'product';
 }
 
 function toSummary(post: Posts, html: string): BlogPostSummary {
-  const id = post.path.split("/").pop() ?? "";
-  const publishedOn = post.date.split(" ")[0] ?? post.date;
+  const id = post.path.split('/').pop() ?? '';
+  const publishedOn = post.date.split(' ')[0] ?? post.date;
 
   return {
     aiGenerated: post.aiGenerated,
-    author: post.author || "s-yoshiki",
+    author: post.author || 's-yoshiki',
     contentType: normalizeContentType(post.contentType),
     contentPath: `${post.path}/content.html`,
     coverImage: post.coverImage,
@@ -110,7 +110,7 @@ function toSummary(post: Posts, html: string): BlogPostSummary {
     id,
     path: post.path,
     publishedOn,
-    product: post.product || "ex-foundry",
+    product: post.product || 'ex-foundry',
     readingMinutes: estimateReadingMinutes(html),
     tags: post.tags,
     title: post.title,
@@ -119,11 +119,11 @@ function toSummary(post: Posts, html: string): BlogPostSummary {
 }
 
 async function buildBlogContent(root: string): Promise<readonly BuiltBlogPost[]> {
-  const postsDirectory = path.join(root, "content/posts");
+  const postsDirectory = path.join(root, 'content/posts');
   const manager = new PostsManager({
-    basePath: "",
+    basePath: '',
     postsDirectory,
-    publicThumbnailDirectory: path.join(root, "public/images/thumbnail"),
+    publicThumbnailDirectory: path.join(root, 'public/images/thumbnail'),
   });
 
   const posts = await Promise.all(
@@ -131,7 +131,7 @@ async function buildBlogContent(root: string): Promise<readonly BuiltBlogPost[]>
       const source = normalizeSource(readMarkdownFile(post.filepath));
       const rendered = sanitizeBlogHtml(await renderMarkdown(source));
       const summary = toSummary(post, rendered);
-      const toc = post.filepath.endsWith(".mdx")
+      const toc = post.filepath.endsWith('.mdx')
         ? extractMdxTableOfContents(source)
         : prependTableOfContents(rendered).toc;
 
@@ -165,7 +165,7 @@ export function loadBlogSummaries(root: string): Promise<readonly BlogPostSummar
  */
 export function blogContent(): Plugin {
   return {
-    name: "ex-foundry:blog-content",
+    name: 'ex-foundry:blog-content',
     resolveId(id) {
       return id === BLOG_CONTENT_MODULE ? RESOLVED_BLOG_CONTENT_MODULE : undefined;
     },

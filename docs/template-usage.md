@@ -5,15 +5,15 @@
 
 ## 含まれるもの
 
-| 領域 | 内容 |
-| --- | --- |
+| 領域      | 内容                                                                       |
+| --------- | -------------------------------------------------------------------------- |
 | workspace | pnpm workspaces + Turborepo（`apps` / `configs` / `packages` / `scripts`） |
-| 言語 | TypeScript 7（strict、共有tsconfig） |
-| Web | React 19 + Vite + Tailwind CSS 4 + shadcn/ui |
-| API | Hono（ローカルサーバーとLambda entrypoint） |
-| 共有 | UIプリミティブ、デザイントークン、APIコントラクト |
-| 品質 | Biome、Vitest、GitHub Actions |
-| 生成 | featureのscaffold CLI |
+| 言語      | TypeScript 7（strict、共有tsconfig）                                       |
+| Web       | React 19 + Vite + Tailwind CSS 4 + shadcn/ui                               |
+| API       | Hono（ローカルサーバーとLambda entrypoint）                                |
+| 共有      | UIプリミティブ、デザイントークン、APIコントラクト                          |
+| 品質      | Oxlint、Oxfmt、Vitest、GitHub Actions                                      |
+| 生成      | featureのscaffold CLI                                                      |
 
 ## 立ち上げ手順
 
@@ -42,15 +42,15 @@ npmへ公開するpackageがある場合だけ、対象packageを所有組織の
 
 ### 4. サイト固有の内容を差し替える
 
-| 対象 | ファイル |
-| --- | --- |
-| 共通メタデータ、OGP、GA4、テーマbootstrap | `apps/web/index.html` |
-| サイトURL、サイト名、route別title・description | `apps/web/src/routing/routes.ts` |
-| ブランド色 | `configs/tailwind-config/theme.css` |
-| 画面の構成 | `apps/web/src/app.tsx`、`apps/web/src/components/` |
-| 公開ファイル | `apps/web/public/`（`CNAME`、`og.png`、`404.html`） |
-| 静的HTML、robots、sitemap生成 | `apps/web/plugins/static-routes.ts` |
-| 構造化データ | `apps/web/plugins/structured-data.ts` |
+| 対象                                           | ファイル                                            |
+| ---------------------------------------------- | --------------------------------------------------- |
+| 共通メタデータ、OGP、GA4、テーマbootstrap      | `apps/web/index.html`                               |
+| サイトURL、サイト名、route別title・description | `apps/web/src/routing/routes.ts`                    |
+| ブランド色                                     | `configs/tailwind-config/theme.css`                 |
+| 画面の構成                                     | `apps/web/src/app.tsx`、`apps/web/src/components/`  |
+| 公開ファイル                                   | `apps/web/public/`（`CNAME`、`og.png`、`404.html`） |
+| 静的HTML、robots、sitemap生成                  | `apps/web/plugins/static-routes.ts`                 |
+| 構造化データ                                   | `apps/web/plugins/structured-data.ts`               |
 
 `apps/web/src/features/app-directory`と`features/site-about`は、
 このサイト固有のfeatureです。参考実装として読んだあとは置き換えます。

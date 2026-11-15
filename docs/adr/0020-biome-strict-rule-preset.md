@@ -1,6 +1,7 @@
 # ADR 0020: Biomeの適用可能なルールを厳格化する
 
-- Status: Accepted
+- Status: Superseded
+- Superseded by: [0021](0021-oxlint-oxfmt-toolchain.md)
 - Date: 2026-08-18
 
 ## 背景

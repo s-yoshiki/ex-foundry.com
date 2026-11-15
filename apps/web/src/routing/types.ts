@@ -1,12 +1,12 @@
 export type RouteId =
-  | "home"
-  | "apps"
-  | "about"
-  | "articles"
-  | "changelog"
-  | "privacy"
-  | "contact"
-  | "editorialPolicy";
+  | 'home'
+  | 'apps'
+  | 'about'
+  | 'articles'
+  | 'changelog'
+  | 'privacy'
+  | 'contact'
+  | 'editorialPolicy';
 
 /**
  * Everything about a route that is not a React component.

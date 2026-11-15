@@ -1,13 +1,13 @@
 ---
-title: "DevToys Web：開発中の調査と変換をブラウザで完結させるツール集"
-path: "/entry/1101"
-date: "2026-08-12 10:00"
-coverImage: "../../../images/thumbnail/devtoys-web.jpg"
-author: "s-yoshiki"
+title: 'DevToys Web：開発中の調査と変換をブラウザで完結させるツール集'
+path: '/entry/1101'
+date: '2026-08-12 10:00'
+coverImage: '../../../images/thumbnail/devtoys-web.jpg'
+author: 's-yoshiki'
 aiGenerated: true
-contentType: "product"
-product: "devtoys"
-tags: ["DevToys Web", "開発ツール", "変換", "診断", "ブラウザ"]
+contentType: 'product'
+product: 'devtoys'
+tags: ['DevToys Web', '開発ツール', '変換', '診断', 'ブラウザ']
 ---
 
 ## DevToys Webとは
