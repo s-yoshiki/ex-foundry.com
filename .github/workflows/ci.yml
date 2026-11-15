@@ -13,7 +13,7 @@ permissions:
 
 jobs:
   verify:
-    name: Check, test, and build
+    name: Check and test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7

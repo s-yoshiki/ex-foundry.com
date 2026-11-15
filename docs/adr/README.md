@@ -31,5 +31,6 @@
 | [0019](0019-article-examples-and-diagrams.md)        | 記事に実装例と構成図を含める                     | Accepted                                             |
 | [0020](0020-biome-strict-rule-preset.md)             | Biomeの適用可能なルールを厳格化する              | Superseded by [0021](0021-oxlint-oxfmt-toolchain.md) |
 | [0021](0021-oxlint-oxfmt-toolchain.md)               | Oxlint と Oxfmt を lint / formatter に使う       | Accepted                                             |
+| [0022](0022-verify-without-build.md)                 | verify から独立した build 検証を除外する         | Accepted                                             |
 
 テンプレート: [template.md](template.md)
