@@ -1,13 +1,13 @@
 ---
-title: "EX FOUNDRYとは：個人開発プロダクトを継続的に届けるサイト"
-path: "/entry/1001"
-date: "2026-08-13 10:00"
-coverImage: "../../../images/thumbnail/devtoys-web.jpg"
-author: "s-yoshiki"
+title: 'EX FOUNDRYとは：個人開発プロダクトを継続的に届けるサイト'
+path: '/entry/1001'
+date: '2026-08-13 10:00'
+coverImage: '../../../images/thumbnail/devtoys-web.jpg'
+author: 's-yoshiki'
 aiGenerated: true
-contentType: "product"
-product: "ex-foundry"
-tags: ["EX FOUNDRY", "個人開発", "Webアプリケーション", "プロダクト"]
+contentType: 'product'
+product: 'ex-foundry'
+tags: ['EX FOUNDRY', '個人開発', 'Webアプリケーション', 'プロダクト']
 ---
 
 ## EX FOUNDRYの役割
@@ -18,12 +18,12 @@ EX FOUNDRYは、個人開発で作っているWebプロダクトを、実際に�
 
 ## 現在公開しているプロダクト
 
-| プロダクト | 主な対象 | 目的 | 公開URL |
-| --- | --- | --- | --- |
-| DevToys Web | Web開発者 | URL診断、変換、エンコードなどをブラウザで実行する | [devtoys.ex-foundry.com](https://devtoys.ex-foundry.com/) |
-| ひまつぶし研究室 | 短時間でツールやゲームを試したい人 | 診断、抽選、画像加工、ゲームなどをログインなしで楽しむ | [maker.ex-foundry.com](https://maker.ex-foundry.com/) |
-| NPB Analysis | 日本プロ野球の記録を調べたい人 | 選手のプロフィールと成績を検索、比較、可視化する | [npb-analysis.ex-foundry.com](https://npb-analysis.ex-foundry.com/) |
-| クソゲーの森 | ブラウザゲームを遊びたい人 | 小さな2Dゲームを登録なしで試す | [kusoge.ex-foundry.com](https://kusoge.ex-foundry.com/) |
+| プロダクト       | 主な対象                           | 目的                                                   | 公開URL                                                             |
+| ---------------- | ---------------------------------- | ------------------------------------------------------ | ------------------------------------------------------------------- |
+| DevToys Web      | Web開発者                          | URL診断、変換、エンコードなどをブラウザで実行する      | [devtoys.ex-foundry.com](https://devtoys.ex-foundry.com/)           |
+| ひまつぶし研究室 | 短時間でツールやゲームを試したい人 | 診断、抽選、画像加工、ゲームなどをログインなしで楽しむ | [maker.ex-foundry.com](https://maker.ex-foundry.com/)               |
+| NPB Analysis     | 日本プロ野球の記録を調べたい人     | 選手のプロフィールと成績を検索、比較、可視化する       | [npb-analysis.ex-foundry.com](https://npb-analysis.ex-foundry.com/) |
+| クソゲーの森     | ブラウザゲームを遊びたい人         | 小さな2Dゲームを登録なしで試す                         | [kusoge.ex-foundry.com](https://kusoge.ex-foundry.com/)             |
 
 4つのプロダクトは、それぞれ性格の異なるサービスです。DevToys Webは作業用のツール集、ひまつぶし研究室は診断・生成・遊びを含む小さなツール集、NPB Analysisは公開データを検索するアプリケーション、クソゲーの森はゲームを遊ぶためのサイトです。目的を分けて説明することで、利用者が自分に必要なページへ直接移動できるようにしています。
 

@@ -1,17 +1,17 @@
-import fs from "node:fs";
-import path from "node:path";
+import fs from 'node:fs';
+import path from 'node:path';
 
 const POST_DIRECTORY_PATTERN = /^\d{4}$/;
 const POST_DOCUMENT_PATTERN = /^index\.mdx?$/;
 
 const CONTENT_TYPES: Readonly<Record<string, string>> = {
-  ".avif": "image/avif",
-  ".gif": "image/gif",
-  ".jpeg": "image/jpeg",
-  ".jpg": "image/jpeg",
-  ".png": "image/png",
-  ".svg": "image/svg+xml",
-  ".webp": "image/webp",
+  '.avif': 'image/avif',
+  '.gif': 'image/gif',
+  '.jpeg': 'image/jpeg',
+  '.jpg': 'image/jpeg',
+  '.png': 'image/png',
+  '.svg': 'image/svg+xml',
+  '.webp': 'image/webp',
 };
 
 export interface PostAsset {

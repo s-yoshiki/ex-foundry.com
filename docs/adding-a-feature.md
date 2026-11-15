@@ -101,9 +101,9 @@ pnpm --filter @repo/web test:watch
 
 移す先の判断：
 
-| 内容 | 移動先 |
-| --- | --- |
-| 汎用のUI primitive | `packages/ui` |
-| デザイントークン | `configs/tailwind-config/theme.css` |
-| APIのリクエスト・レスポンス定義 | `packages/api-contract` |
-| リポジトリ運用のためのCLI | `scripts/<name>` |
+| 内容                            | 移動先                              |
+| ------------------------------- | ----------------------------------- |
+| 汎用のUI primitive              | `packages/ui`                       |
+| デザイントークン                | `configs/tailwind-config/theme.css` |
+| APIのリクエスト・レスポンス定義 | `packages/api-contract`             |
+| リポジトリ運用のためのCLI       | `scripts/<name>`                    |

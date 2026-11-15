@@ -24,16 +24,16 @@ src/routing/routes.ts
 
 ### 情報の正
 
-| 情報 | 正となるファイル | 生成・利用先 |
-| --- | --- | --- |
-| サイトURL・サイト名 | `src/routing/routes.ts` | canonical、sitemap、JSON-LD |
-| routeのtitle・description | `src/routing/routes.ts` | 静的HTML、SPA遷移後の`<head>`、GA4 |
-| 共通OGP・X Card | `index.html` | 全routeの静的HTML |
-| route別OGP | `plugins/static-routes.ts` | `dist/**/index.html` |
-| OGP画像 | `public/og.png` | `dist/og.png` |
-| 公開アプリ一覧 | `features/app-directory/functions/get-applications.ts` | 画面、JSON-LD `ItemList` |
-| GA4測定IDとbootstrap | `index.html` | 全routeの静的HTML |
-| SPAの`page_view` | `hooks/use-page-view-tracking.ts` | 初回表示、クライアント遷移 |
+| 情報                      | 正となるファイル                                       | 生成・利用先                       |
+| ------------------------- | ------------------------------------------------------ | ---------------------------------- |
+| サイトURL・サイト名       | `src/routing/routes.ts`                                | canonical、sitemap、JSON-LD        |
+| routeのtitle・description | `src/routing/routes.ts`                                | 静的HTML、SPA遷移後の`<head>`、GA4 |
+| 共通OGP・X Card           | `index.html`                                           | 全routeの静的HTML                  |
+| route別OGP                | `plugins/static-routes.ts`                             | `dist/**/index.html`               |
+| OGP画像                   | `public/og.png`                                        | `dist/og.png`                      |
+| 公開アプリ一覧            | `features/app-directory/functions/get-applications.ts` | 画面、JSON-LD `ItemList`           |
+| GA4測定IDとbootstrap      | `index.html`                                           | 全routeの静的HTML                  |
+| SPAの`page_view`          | `hooks/use-page-view-tracking.ts`                      | 初回表示、クライアント遷移         |
 
 値を別ファイルへ重複して追加せず、この表の正を更新します。
 
@@ -92,12 +92,12 @@ routeを追加しても、`ROUTES`へ登録すればsitemapへ自動で反映さ
 
 `plugins/structured-data.ts`はJSON-LDをビルド時に`<head>`へ挿入します。
 
-| 型 | 用途 | 入力 |
-| --- | --- | --- |
-| `WebSite` | サイト名、正規URL、言語 | `SITE_NAME`、`SITE_URL` |
-| `SiteNavigationElement` | 主要route | `ROUTES` |
-| `ItemList` | 公開アプリ一覧 | `getApplications()` |
-| `WebApplication` | 各アプリの名前・説明・URL | application定義 |
+| 型                      | 用途                      | 入力                    |
+| ----------------------- | ------------------------- | ----------------------- |
+| `WebSite`               | サイト名、正規URL、言語   | `SITE_NAME`、`SITE_URL` |
+| `SiteNavigationElement` | 主要route                 | `ROUTES`                |
+| `ItemList`              | 公開アプリ一覧            | `getApplications()`     |
+| `WebApplication`        | 各アプリの名前・説明・URL | application定義         |
 
 JSON-LDはクライアントで後から挿入せず、生成HTMLに含めます。アプリカードと
 構造化データの内容を一致させるため、公開アプリの情報は`getApplications()`側だけを
@@ -181,10 +181,10 @@ SPA遷移
 
 初回表示もクライアント遷移も同じ手動経路で計測します。送信値は次のとおりです。
 
-| parameter | 値 |
-| --- | --- |
-| `page_title` | route更新後の`document.title` |
-| `page_location` | origin + pathname + search |
+| parameter       | 値                            |
+| --------------- | ----------------------------- |
+| `page_title`    | route更新後の`document.title` |
+| `page_location` | origin + pathname + search    |
 
 query stringは含め、fragmentは含めません。広告ブロッカーなどで`window.gtag`が
 存在しない場合は例外を投げず、計測だけをスキップします。
@@ -264,15 +264,15 @@ curl -I https://ex-foundry.com/robots.txt
 curl -I https://ex-foundry.com/no-such-page
 ```
 
-| 症状 | 主な確認箇所 |
-| --- | --- |
-| 検索結果のtitleが古い | 公開HTML、canonical、Search Consoleの再クロール状態 |
+| 症状                              | 主な確認箇所                                          |
+| --------------------------------- | ----------------------------------------------------- |
+| 検索結果のtitleが古い             | 公開HTML、canonical、Search Consoleの再クロール状態   |
 | `/about`がトップと同じdescription | `ROUTES`、`static-routes.ts`、`dist/about/index.html` |
-| SNSでトップのタイトルになる | 共有URLへ直接アクセスした静的HTML、SNS側cache |
-| OGP画像が出ない | 画像URLのstatus、Content-Type、ファイルサイズ、HTTPS |
-| PVが遷移後に増えない | `usePageViewTracking`、Network、広告ブロッカー |
-| PVが2件ずつ増える | `send_page_view`、GA4拡張計測の履歴イベント |
-| GA4のtitleが1つ前のroute | `useDocumentMeta`と計測hookの実行順、送信payload |
+| SNSでトップのタイトルになる       | 共有URLへ直接アクセスした静的HTML、SNS側cache         |
+| OGP画像が出ない                   | 画像URLのstatus、Content-Type、ファイルサイズ、HTTPS  |
+| PVが遷移後に増えない              | `usePageViewTracking`、Network、広告ブロッカー        |
+| PVが2件ずつ増える                 | `send_page_view`、GA4拡張計測の履歴イベント           |
+| GA4のtitleが1つ前のroute          | `useDocumentMeta`と計測hookの実行順、送信payload      |
 
 ## 参考資料
 

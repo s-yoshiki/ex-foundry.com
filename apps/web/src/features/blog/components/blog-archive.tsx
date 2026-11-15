@@ -1,6 +1,6 @@
-import { CalendarDays } from "lucide-react";
-import { Link } from "../../../routing/link";
-import type { BlogArchiveYear } from "../functions/get-blog-posts";
+import { CalendarDays } from 'lucide-react';
+import { Link } from '../../../routing/link';
+import type { BlogArchiveYear } from '../functions/get-blog-posts';
 
 export function BlogArchive({ archive }: { archive: readonly BlogArchiveYear[] }) {
   return (

@@ -1,4 +1,4 @@
-import { toPascalCase } from "./feature-name";
+import { toPascalCase } from './feature-name';
 
 export type GeneratedFile = {
   contents: string;

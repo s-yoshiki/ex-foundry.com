@@ -1,9 +1,9 @@
-import { POPULAR_POST_PATHS } from "./posts/popular-post-paths";
-import { PostFileRepository } from "./posts/post-file-repository";
-import { PostIndex } from "./posts/post-index";
-import { getPostId, normalizePost } from "./posts/post-normalizer";
-import { selectRecommendedPosts } from "./posts/post-selectors";
-import type { IGroupByItems, IGroupByYearMonthItems, Posts } from "./types/entry.interface";
+import { POPULAR_POST_PATHS } from './posts/popular-post-paths';
+import { PostFileRepository } from './posts/post-file-repository';
+import { PostIndex } from './posts/post-index';
+import { getPostId, normalizePost } from './posts/post-normalizer';
+import { selectRecommendedPosts } from './posts/post-selectors';
+import type { IGroupByItems, IGroupByYearMonthItems, Posts } from './types/entry.interface';
 
 export interface PostsManagerOptions {
   basePath: string;
@@ -13,13 +13,13 @@ export interface PostsManagerOptions {
 }
 
 const EMPTY_POST: Posts = {
-  title: "",
-  path: "",
-  date: "",
-  coverImage: "",
+  title: '',
+  path: '',
+  date: '',
+  coverImage: '',
   tags: [],
   aiGenerated: false,
-  filepath: "",
+  filepath: '',
 };
 
 export class PostsManager {
@@ -49,12 +49,12 @@ export class PostsManager {
     return this.index.getByTag();
   }
 
-  public getCountsGroupByTags(sort: "desc" | "asc" = "desc"): IGroupByItems[] {
+  public getCountsGroupByTags(sort: 'desc' | 'asc' = 'desc'): IGroupByItems[] {
     const counts = this.index.getTagNames().map((name) => ({
       name,
       counts: this.findByTag(name).length,
     }));
-    const direction = sort === "asc" ? 1 : -1;
+    const direction = sort === 'asc' ? 1 : -1;
     return counts.sort((left, right) => direction * (left.counts - right.counts));
   }
 
@@ -75,7 +75,7 @@ export class PostsManager {
     for (let year = this.getPostsStartYear(); year <= new Date().getFullYear(); year++) {
       const months = Array.from({ length: 12 }, (_, index) => index + 1)
         .map((month) => ({
-          name: `${year}-${String(month).padStart(2, "0")}`,
+          name: `${year}-${String(month).padStart(2, '0')}`,
           counts: this.findByYearMonth(year, month).length,
         }))
         .filter(({ counts }) => counts > 0)

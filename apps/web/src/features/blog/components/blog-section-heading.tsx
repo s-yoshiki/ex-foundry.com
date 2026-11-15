@@ -1,15 +1,15 @@
-import type { LucideIcon } from "lucide-react";
-import type { ReactNode } from "react";
+import type { LucideIcon } from 'lucide-react';
+import type { ReactNode } from 'react';
 
 export function BlogSectionHeading({
   action,
-  as = "h2",
+  as = 'h2',
   icon: Icon,
   headingId,
   title,
 }: {
   action?: ReactNode;
-  as?: "h1" | "h2";
+  as?: 'h1' | 'h2';
   icon: LucideIcon;
   headingId?: string;
   title: string;

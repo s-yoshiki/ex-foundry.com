@@ -1,6 +1,6 @@
-import { ToggleGroup, ToggleGroupItem } from "@repo/ui/components/ui/toggle-group";
-import { cn } from "@repo/ui/lib/utils";
-import type { ReactNode } from "react";
+import { ToggleGroup, ToggleGroupItem } from '@repo/ui/components/ui/toggle-group';
+import { cn } from '@repo/ui/lib/utils';
+import type { ReactNode } from 'react';
 
 export type ChoiceOption<TValue extends string> = {
   label: ReactNode;
@@ -9,7 +9,7 @@ export type ChoiceOption<TValue extends string> = {
 
 type ChoiceGroupProps<TValue extends string> = {
   /** `segmented` renders one joined bar, `chips` renders separated pills. */
-  appearance?: "segmented" | "chips";
+  appearance?: 'segmented' | 'chips';
   className?: string;
   label: string;
   onChange: (value: TValue) => void;
@@ -17,29 +17,29 @@ type ChoiceGroupProps<TValue extends string> = {
   value: TValue;
 };
 
-const SELECTED = "data-[state=on]:bg-primary data-[state=on]:text-primary-foreground";
+const SELECTED = 'data-[state=on]:bg-primary data-[state=on]:text-primary-foreground';
 
 /**
  * Single-select control over shadcn's ToggleGroup. Unlike the primitive, the
  * selection can never be emptied — there is always exactly one active value.
  */
 export function ChoiceGroup<TValue extends string>({
-  appearance = "segmented",
+  appearance = 'segmented',
   className,
   label,
   onChange,
   options,
   value,
 }: ChoiceGroupProps<TValue>) {
-  const isChips = appearance === "chips";
+  const isChips = appearance === 'chips';
 
   return (
     <ToggleGroup
       aria-label={label}
-      className={cn(isChips && "flex-wrap", className)}
+      className={cn(isChips && 'flex-wrap', className)}
       onValueChange={(next) => {
         // Radix reports an empty string when the active item is toggled off.
-        if (next !== "") {
+        if (next !== '') {
           onChange(next as TValue);
         }
       }}
@@ -50,7 +50,7 @@ export function ChoiceGroup<TValue extends string>({
     >
       {options.map((option) => (
         <ToggleGroupItem
-          className={cn(SELECTED, isChips && "rounded-full px-4")}
+          className={cn(SELECTED, isChips && 'rounded-full px-4')}
           key={option.value}
           value={option.value}
         >

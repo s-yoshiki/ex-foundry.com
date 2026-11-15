@@ -1,11 +1,11 @@
-import { type ReactNode, useMemo, useState } from "react";
-import { NavigationProvider } from "../../navigation-context";
-import type { LocationSnapshot, NavigationPort } from "../../types";
+import { type ReactNode, useMemo, useState } from 'react';
+import { NavigationProvider } from '../../navigation-context';
+import type { LocationSnapshot, NavigationPort } from '../../types';
 
 function splitUrl(url: string): LocationSnapshot {
-  const [pathname = "/", query] = url.split("?");
+  const [pathname = '/', query] = url.split('?');
 
-  return { pathname, search: query === undefined ? "" : `?${query}` };
+  return { pathname, search: query === undefined ? '' : `?${query}` };
 }
 
 /**
@@ -17,7 +17,7 @@ function splitUrl(url: string): LocationSnapshot {
  */
 export function MemoryNavigationProvider({
   children,
-  initialUrl = "/",
+  initialUrl = '/',
   onNavigate,
 }: {
   children: ReactNode;

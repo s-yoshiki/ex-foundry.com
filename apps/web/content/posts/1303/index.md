@@ -1,13 +1,13 @@
 ---
-title: "NPB Analysis 2026年8月更新：データ更新と開発環境を見直しました"
-path: "/entry/1303"
-date: "2026-08-12 08:00"
-coverImage: "../../../images/thumbnail/code.jpeg"
-author: "s-yoshiki"
+title: 'NPB Analysis 2026年8月更新：データ更新と開発環境を見直しました'
+path: '/entry/1303'
+date: '2026-08-12 08:00'
+coverImage: '../../../images/thumbnail/code.jpeg'
+author: 's-yoshiki'
 aiGenerated: true
-contentType: "release"
-product: "npb"
-tags: ["NPB Analysis", "リリース", "SQLite", "データ更新"]
+contentType: 'release'
+product: 'npb'
+tags: ['NPB Analysis', 'リリース', 'SQLite', 'データ更新']
 ---
 
 ## 更新内容

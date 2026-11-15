@@ -1,10 +1,10 @@
-import { Search } from "lucide-react";
-import { type FormEvent, useEffect, useState } from "react";
-import { useNavigation } from "../../../routing/navigation-context";
+import { Search } from 'lucide-react';
+import { type FormEvent, useEffect, useState } from 'react';
+import { useNavigation } from '../../../routing/navigation-context';
 
 export function BlogSearch({ compact = false }: { compact?: boolean }) {
   const { location, navigate } = useNavigation();
-  const queryFromUrl = new URLSearchParams(location.search).get("q") ?? "";
+  const queryFromUrl = new URLSearchParams(location.search).get('q') ?? '';
   const [query, setQuery] = useState(queryFromUrl);
 
   useEffect(() => {
@@ -14,13 +14,13 @@ export function BlogSearch({ compact = false }: { compact?: boolean }) {
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const queryValue = query.trim();
-    navigate(queryValue ? `/articles/?q=${encodeURIComponent(queryValue)}` : "/articles/");
+    navigate(queryValue ? `/articles/?q=${encodeURIComponent(queryValue)}` : '/articles/');
   }
 
   return (
     <search
       aria-label="記事を検索"
-      className={compact ? "relative w-full max-w-sm" : "relative w-full max-w-xl"}
+      className={compact ? 'relative w-full max-w-sm' : 'relative w-full max-w-xl'}
     >
       <form onSubmit={handleSubmit}>
         <Search

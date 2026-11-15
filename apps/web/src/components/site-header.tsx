@@ -1,9 +1,9 @@
-import { GitBranch, Menu, X } from "lucide-react";
-import { useCallback, useEffect, useId, useRef, useState } from "react";
-import { BlogSearch } from "../features/blog/components/blog-search";
-import { ThemeToggle } from "../features/theme/components/theme-toggle";
-import { Link } from "../routing/link";
-import { SiteNav } from "./site-nav";
+import { GitBranch, Menu, X } from 'lucide-react';
+import { useCallback, useEffect, useId, useRef, useState } from 'react';
+import { BlogSearch } from '../features/blog/components/blog-search';
+import { ThemeToggle } from '../features/theme/components/theme-toggle';
+import { Link } from '../routing/link';
+import { SiteNav } from './site-nav';
 
 export function SiteHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -21,13 +21,13 @@ export function SiteHeader() {
     }
 
     function handleEscape(event: KeyboardEvent) {
-      if (event.key === "Escape") {
+      if (event.key === 'Escape') {
         closeMenu();
       }
     }
 
-    document.addEventListener("keydown", handleEscape);
-    return () => document.removeEventListener("keydown", handleEscape);
+    document.addEventListener('keydown', handleEscape);
+    return () => document.removeEventListener('keydown', handleEscape);
   }, [closeMenu, menuOpen]);
 
   return (
@@ -71,7 +71,7 @@ export function SiteHeader() {
             <button
               aria-controls={menuId}
               aria-expanded={menuOpen}
-              aria-label={menuOpen ? "メニューを閉じる" : "メニューを開く"}
+              aria-label={menuOpen ? 'メニューを閉じる' : 'メニューを開く'}
               className="grid size-9 place-items-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
               onClick={toggleMenu}
               ref={menuButtonRef}

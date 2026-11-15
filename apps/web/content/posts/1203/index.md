@@ -1,13 +1,13 @@
 ---
-title: "ひまつぶし研究室 2026年8月リリース：成分・相性・運勢・二つ名メーカーを追加"
-path: "/entry/1203"
-date: "2026-08-08 10:00"
-coverImage: "../../../images/thumbnail/code.webp"
-author: "s-yoshiki"
+title: 'ひまつぶし研究室 2026年8月リリース：成分・相性・運勢・二つ名メーカーを追加'
+path: '/entry/1203'
+date: '2026-08-08 10:00'
+coverImage: '../../../images/thumbnail/code.webp'
+author: 's-yoshiki'
 aiGenerated: true
-contentType: "release"
-product: "maker"
-tags: ["ひまつぶし研究室", "リリース", "診断メーカー", "共有URL"]
+contentType: 'release'
+product: 'maker'
+tags: ['ひまつぶし研究室', 'リリース', '診断メーカー', '共有URL']
 ---
 
 ## 今回追加したツール

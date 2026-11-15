@@ -1,7 +1,7 @@
-import { existsSync } from "node:fs";
-import { dirname, join, parse } from "node:path";
+import { existsSync } from 'node:fs';
+import { dirname, join, parse } from 'node:path';
 
-const WORKSPACE_MARKER = "pnpm-workspace.yaml";
+const WORKSPACE_MARKER = 'pnpm-workspace.yaml';
 
 /**
  * Walks up from `startDirectory` to the directory holding `pnpm-workspace.yaml`.

@@ -1,10 +1,10 @@
-import * as cheerio from "cheerio";
-import GithubSlugger from "github-slugger";
-import type { RenderedMarkdown, TableOfContentsItem } from "./types";
+import * as cheerio from 'cheerio';
+import GithubSlugger from 'github-slugger';
+import type { RenderedMarkdown, TableOfContentsItem } from './types';
 
 const extractHeadings = (html: string): TableOfContentsItem[] => {
   const document = cheerio.load(html);
-  return document("h2")
+  return document('h2')
     .toArray()
     .map((heading) => ({
       id: heading.attribs.id,
@@ -25,11 +25,11 @@ const markdownHeadingToText = (heading: string): string =>
   cheerio
     .load(
       `<span>${heading
-        .replace(/!\[([^\]]*)\]\([^)]*\)/g, "$1")
-        .replace(/\[([^\]]+)\]\([^)]*\)/g, "$1")
-        .replace(/<[^>]+>/g, "")
-        .replace(/[`*_~]/g, "")}</span>`,
-    )("span")
+        .replace(/!\[([^\]]*)\]\([^)]*\)/g, '$1')
+        .replace(/\[([^\]]+)\]\([^)]*\)/g, '$1')
+        .replace(/<[^>]+>/g, '')
+        .replace(/[`*_~]/g, '')}</span>`,
+    )('span')
     .text()
     .trim();
 

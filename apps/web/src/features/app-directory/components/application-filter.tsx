@@ -1,7 +1,7 @@
-import { ChoiceGroup, type ChoiceOption, SearchField } from "@repo/ui";
-import { useId, useMemo } from "react";
-import type { CategoryOption } from "../functions/application-labels";
-import type { CategoryFilterValue } from "../types/application";
+import { ChoiceGroup, type ChoiceOption, SearchField } from '@repo/ui';
+import { useId, useMemo } from 'react';
+import type { CategoryOption } from '../functions/application-labels';
+import type { CategoryFilterValue } from '../types/application';
 
 type ApplicationFilterProps = {
   category: CategoryFilterValue;

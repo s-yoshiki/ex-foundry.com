@@ -1,18 +1,18 @@
-export type BlogContentType = "product" | "architecture" | "release" | "operations";
+export type BlogContentType = 'product' | 'architecture' | 'release' | 'operations';
 
 export const BLOG_CONTENT_TYPE_LABELS: Record<BlogContentType, string> = {
-  architecture: "技術構成",
-  operations: "運用",
-  product: "プロダクト",
-  release: "リリース",
+  architecture: '技術構成',
+  operations: '運用',
+  product: 'プロダクト',
+  release: 'リリース',
 };
 
 export const BLOG_PRODUCT_LABELS: Record<string, string> = {
-  "ex-foundry": "EX FOUNDRY",
-  devtoys: "DevToys Web",
-  maker: "ひまつぶし研究室",
-  npb: "NPB Analysis",
-  kusoge: "クソゲーの森",
+  'ex-foundry': 'EX FOUNDRY',
+  devtoys: 'DevToys Web',
+  maker: 'ひまつぶし研究室',
+  npb: 'NPB Analysis',
+  kusoge: 'クソゲーの森',
 };
 
 export function getBlogProductLabel(product: string): string {

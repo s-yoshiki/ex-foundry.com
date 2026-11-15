@@ -14,7 +14,7 @@
 
 - `apps/web`: Vite + Reactの静的Webアプリ
 - `apps/api`: Honoのローカルサーバー・Lambdaサンプル
-- `configs/biome`: Biomeの共有設定
+- `configs/Oxlint / Oxfmt`: Oxlint / Oxfmtの共有設定
 - `configs/tailwind-config`: Tailwind CSS 4の共有テーマ
 - `configs/tsconfig`: TypeScriptの共有設定
 - `packages/ui`: shadcn/uiベースの共有React UI

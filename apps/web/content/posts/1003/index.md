@@ -1,13 +1,13 @@
 ---
-title: "EX FOUNDRYをプロダクト情報サイトへリニューアルしました"
-path: "/entry/1003"
-date: "2026-08-13 08:00"
-coverImage: "../../../images/thumbnail/devtoys-web.jpg"
-author: "s-yoshiki"
+title: 'EX FOUNDRYをプロダクト情報サイトへリニューアルしました'
+path: '/entry/1003'
+date: '2026-08-13 08:00'
+coverImage: '../../../images/thumbnail/devtoys-web.jpg'
+author: 's-yoshiki'
 aiGenerated: true
-contentType: "release"
-product: "ex-foundry"
-tags: ["EX FOUNDRY", "リニューアル", "リリース"]
+contentType: 'release'
+product: 'ex-foundry'
+tags: ['EX FOUNDRY', 'リニューアル', 'リリース']
 ---
 
 ## リニューアルの概要

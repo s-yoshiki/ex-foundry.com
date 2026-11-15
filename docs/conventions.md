@@ -23,9 +23,7 @@
 - 失敗しうる処理は、例外ではなく結果の型で表現することを検討します。
 
 ```ts
-export type ApiResult<TData> =
-  | { data: TData; status: "ok" }
-  | { message: string; status: "error" };
+export type ApiResult<TData> = { data: TData; status: 'ok' } | { message: string; status: 'error' };
 ```
 
 ## Feature

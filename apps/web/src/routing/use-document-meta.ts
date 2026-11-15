@@ -1,6 +1,6 @@
-import { useEffect } from "react";
-import { canonicalUrl } from "./routes";
-import type { RouteMeta } from "./types";
+import { useEffect } from 'react';
+import { canonicalUrl } from './routes';
+import type { RouteMeta } from './types';
 
 function setMeta(selector: string, attribute: string, value: string): void {
   const element = document.head.querySelector(selector);
@@ -25,12 +25,12 @@ export function useDocumentTitle(title: string): void {
 export function useDocumentMeta(route: RouteMeta): void {
   useEffect(() => {
     document.title = route.title;
-    setMeta('meta[name="description"]', "content", route.description);
-    setMeta('meta[property="og:title"]', "content", route.title);
-    setMeta('meta[property="og:description"]', "content", route.description);
-    setMeta('meta[property="og:url"]', "content", canonicalUrl(route.path));
-    setMeta('meta[name="twitter:title"]', "content", route.title);
-    setMeta('meta[name="twitter:description"]', "content", route.description);
-    setMeta('link[rel="canonical"]', "href", canonicalUrl(route.path));
+    setMeta('meta[name="description"]', 'content', route.description);
+    setMeta('meta[property="og:title"]', 'content', route.title);
+    setMeta('meta[property="og:description"]', 'content', route.description);
+    setMeta('meta[property="og:url"]', 'content', canonicalUrl(route.path));
+    setMeta('meta[name="twitter:title"]', 'content', route.title);
+    setMeta('meta[name="twitter:description"]', 'content', route.description);
+    setMeta('link[rel="canonical"]', 'href', canonicalUrl(route.path));
   }, [route]);
 }

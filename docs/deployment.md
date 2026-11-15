@@ -2,9 +2,9 @@
 
 ## パイプライン
 
-| workflow | 契機 | 内容 |
-| --- | --- | --- |
-| `.github/workflows/ci.yml` | Pull Request、手動 | `pnpm verify` |
+| workflow                       | 契機                 | 内容                                                    |
+| ------------------------------ | -------------------- | ------------------------------------------------------- |
+| `.github/workflows/ci.yml`     | Pull Request、手動   | `pnpm verify`                                           |
 | `.github/workflows/deploy.yml` | `main`へのpush、手動 | `pnpm verify` の後、`apps/web/dist`をGitHub Pagesへ公開 |
 
 deployはCIと同じ検証を再実行します。mainへ直接pushされた場合でも、
@@ -15,12 +15,12 @@ deployはCIと同じ検証を再実行します。mainへ直接pushされた場�
 公開されるのは`apps/web/dist`のみです。`apps/web/public`配下は、
 ビルド時にそのまま成果物へコピーされます。
 
-| ファイル | 役割 |
-| --- | --- |
-| `CNAME` | 独自ドメイン（ex-foundry.com） |
-| `.nojekyll` | GitHub PagesのJekyll処理を無効化 |
-| `404.html` | 存在しないパスへのアクセス時に返すページ |
-| `og.png` | OGP画像 |
+| ファイル    | 役割                                     |
+| ----------- | ---------------------------------------- |
+| `CNAME`     | 独自ドメイン（ex-foundry.com）           |
+| `.nojekyll` | GitHub PagesのJekyll処理を無効化         |
+| `404.html`  | 存在しないパスへのアクセス時に返すページ |
+| `og.png`    | OGP画像                                  |
 
 `robots.txt`と`sitemap.xml`は`apps/web/public`には置かず、
 `plugins/static-routes.ts`が`ROUTES`から`dist`へ生成します。

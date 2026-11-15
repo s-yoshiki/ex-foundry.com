@@ -1,6 +1,6 @@
-import * as matchers from "@testing-library/jest-dom/matchers";
-import { cleanup } from "@testing-library/react";
-import { afterEach, expect } from "vitest";
+import * as matchers from '@testing-library/jest-dom/matchers';
+import { cleanup } from '@testing-library/react';
+import { afterEach, expect } from 'vitest';
 
 // `@testing-library/jest-dom/vitest` imports `vitest` from its own package
 // directory, which pnpm's isolated node_modules does not expose. Registering the
@@ -46,8 +46,8 @@ class MemoryStorage {
 
 // Node declares a `localStorage` global that stays undefined unless Web Storage
 // is enabled, so the value — not the key — decides whether a stand-in is needed.
-if (typeof globalThis.localStorage === "undefined") {
-  Object.defineProperty(globalThis, "localStorage", {
+if (typeof globalThis.localStorage === 'undefined') {
+  Object.defineProperty(globalThis, 'localStorage', {
     configurable: true,
     value: new MemoryStorage() as unknown as Storage,
   });

@@ -1,13 +1,13 @@
-import { describe, expect, it } from "vitest";
-import { getApplications } from "../../app-directory/functions/get-applications";
-import { getProduct, getProductSlug } from "./get-product";
+import { describe, expect, it } from 'vitest';
+import { getApplications } from '../../app-directory/functions/get-applications';
+import { getProduct, getProductSlug } from './get-product';
 
-describe("getProduct", () => {
-  it("returns undefined for an unknown slug", () => {
-    expect(getProduct("does-not-exist")).toBeUndefined();
+describe('getProduct', () => {
+  it('returns undefined for an unknown slug', () => {
+    expect(getProduct('does-not-exist')).toBeUndefined();
   });
 
-  it("resolves the application and its posts for every known slug", () => {
+  it('resolves the application and its posts for every known slug', () => {
     for (const application of getApplications()) {
       const product = getProduct(application.slug);
 
@@ -16,7 +16,7 @@ describe("getProduct", () => {
     }
   });
 
-  it("groups posts by content type and drops empty groups", () => {
+  it('groups posts by content type and drops empty groups', () => {
     const product = getProduct(getApplications()[0].slug);
 
     expect(product).toBeDefined();
@@ -27,13 +27,13 @@ describe("getProduct", () => {
   });
 });
 
-describe("getProductSlug", () => {
-  it("extracts the slug from a product path", () => {
-    expect(getProductSlug("/products/kusoge")).toBe("kusoge");
-    expect(getProductSlug("/products/kusoge/")).toBe("kusoge");
+describe('getProductSlug', () => {
+  it('extracts the slug from a product path', () => {
+    expect(getProductSlug('/products/kusoge')).toBe('kusoge');
+    expect(getProductSlug('/products/kusoge/')).toBe('kusoge');
   });
 
-  it("returns undefined for a non-product path", () => {
-    expect(getProductSlug("/apps")).toBeUndefined();
+  it('returns undefined for a non-product path', () => {
+    expect(getProductSlug('/apps')).toBeUndefined();
   });
 });

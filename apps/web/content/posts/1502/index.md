@@ -1,13 +1,13 @@
 ---
-title: "EX FOUNDRYのプロダクト情報を更新する方法"
-path: "/entry/1502"
-date: "2026-08-13 06:00"
-coverImage: "../../../images/thumbnail/code.webp"
-author: "s-yoshiki"
+title: 'EX FOUNDRYのプロダクト情報を更新する方法'
+path: '/entry/1502'
+date: '2026-08-13 06:00'
+coverImage: '../../../images/thumbnail/code.webp'
+author: 's-yoshiki'
 aiGenerated: true
-contentType: "operations"
-product: "ex-foundry"
-tags: ["EX FOUNDRY", "編集方針", "リリース", "運用", "ドキュメント"]
+contentType: 'operations'
+product: 'ex-foundry'
+tags: ['EX FOUNDRY', '編集方針', 'リリース', '運用', 'ドキュメント']
 ---
 
 ## 情報の種類を分ける

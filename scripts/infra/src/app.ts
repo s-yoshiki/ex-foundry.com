@@ -1,13 +1,13 @@
-import { join } from "node:path";
-import { App, Tags } from "aws-cdk-lib";
-import { type EnvironmentConfig, resolveEnvironment } from "./environments";
-import { constructId, PROJECT_SLUG, stackName } from "./naming";
-import { ApiStack } from "./stacks/api-stack";
+import { join } from 'node:path';
+import { App, Tags } from 'aws-cdk-lib';
+import { type EnvironmentConfig, resolveEnvironment } from './environments';
+import { constructId, PROJECT_SLUG, stackName } from './naming';
+import { ApiStack } from './stacks/api-stack';
 
 /** Origins allowed to call the API, per environment. */
-const ALLOWED_ORIGINS: Record<EnvironmentConfig["name"], readonly string[]> = {
-  dev: ["http://localhost:5173"],
-  prd: ["https://ex-foundry.com"],
+const ALLOWED_ORIGINS: Record<EnvironmentConfig['name'], readonly string[]> = {
+  dev: ['http://localhost:5173'],
+  prd: ['https://ex-foundry.com'],
 };
 
 export type BuildAppOptions = {
@@ -24,16 +24,16 @@ export type BuildAppOptions = {
  */
 export function buildApp({ repositoryRoot }: BuildAppOptions): App {
   const app = new App();
-  const environment = resolveEnvironment(app.node.tryGetContext("env"));
+  const environment = resolveEnvironment(app.node.tryGetContext('env'));
 
-  Tags.of(app).add("Environment", environment.name);
-  Tags.of(app).add("ManagedBy", "cdk");
-  Tags.of(app).add("Project", PROJECT_SLUG);
+  Tags.of(app).add('Environment', environment.name);
+  Tags.of(app).add('ManagedBy', 'cdk');
+  Tags.of(app).add('Project', PROJECT_SLUG);
 
-  // biome-ignore lint/correctness/noUnusedInstantiation: CDK constructs register themselves in the construct tree.
-  new ApiStack(app, constructId(environment.name, "Api"), {
+  // lint/correctness/noUnusedInstantiation: CDK constructs register themselves in the construct tree.
+  new ApiStack(app, constructId(environment.name, 'Api'), {
     allowedOrigins: ALLOWED_ORIGINS[environment.name],
-    bundleDirectory: join(repositoryRoot, "apps", "api", "dist"),
+    bundleDirectory: join(repositoryRoot, 'apps', 'api', 'dist'),
     description: `${environment.displayName} API stack for ex-foundry.com`,
     env: {
       // The account comes from the caller's credentials; the region is pinned
@@ -42,7 +42,7 @@ export function buildApp({ repositoryRoot }: BuildAppOptions): App {
       region: environment.region,
     },
     environment,
-    stackName: stackName(environment.name, "Api"),
+    stackName: stackName(environment.name, 'Api'),
     terminationProtection: environment.terminationProtection,
   });
 

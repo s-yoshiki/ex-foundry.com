@@ -16,7 +16,7 @@
 │   ├── api/                    # Hono API
 │   └── web/                    # Vite + Reactの公開サイト
 ├── configs/
-│   ├── biome/                  # Biome共有設定
+│   ├── oxlint/ と oxfmt/     # lint / format共有設定
 │   ├── tailwind-config/        # Tailwind CSS 4テーマ
 │   └── tsconfig/               # TypeScript共有設定
 ├── packages/
@@ -89,12 +89,12 @@ API clientやstorage accessも、feature内で完結するものは`functions`�
 
 実装例：
 
-| feature | 例示している内容 |
-| --- | --- |
-| `app-directory` | 一覧表示、絞り込み、純粋関数の分離 |
-| `theme` | storage境界の検証、副作用のhookへの隔離 |
-| `api-health` | 共有コントラクトを使った外部通信 |
-| `site-about` | 表示のみのfeature |
+| feature         | 例示している内容                        |
+| --------------- | --------------------------------------- |
+| `app-directory` | 一覧表示、絞り込み、純粋関数の分離      |
+| `theme`         | storage境界の検証、副作用のhookへの隔離 |
+| `api-health`    | 共有コントラクトを使った外部通信        |
+| `site-about`    | 表示のみのfeature                       |
 
 ### ビルド時の生成
 

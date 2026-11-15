@@ -1,10 +1,10 @@
-import rehypeShiki from "@shikijs/rehype";
-import rehypeSlug from "rehype-slug";
-import rehypeStringify from "rehype-stringify";
-import remarkGfm from "remark-gfm";
-import remarkParse from "remark-parse";
-import remarkRehype from "remark-rehype";
-import { unified } from "unified";
+import rehypeShiki from '@shikijs/rehype';
+import rehypeSlug from 'rehype-slug';
+import rehypeStringify from 'rehype-stringify';
+import remarkGfm from 'remark-gfm';
+import remarkParse from 'remark-parse';
+import remarkRehype from 'remark-rehype';
+import { unified } from 'unified';
 
 export const renderMarkdown = async (markdown: string): Promise<string> => {
   const result = await unified()
@@ -14,10 +14,10 @@ export const renderMarkdown = async (markdown: string): Promise<string> => {
     .use(rehypeSlug)
     .use(rehypeShiki, {
       themes: {
-        light: "github-light",
-        dark: "github-dark",
+        light: 'github-light',
+        dark: 'github-dark',
       },
-      defaultColor: "light",
+      defaultColor: 'light',
     })
     .use(rehypeStringify, { allowDangerousHtml: true })
     .process(markdown);

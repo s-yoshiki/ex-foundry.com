@@ -1,8 +1,8 @@
 #!/usr/bin/env -S node --import tsx
-import { relative } from "node:path";
-import { parseArgs } from "node:util";
-import { createFeature } from "./create-feature";
-import { findWorkspaceRoot } from "./workspace-root";
+import { relative } from 'node:path';
+import { parseArgs } from 'node:util';
+import { createFeature } from './create-feature';
+import { findWorkspaceRoot } from './workspace-root';
 
 const USAGE = `Usage: pnpm create:feature <feature-name> [--app <app>]
 
@@ -15,8 +15,8 @@ async function main(): Promise<number> {
   const { positionals, values } = parseArgs({
     allowPositionals: true,
     options: {
-      app: { default: "web", type: "string" },
-      help: { short: "h", type: "boolean" },
+      app: { default: 'web', type: 'string' },
+      help: { short: 'h', type: 'boolean' },
     },
   });
 
@@ -27,7 +27,7 @@ async function main(): Promise<number> {
   }
 
   if (positionals.length !== 1) {
-    console.error("feature名を1つ指定してください。\n");
+    console.error('feature名を1つ指定してください。\n');
     console.error(USAGE);
 
     return 1;
@@ -36,12 +36,12 @@ async function main(): Promise<number> {
   const root = findWorkspaceRoot(process.cwd());
 
   if (root === undefined) {
-    console.error("pnpm-workspace.yaml が見つかりません。リポジトリ内で実行してください。");
+    console.error('pnpm-workspace.yaml が見つかりません。リポジトリ内で実行してください。');
 
     return 1;
   }
 
-  const result = await createFeature({ app: values.app, name: positionals[0] ?? "", root });
+  const result = await createFeature({ app: values.app, name: positionals[0] ?? '', root });
 
   if (!result.ok) {
     console.error(result.reason);
@@ -49,7 +49,7 @@ async function main(): Promise<number> {
     return 1;
   }
 
-  console.log("次のファイルを作成しました:");
+  console.log('次のファイルを作成しました:');
 
   for (const file of result.createdFiles) {
     console.log(`  ${relative(root, file)}`);

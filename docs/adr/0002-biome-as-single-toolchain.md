@@ -1,6 +1,7 @@
 # ADR 0002: FormatterとLinterをBiomeに一本化する
 
-- Status: Accepted
+- Status: Superseded
+- Superseded by: [0021](0021-oxlint-oxfmt-toolchain.md)
 - Date: 2026-07-27
 
 ## 背景

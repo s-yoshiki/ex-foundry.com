@@ -1,9 +1,9 @@
-import { useId, useMemo } from "react";
-import { buildCategoryOptions } from "../functions/application-labels";
-import { useApplicationFilter } from "../hooks/use-application-filter";
-import { useApplications } from "../hooks/use-applications";
-import { ApplicationCard } from "./application-card";
-import { ApplicationFilter } from "./application-filter";
+import { useId, useMemo } from 'react';
+import { buildCategoryOptions } from '../functions/application-labels';
+import { useApplicationFilter } from '../hooks/use-application-filter';
+import { useApplications } from '../hooks/use-applications';
+import { ApplicationCard } from './application-card';
+import { ApplicationFilter } from './application-filter';
 
 export function ApplicationList() {
   const headingId = useId();

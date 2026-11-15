@@ -1,6 +1,6 @@
-import { useEffect } from "react";
-import { trackPageView } from "../libs/analytics/track-page-view";
-import { useNavigation } from "../routing/navigation-context";
+import { useEffect } from 'react';
+import { trackPageView } from '../libs/analytics/track-page-view';
+import { useNavigation } from '../routing/navigation-context';
 
 /**
  * Fires a GA4 page_view on every client-side navigation.

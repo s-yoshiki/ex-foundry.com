@@ -1,4 +1,4 @@
-import { Link } from "../../../routing/link";
+import { Link } from '../../../routing/link';
 
 export function BlogTag({ count, name }: { count: number; name: string }) {
   return (

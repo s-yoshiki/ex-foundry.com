@@ -13,19 +13,19 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@repo/api-contract": "workspace:*",
     "@hono/node-server": "2.1.4",
     "@hono/zod-validator": "0.9.1",
+    "@repo/api-contract": "workspace:*",
     "hono": "4.13.13"
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
     "@types/aws-lambda": "8.10.164",
-    "@types/node": "26.6.6",
-    "@vitest/coverage-v8": "5.1.0",
+    "@types/node": "catalog:",
+    "@vitest/coverage-v8": "catalog:",
     "esbuild": "0.28.2",
-    "tsx": "4.23.15",
-    "typescript": "7.0.2",
-    "vitest": "5.1.0"
+    "tsx": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
   }
 }

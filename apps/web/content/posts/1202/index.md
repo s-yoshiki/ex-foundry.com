@@ -1,13 +1,13 @@
 ---
-title: "ひまつぶし研究室の技術構成：決定論的な結果とクライアント処理"
-path: "/entry/1202"
-date: "2026-08-09 10:00"
-coverImage: "../../../images/thumbnail/react-logo.png"
-author: "s-yoshiki"
+title: 'ひまつぶし研究室の技術構成：決定論的な結果とクライアント処理'
+path: '/entry/1202'
+date: '2026-08-09 10:00'
+coverImage: '../../../images/thumbnail/react-logo.png'
+author: 's-yoshiki'
 aiGenerated: true
-contentType: "architecture"
-product: "maker"
-tags: ["ひまつぶし研究室", "React", "Canvas", "決定論的処理", "AWS CDK"]
+contentType: 'architecture'
+product: 'maker'
+tags: ['ひまつぶし研究室', 'React', 'Canvas', '決定論的処理', 'AWS CDK']
 ---
 
 ## サイトの前提
@@ -38,7 +38,7 @@ type GeneratorInput = {
 };
 
 function createSeed(input: GeneratorInput): number {
-  const source = `${input.toolId}:${input.value}:${input.date ?? ""}`;
+  const source = `${input.toolId}:${input.value}:${input.date ?? ''}`;
   return [...source].reduce((seed, character) => seed * 31 + character.codePointAt(0)!, 7);
 }
 

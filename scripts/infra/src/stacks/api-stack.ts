@@ -1,5 +1,5 @@
-import { existsSync } from "node:fs";
-import { CfnOutput, Stack, type StackProps } from "aws-cdk-lib";
+import { existsSync } from 'node:fs';
+import { CfnOutput, Stack, type StackProps } from 'aws-cdk-lib';
 import {
   Architecture,
   Code,
@@ -7,11 +7,11 @@ import {
   HttpMethod,
   Function as LambdaFunction,
   Runtime,
-} from "aws-cdk-lib/aws-lambda";
-import { LogGroup } from "aws-cdk-lib/aws-logs";
-import type { Construct } from "constructs";
-import type { EnvironmentConfig } from "../environments";
-import { resourceName } from "../naming";
+} from 'aws-cdk-lib/aws-lambda';
+import { LogGroup } from 'aws-cdk-lib/aws-logs';
+import type { Construct } from 'constructs';
+import type { EnvironmentConfig } from '../environments';
+import { resourceName } from '../naming';
 
 export type ApiStackProps = StackProps & {
   /** Directory holding the built `index.mjs` from `apps/api`. */
@@ -39,29 +39,29 @@ export class ApiStack extends Stack {
     if (!existsSync(bundleDirectory)) {
       throw new Error(
         `API bundle not found at ${bundleDirectory}. ` +
-          "Run `pnpm --filter @repo/api build` before synthesising.",
+          'Run `pnpm --filter @repo/api build` before synthesising.',
       );
     }
 
     // Declared explicitly so the retention policy is ours rather than the
     // implicit, never-expiring log group Lambda would create on first invoke.
-    const logGroup = new LogGroup(this, "ApiLogs", {
-      logGroupName: `/aws/lambda/${resourceName(environment.name, "api")}`,
+    const logGroup = new LogGroup(this, 'ApiLogs', {
+      logGroupName: `/aws/lambda/${resourceName(environment.name, 'api')}`,
       removalPolicy: environment.removalPolicy,
       retention: environment.logRetention,
     });
 
-    const handler = new LambdaFunction(this, "ApiFunction", {
+    const handler = new LambdaFunction(this, 'ApiFunction', {
       architecture: Architecture.ARM_64,
       code: Code.fromAsset(bundleDirectory),
       description: `${environment.displayName} API for ex-foundry.com`,
       environment: {
         LOG_LEVEL: environment.logLevel,
-        NODE_OPTIONS: "--enable-source-maps",
+        NODE_OPTIONS: '--enable-source-maps',
         STAGE: environment.name,
       },
-      functionName: resourceName(environment.name, "api"),
-      handler: "index.handler",
+      functionName: resourceName(environment.name, 'api'),
+      handler: 'index.handler',
       logGroup,
       memorySize: environment.lambda.memorySize,
       reservedConcurrentExecutions: environment.lambda.reservedConcurrentExecutions,
@@ -72,7 +72,7 @@ export class ApiStack extends Stack {
     const url = handler.addFunctionUrl({
       authType: FunctionUrlAuthType.NONE,
       cors: {
-        allowedHeaders: ["content-type"],
+        allowedHeaders: ['content-type'],
         allowedMethods: [HttpMethod.GET],
         allowedOrigins: [...allowedOrigins],
         maxAge: environment.lambda.timeout,
@@ -81,10 +81,10 @@ export class ApiStack extends Stack {
 
     this.functionUrl = url.url;
 
-    // biome-ignore lint/correctness/noUnusedInstantiation: CDK outputs register themselves in the construct tree.
-    new CfnOutput(this, "ApiUrl", {
-      description: "Base URL for VITE_API_BASE_URL",
-      exportName: resourceName(environment.name, "api", "url"),
+    // lint/correctness/noUnusedInstantiation: CDK outputs register themselves in the construct tree.
+    new CfnOutput(this, 'ApiUrl', {
+      description: 'Base URL for VITE_API_BASE_URL',
+      exportName: resourceName(environment.name, 'api', 'url'),
       value: url.url,
     });
   }

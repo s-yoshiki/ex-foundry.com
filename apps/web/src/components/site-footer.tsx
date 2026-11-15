@@ -1,5 +1,5 @@
-import { ApiStatus } from "../features/api-health/components/api-status";
-import { Link } from "../routing/link";
+import { ApiStatus } from '../features/api-health/components/api-status';
+import { Link } from '../routing/link';
 
 export function SiteFooter() {
   return (

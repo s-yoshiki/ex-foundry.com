@@ -1,10 +1,10 @@
-import fs from "node:fs";
-import path from "node:path";
-import matter from "gray-matter";
-import type { Posts } from "../types/entry.interface";
+import fs from 'node:fs';
+import path from 'node:path';
+import matter from 'gray-matter';
+import type { Posts } from '../types/entry.interface';
 
 const POST_DIRECTORY_PATTERN = /^\d{4}$/;
-const POST_FILENAMES = ["index.md", "index.mdx"] as const;
+const POST_FILENAMES = ['index.md', 'index.mdx'] as const;
 
 const readAiGeneratedFlag = (value: unknown): boolean => {
   // Missing metadata keeps existing posts backward-compatible. A quoted
@@ -34,7 +34,7 @@ export class PostFileRepository {
 
   public findAll(): Posts[] {
     return listPostFiles(this.directory).map((filepath) => {
-      const fileContents = fs.readFileSync(filepath, "utf8");
+      const fileContents = fs.readFileSync(filepath, 'utf8');
       const { data } = matter(fileContents);
       return {
         ...data,

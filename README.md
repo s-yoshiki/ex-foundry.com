@@ -5,12 +5,12 @@ EX FOUNDRYのポータルサイトであり、pnpm workspaces + Turborepo + Type
 
 ## 技術スタック
 
-- Node.js 26 / pnpm 11 / Turborepo
+- Node.js 26 / pnpm 12 / Turborepo
 - TypeScript 7
 - React 19 + Vite + React Router
 - Tailwind CSS 4 + shadcn/ui
 - Hono + zod
-- Biome / Vitest
+- Oxlint / Oxfmt / Vitest
 - AWS CDK
 - GitHub Actions / GitHub Pages
 
@@ -22,7 +22,7 @@ EX FOUNDRYのポータルサイトであり、pnpm workspaces + Turborepo + Type
 │   ├── api/                    # Hono API（ローカルサーバー / Lambda）
 │   └── web/                    # Vite + Reactの公開サイト
 ├── configs/
-│   ├── biome/                  # Biome共有設定
+│   ├── Oxlint / Oxfmt/                  # Oxlint / Oxfmt共有設定
 │   ├── tailwind-config/        # Tailwind CSS 4共有テーマ
 │   └── tsconfig/               # TypeScript共有設定
 ├── packages/
@@ -32,7 +32,7 @@ EX FOUNDRYのポータルサイトであり、pnpm workspaces + Turborepo + Type
 │   ├── create-feature/         # featureの雛形生成CLI
 │   └── infra/                  # AWS CDK（dev/prd）
 ├── docs/                       # 設計・運用ドキュメントとADR
-├── biome.json                  # Biome設定のルート入口
+├── Oxlint / Oxfmt.json                  # Oxlint / Oxfmt設定のルート入口
 ├── pnpm-workspace.yaml
 └── turbo.json
 ```
@@ -63,13 +63,13 @@ cp apps/web/.env.example apps/web/.env
 ## 共通コマンド
 
 ```sh
-pnpm check          # Biomeでlintとformatを確認
+pnpm check          # Oxlint / Oxfmtでlintとformatを確認
 pnpm check:fix      # 安全に修正できる項目を反映
 pnpm typecheck
 pnpm test
 pnpm test:coverage
 pnpm build
-pnpm verify         # Biome設定監査、lint、型検査、テスト、ビルド
+pnpm verify         # Oxlint / Oxfmt設定監査、lint、型検査、テスト、ビルド
 ```
 
 featureの雛形を生成する場合：

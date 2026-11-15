@@ -1,5 +1,5 @@
-import { type HealthResponse, healthPath, healthResponseSchema } from "@repo/api-contract";
-import type { ApiResult } from "../types/api-result";
+import { type HealthResponse, healthPath, healthResponseSchema } from '@repo/api-contract';
+import type { ApiResult } from '../types/api-result';
 
 /**
  * Calls the companion API's health route.
@@ -15,21 +15,21 @@ export async function fetchHealth(
 ): Promise<ApiResult<HealthResponse>> {
   try {
     const response = await fetchImpl(new URL(healthPath(), baseUrl), {
-      headers: { accept: "application/json" },
+      headers: { accept: 'application/json' },
     });
 
     if (!response.ok) {
-      return { message: `APIが${response.status}を返しました。`, status: "error" };
+      return { message: `APIが${response.status}を返しました。`, status: 'error' };
     }
 
     const parsed = healthResponseSchema.safeParse(await response.json());
 
     if (!parsed.success) {
-      return { message: "APIの応答が共有スキーマと一致しません。", status: "error" };
+      return { message: 'APIの応答が共有スキーマと一致しません。', status: 'error' };
     }
 
-    return { data: parsed.data, status: "ok" };
+    return { data: parsed.data, status: 'ok' };
   } catch {
-    return { message: "APIへ接続できませんでした。", status: "error" };
+    return { message: 'APIへ接続できませんでした。', status: 'error' };
   }
 }

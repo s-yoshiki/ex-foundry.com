@@ -1,4 +1,4 @@
-import { ExternalLink, GitBranch } from "lucide-react";
+import { ExternalLink, GitBranch } from 'lucide-react';
 
 export function AuthorProfile() {
   return (

@@ -1,7 +1,7 @@
-import { ArrowUpRight } from "lucide-react";
-import type { BlogPost } from "../types/blog-post";
-import { BLOG_CONTENT_TYPE_LABELS, getBlogProductLabel } from "../types/blog-post";
-import { AiGeneratedBadge } from "./ai-generated-badge";
+import { ArrowUpRight } from 'lucide-react';
+import type { BlogPost } from '../types/blog-post';
+import { BLOG_CONTENT_TYPE_LABELS, getBlogProductLabel } from '../types/blog-post';
+import { AiGeneratedBadge } from './ai-generated-badge';
 
 export function BlogPostCard({ post }: { post: BlogPost }) {
   return (
@@ -15,7 +15,7 @@ export function BlogPostCard({ post }: { post: BlogPost }) {
             src={post.coverImage}
           />
         ) : (
-          "EX"
+          'EX'
         )}
       </div>
 

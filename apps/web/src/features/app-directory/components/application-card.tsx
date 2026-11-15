@@ -1,7 +1,7 @@
-import { AppCard, Badge } from "@repo/ui";
-import { CATEGORY_ICONS } from "../functions/application-icons";
-import { STATUS_LABELS } from "../functions/application-labels";
-import type { Application } from "../types/application";
+import { AppCard, Badge } from '@repo/ui';
+import { CATEGORY_ICONS } from '../functions/application-icons';
+import { STATUS_LABELS } from '../functions/application-labels';
+import type { Application } from '../types/application';
 
 export function ApplicationCard({ application }: { application: Application }) {
   const Icon = CATEGORY_ICONS[application.category];
@@ -9,7 +9,7 @@ export function ApplicationCard({ application }: { application: Application }) {
   return (
     <AppCard
       badge={
-        <Badge variant={application.status === "active" ? "default" : "secondary"}>
+        <Badge variant={application.status === 'active' ? 'default' : 'secondary'}>
           {STATUS_LABELS[application.status]}
         </Badge>
       }

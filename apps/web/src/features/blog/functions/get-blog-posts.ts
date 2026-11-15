@@ -1,5 +1,5 @@
-import { BLOG_POPULAR_POST_PATHS, BLOG_POSTS } from "virtual:ex-foundry-blog-content";
-import { BLOG_CONTENT_TYPE_LABELS, type BlogContentType, type BlogPost } from "../types/blog-post";
+import { BLOG_POPULAR_POST_PATHS, BLOG_POSTS } from 'virtual:ex-foundry-blog-content';
+import { BLOG_CONTENT_TYPE_LABELS, type BlogContentType, type BlogPost } from '../types/blog-post';
 
 export function getBlogPosts(): readonly BlogPost[] {
   return BLOG_POSTS;
@@ -63,7 +63,7 @@ export function getBlogTagCounts(): readonly BlogTagCount[] {
 
   return [...counts.entries()]
     .map(([name, count]) => ({ count, name }))
-    .sort((left, right) => right.count - left.count || left.name.localeCompare(right.name, "ja"));
+    .sort((left, right) => right.count - left.count || left.name.localeCompare(right.name, 'ja'));
 }
 
 export function getBlogContentTypeCounts(): readonly BlogContentTypeCount[] {

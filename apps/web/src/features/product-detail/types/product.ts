@@ -1,5 +1,5 @@
-import type { Application } from "../../app-directory/types/application";
-import type { BlogContentType, BlogPost } from "../../blog/types/blog-post";
+import type { Application } from '../../app-directory/types/application';
+import type { BlogContentType, BlogPost } from '../../blog/types/blog-post';
 
 export type ProductGroup = {
   label: string;

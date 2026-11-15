@@ -1,12 +1,12 @@
-import { useCallback, useMemo } from "react";
-import { useNavigation } from "../../../routing/navigation-context";
-import { routePath } from "../../../routing/routes";
+import { useCallback, useMemo } from 'react';
+import { useNavigation } from '../../../routing/navigation-context';
+import { routePath } from '../../../routing/routes';
 import {
   parseApplicationSearchParams,
   toApplicationSearchString,
-} from "../functions/application-search-params";
-import { filterApplications } from "../functions/filter-applications";
-import type { Application, CategoryFilterValue } from "../types/application";
+} from '../functions/application-search-params';
+import { filterApplications } from '../functions/filter-applications';
+import type { Application, CategoryFilterValue } from '../types/application';
 
 /**
  * Holds the filter in the URL so a filtered view can be shared and restored.
@@ -26,7 +26,7 @@ export function useApplicationFilter(applications: readonly Application[]) {
 
   const apply = useCallback(
     (next: typeof filter) => {
-      navigate(`${routePath("apps")}${toApplicationSearchString(next)}`, { replace: true });
+      navigate(`${routePath('apps')}${toApplicationSearchString(next)}`, { replace: true });
     },
     [navigate],
   );

@@ -1,8 +1,8 @@
-export const APPLICATION_CATEGORIES = ["tool", "entertainment", "data"] as const;
+export const APPLICATION_CATEGORIES = ['tool', 'entertainment', 'data'] as const;
 
 export type ApplicationCategory = (typeof APPLICATION_CATEGORIES)[number];
 
-export type ApplicationStatus = "active" | "beta";
+export type ApplicationStatus = 'active' | 'beta';
 
 export type Application = {
   category: ApplicationCategory;
@@ -17,7 +17,7 @@ export type Application = {
 };
 
 /** `"all"` is the unfiltered pseudo-category used by the category chips. */
-export type CategoryFilterValue = ApplicationCategory | "all";
+export type CategoryFilterValue = ApplicationCategory | 'all';
 
 export type ApplicationFilter = {
   category: CategoryFilterValue;

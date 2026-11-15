@@ -1,13 +1,13 @@
 ---
-title: "EX FOUNDRYのリリース運用：検証から公開までをGitHub Actionsで行う"
-path: "/entry/1501"
-date: "2026-08-13 07:00"
-coverImage: "../../../images/thumbnail/github-logo.png"
-author: "s-yoshiki"
+title: 'EX FOUNDRYのリリース運用：検証から公開までをGitHub Actionsで行う'
+path: '/entry/1501'
+date: '2026-08-13 07:00'
+coverImage: '../../../images/thumbnail/github-logo.png'
+author: 's-yoshiki'
 aiGenerated: true
-contentType: "operations"
-product: "ex-foundry"
-tags: ["EX FOUNDRY", "GitHub Actions", "GitHub Pages", "CI/CD", "運用"]
+contentType: 'operations'
+product: 'ex-foundry'
+tags: ['EX FOUNDRY', 'GitHub Actions', 'GitHub Pages', 'CI/CD', '運用']
 ---
 
 ## 公開の入口を一つにする
