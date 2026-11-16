@@ -217,8 +217,8 @@ catalogs:
       specifier: 2.1148.1
       version: 2.1148.1
     aws-cdk-lib:
-      specifier: 2.276.0
-      version: 2.276.0
+      specifier: 2.277.0
+      version: 2.277.0
     cheerio:
       specifier: 1.2.0
       version: 1.2.0
@@ -593,7 +593,7 @@ importers:
     dependencies:
       aws-cdk-lib:
         specifier: 'catalog:'
-        version: 2.276.0(constructs@10.8.1)
+        version: 2.277.0(constructs@10.8.1)
       constructs:
         specifier: 'catalog:'
         version: 10.8.1
@@ -2611,8 +2611,8 @@ packages:
     resolution: {integrity: sha512-Xcz9l0z7y9yQ9rdDaxlmaI4uJHf/T8g9hOEzJcsEqX2SjCj4J20uK7+ldkDHMbpJDK76wF7xEIgxc/vSlsfw5w==}
     engines: {node: '>=10.12.0'}
 
-  aws-cdk-lib@2.276.0:
-    resolution: {integrity: sha512-K+yxURPKRDRDgaPazG4PKFmFHM/igg3kGp6tkPJ6vba8FMEo3DtJ/X6WaY5KvcwrkiKj2K7gFRZB6DO5aPYxxg==}
+  aws-cdk-lib@2.277.0:
+    resolution: {integrity: sha512-xUY16j7p5rsyohZIqxUtk7CswPpagCnDFoYKwwK2w78Of+m2+/EhU5UzI3FbNWeKttKMfwvddhVuah4GGODkAQ==}
     engines: {node: '>= 20.0.0'}
     peerDependencies:
       constructs: ^10.5.0
@@ -6054,7 +6054,7 @@ snapshots:
 
   atomically@1.7.0: {}
 
-  aws-cdk-lib@2.276.0(constructs@10.8.1):
+  aws-cdk-lib@2.277.0(constructs@10.8.1):
     dependencies:
       '@aws-cdk/asset-awscli-v1': 2.2.292
       '@aws-cdk/asset-node-proxy-agent-v6': 2.1.3
