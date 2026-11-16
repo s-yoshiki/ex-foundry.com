@@ -77,7 +77,7 @@ pnpm check:fix
 - `check`: lint と format をまとめて確認
 - `check:fix`: 自動修正できる lint と format を反映
 
-CI は Node.js 26 と pnpm 12 を使い、`pnpm verify` で lint、format、型検査、テスト、build を確認します。
+CI は Node.js 26 と pnpm 12 を使い、`pnpm verify` で lint、format、型検査、テストを確認します。
 
 ## Tailwind CSS
 

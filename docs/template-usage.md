@@ -86,4 +86,4 @@ pnpm create:feature <feature-name>
 - 共有packageは利用側が2つ以上になってから作る
 - 外部入力（API、storage、環境変数）は境界で検証する
 - FormatterとLinterを二重に持たない
-- ルートの検証入口（`verify`）と、その内部の順序（`check` / `typecheck` / `test` / `build`）を変えない
+- ルートの検証入口（`verify`）と、その内部の順序（`check` / `test`）を変えない

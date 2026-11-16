@@ -69,7 +69,7 @@ pnpm typecheck
 pnpm test
 pnpm test:coverage
 pnpm build
-pnpm verify         # Oxlint / Oxfmt設定監査、lint、型検査、テスト、ビルド
+pnpm verify         # Oxlint / Oxfmt設定監査、lint、型検査、テスト
 ```
 
 featureの雛形を生成する場合：
